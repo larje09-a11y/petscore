@@ -11,6 +11,12 @@
     "origin": "Canada",
     "description": "Le Labrador Retriever est la race la plus populaire au Québec. Affectueux, actif et facile à dresser, il est néanmoins prédisposé à plusieurs conditions héréditaires courantes chez les grandes races.",
     "mainHealthRisks": ["Dysplasie de la hanche", "Dysplasie du coude", "Obésité", "Rétinopathie progressive"],
+    "healthRisksWithCosts": [
+      { "name": "Dysplasie de la hanche", "estimatedCost": "2 000 – 6 000 $" },
+      { "name": "Dysplasie du coude", "estimatedCost": "1 500 – 5 000 $" },
+      { "name": "Obésité (gestion long terme)", "estimatedCost": "500 – 2 000 $" },
+      { "name": "Rétinopathie progressive", "estimatedCost": "800 – 3 000 $" }
+    ],
     "annualVetCost": { "min": 800, "max": 2500 },
     "insuranceMonthly": { "min": 45, "max": 95 },
     "traits": { "energy": 4, "grooming": 2, "trainability": 5, "socialWithKids": 5 }
@@ -27,6 +33,12 @@
     "origin": "Écosse",
     "description": "Le Golden Retriever est réputé pour son tempérament doux et sa grande loyauté. Malheureusement, c'est l'une des races les plus touchées par le cancer, ce qui pèse sur son PetScore.",
     "mainHealthRisks": ["Cancer (lymphome, ostéosarcome)", "Dysplasie de la hanche", "Hypothyroïdie", "Problèmes cardiaques"],
+    "healthRisksWithCosts": [
+      { "name": "Cancer (lymphome, ostéosarcome)", "estimatedCost": "5 000 – 20 000 $" },
+      { "name": "Dysplasie de la hanche", "estimatedCost": "2 000 – 6 000 $" },
+      { "name": "Hypothyroïdie (médication vie entière)", "estimatedCost": "300 – 1 200 $ / an" },
+      { "name": "Problèmes cardiaques", "estimatedCost": "1 500 – 8 000 $" }
+    ],
     "annualVetCost": { "min": 900, "max": 3000 },
     "insuranceMonthly": { "min": 50, "max": 105 },
     "traits": { "energy": 4, "grooming": 3, "trainability": 5, "socialWithKids": 5 }
@@ -43,6 +55,12 @@
     "origin": "France",
     "description": "Très populaire en milieu urbain, le Bouledogue Français souffre de nombreux problèmes liés à sa morphologie brachycéphale. Les frais vétérinaires sont parmi les plus élevés de toutes les races.",
     "mainHealthRisks": ["Syndrome brachycéphale obstructif", "Problèmes vertébraux (IVDD)", "Allergies cutanées sévères", "Problèmes oculaires"],
+    "healthRisksWithCosts": [
+      { "name": "Syndrome brachycéphale obstructif (chirurgie)", "estimatedCost": "3 000 – 7 000 $" },
+      { "name": "Hernie discale IVDD (chirurgie spinale)", "estimatedCost": "4 000 – 10 000 $" },
+      { "name": "Allergies cutanées sévères (traitement chronique)", "estimatedCost": "800 – 3 500 $ / an" },
+      { "name": "Problèmes oculaires (ulcères, entropion)", "estimatedCost": "500 – 2 500 $" }
+    ],
     "annualVetCost": { "min": 1200, "max": 4500 },
     "insuranceMonthly": { "min": 65, "max": 130 },
     "traits": { "energy": 2, "grooming": 2, "trainability": 3, "socialWithKids": 4 }

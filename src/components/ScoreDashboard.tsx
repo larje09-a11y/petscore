@@ -24,7 +24,7 @@ interface Props {
 const STROKE_R = 88;                        // rayon du tracé dans le viewBox 200×200
 const CIRCUMFERENCE = 2 * Math.PI * STROKE_R; // ≈ 552.92
 
-const MAX_COST      = 30_000;
+const MAX_COST      = 50_000;
 const BASELINE_COST = 4_200;
 const ANIM_DURATION = 1_500; // ms
 
@@ -67,10 +67,15 @@ export default function ScoreDashboard({
   estimated10YearCost,
   description,
 }: Props) {
-  // État animé
-  const [strokeOffset, setStrokeOffset] = useState(CIRCUMFERENCE);
-  const [counter, setCounter]           = useState(0);
-  const [barPct, setBarPct]             = useState(0);
+  // État animé — initialisé aux valeurs cibles pour éviter l'affichage 0/100
+  // même si l'animation ne se déclenche pas (ex. : tab en arrière-plan)
+  const [strokeOffset, setStrokeOffset] = useState(
+    () => CIRCUMFERENCE * (1 - petScore / 100),
+  );
+  const [counter, setCounter] = useState(petScore);
+  const [barPct, setBarPct]   = useState(
+    () => (Math.min(estimated10YearCost, MAX_COST) / MAX_COST) * 100,
+  );
   // Accordion
   const [openIdx, setOpenIdx] = useState<number | null>(null);
   const rafRef = useRef<number>(0);
@@ -79,7 +84,13 @@ export default function ScoreDashboard({
   useEffect(() => {
     const targetOffset = CIRCUMFERENCE * (1 - petScore / 100);
     const targetBar    = (Math.min(estimated10YearCost, MAX_COST) / MAX_COST) * 100;
-    let startTs        = 0;
+
+    // Repart de zéro pour déclencher l'animation visuelle
+    setStrokeOffset(CIRCUMFERENCE);
+    setCounter(0);
+    setBarPct(0);
+
+    let startTs = 0;
 
     const tick = (ts: number) => {
       if (!startTs) startTs = ts;
@@ -90,7 +101,14 @@ export default function ScoreDashboard({
       setCounter(Math.round(t * petScore));
       setBarPct(t * targetBar);
 
-      if (raw < 1) rafRef.current = requestAnimationFrame(tick);
+      if (raw < 1) {
+        rafRef.current = requestAnimationFrame(tick);
+      } else {
+        // Valeurs finales garanties — évite les erreurs d'arrondi flottant
+        setStrokeOffset(targetOffset);
+        setCounter(petScore);
+        setBarPct(targetBar);
+      }
     };
 
     rafRef.current = requestAnimationFrame(tick);
@@ -311,8 +329,8 @@ export default function ScoreDashboard({
         {/* Graduation */}
         <div className="mt-8 flex justify-between text-xs text-slate-400">
           <span>0 $</span>
-          <span>15 000 $</span>
-          <span>30 000 $</span>
+          <span>25 000 $</span>
+          <span>50 000 $</span>
         </div>
 
         {/* Sous-textes */}
