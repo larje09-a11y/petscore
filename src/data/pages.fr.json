@@ -1,0 +1,14 @@
+[
+  {
+    "slug": "exemple-page-1",
+    "title": "Page Exemple 1",
+    "description": "Description optimisée pour le SEO de la page exemple 1.",
+    "lang": "fr"
+  },
+  {
+    "slug": "exemple-page-2",
+    "title": "Page Exemple 2",
+    "description": "Description optimisée pour le SEO de la page exemple 2.",
+    "lang": "fr"
+  }
+]

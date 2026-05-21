@@ -1,0 +1,134 @@
+---
+import '@/styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description,
+  canonicalUrl,
+  ogImage = '/og-default.png',
+} = Astro.props;
+
+// TODO: remplacer par le domaine de production
+const SITE_URL = 'https://petscore.ca';
+const canonical = canonicalUrl ? `${SITE_URL}${canonicalUrl}` : Astro.url.href;
+---
+
+<!doctype html>
+<html lang="fr" class="h-full scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO primaire -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PetScore" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${SITE_URL}${ogImage}`} />
+    <meta property="og:locale" content="fr_CA" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${SITE_URL}${ogImage}`} />
+
+    <!-- hreflang — prêt pour EN (activer quand /en/ est disponible) -->
+    <link rel="alternate" hreflang="fr" href={canonical} />
+    <!-- <link rel="alternate" hreflang="en" href={canonical.replace('/fr/', '/en/')} /> -->
+    <!-- <link rel="alternate" hreflang="x-default" href={`${SITE_URL}/fr/`} /> -->
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Google Fonts : Sora (titres) + Inter (corps) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <slot name="head" />
+  </head>
+
+  <body class="flex min-h-full flex-col bg-white font-sans text-gray-900 antialiased">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur-sm">
+      <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+        <!-- Logo -->
+        <a href="/fr/" class="flex items-center gap-2 text-green-600 hover:text-green-700 transition-colors duration-200">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+            <circle cx="14" cy="14" r="14" fill="#16A34A"/>
+            <path d="M8 14.5c0-1.5.8-2.5 2-3 .5-2 2-3.5 4-3.5s3.5 1.5 4 3.5c1.2.5 2 1.5 2 3 0 2-1.8 3.5-4 3.5H12C9.8 18 8 16.5 8 14.5z" fill="white"/>
+            <circle cx="10.5" cy="9" r="1.5" fill="white"/>
+            <circle cx="17.5" cy="9" r="1.5" fill="white"/>
+            <circle cx="8.5" cy="12" r="1.5" fill="white"/>
+            <circle cx="19.5" cy="12" r="1.5" fill="white"/>
+          </svg>
+          <span class="font-display text-xl font-bold tracking-tight">PetScore</span>
+        </a>
+
+        <!-- Navigation -->
+        <nav aria-label="Navigation principale">
+          <a
+            href="/fr/races/"
+            class="rounded-full bg-green-50 px-4 py-2 text-sm font-semibold text-green-700 transition-all duration-200 hover:bg-green-100"
+          >
+            Toutes les races
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-auto border-t border-gray-100 bg-gray-50">
+      <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+        <div class="flex flex-col items-center gap-6 text-center sm:flex-row sm:justify-between sm:text-left">
+          <!-- Disclaimer légal -->
+          <p class="max-w-xl text-xs leading-relaxed text-slate-500">
+            <strong class="font-semibold text-slate-600">Avis légal :</strong> Les informations
+            présentées sont des estimations à titre éducatif seulement. Elles ne constituent pas
+            un avis vétérinaire. Consultez un vétérinaire pour tout diagnostic ou traitement
+            professionnel.
+          </p>
+
+          <!-- Liens placeholder -->
+          <nav aria-label="Liens du pied de page" class="flex shrink-0 gap-4">
+            <a href="/fr/a-propos/" class="text-xs text-slate-500 hover:text-green-600 transition-colors duration-200">
+              À propos
+            </a>
+            <a href="/fr/contact/" class="text-xs text-slate-500 hover:text-green-600 transition-colors duration-200">
+              Contact
+            </a>
+            <a href="/fr/confidentialite/" class="text-xs text-slate-500 hover:text-green-600 transition-colors duration-200">
+              Politique de confidentialité
+            </a>
+          </nav>
+        </div>
+
+        <p class="mt-6 text-center text-xs text-slate-400">
+          &copy; {new Date().getFullYear()} PetScore. Tous droits réservés.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

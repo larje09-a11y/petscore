@@ -1,0 +1,369 @@
+---
+import Layout from '@/components/Layout.astro';
+import breedsRaw from '@/data/breeds.json';
+import type { Breed } from '@/types/breed';
+import { getScoreHex, getScoreDashArray, getRiskLabel, getRiskBadgeClass } from '@/lib/breeds';
+
+const breeds = breedsRaw as Breed[];
+const popularBreeds = breeds
+  .filter((b) => b.popularityRank <= 6)
+  .sort((a, b) => a.popularityRank - b.popularityRank);
+---
+
+<Layout
+  title="PetScore™ — Le bulletin de santé de votre chien"
+  description="Consultez le bulletin de santé prédictif de 50+ races et estimez vos coûts vétérinaires au Québec. Gratuit, en français."
+  canonicalUrl="/fr/"
+>
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-green-50 to-white py-20 sm:py-28">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6">
+      <span class="inline-block rounded-full bg-green-100 px-4 py-1.5 text-sm font-semibold text-green-700">
+        🐾 Nouveau · Québec
+      </span>
+
+      <h1 class="mt-4 font-display text-4xl font-extrabold leading-tight tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
+        Découvrez le <span class="text-green-600">PetScore™</span><br />de votre chien.
+      </h1>
+
+      <p class="mt-5 text-lg leading-relaxed text-slate-500 sm:text-xl">
+        Consultez le bulletin de santé prédictif de 50+ races et estimez vos coûts vétérinaires
+        au Québec.
+      </p>
+
+      <!-- Barre de recherche avec autocomplétion -->
+      <div class="relative mx-auto mt-8 max-w-xl" id="search-wrapper">
+        <div class="relative">
+          <svg
+            class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+          </svg>
+          <input
+            id="search-input"
+            type="search"
+            placeholder="Cherchez une race (ex : Labrador, Caniche…)"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Rechercher une race de chien"
+            aria-autocomplete="list"
+            aria-controls="search-results"
+            aria-haspopup="listbox"
+            class="w-full rounded-2xl border-2 border-gray-200 bg-white py-4 pl-12 pr-5 text-base text-gray-900 shadow-sm outline-none transition-all duration-200 focus:border-green-500 focus:shadow-md placeholder:text-slate-400"
+          />
+        </div>
+
+        <!-- Dropdown résultats -->
+        <ul
+          id="search-results"
+          role="listbox"
+          aria-label="Résultats de recherche"
+          class="absolute left-0 right-0 top-full z-50 mt-2 hidden overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-md"
+        >
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       RACES POPULAIRES
+  ============================================================ -->
+  <section class="py-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mb-8 flex items-end justify-between">
+        <div>
+          <h2 class="font-display text-2xl font-bold text-gray-900 sm:text-3xl">
+            Races populaires
+          </h2>
+          <p class="mt-1 text-sm text-slate-400">Les races les plus consultées au Québec</p>
+        </div>
+        <a
+          href="/fr/races/"
+          class="hidden text-sm font-semibold text-green-600 hover:text-green-700 transition-colors duration-200 sm:block"
+        >
+          Voir toutes →
+        </a>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {popularBreeds.map((breed) => {
+          const hex = getScoreHex(breed.score);
+          const dash = getScoreDashArray(breed.score);
+          return (
+            <a
+              href={`/fr/races/${breed.slug}`}
+              class="group flex flex-col rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-1"
+            >
+              <!-- En-tête de la carte -->
+              <div class="flex items-center justify-between">
+                <h3 class="font-display font-semibold text-gray-900 group-hover:text-green-600 transition-colors duration-200">
+                  {breed.name}
+                </h3>
+                <span class={`rounded-full px-2.5 py-0.5 text-xs font-medium ${getRiskBadgeClass(breed.riskLevel)}`}>
+                  {getRiskLabel(breed.riskLevel)}
+                </span>
+              </div>
+
+              <!-- Score circulaire centré -->
+              <div class="my-5 flex justify-center">
+                <svg viewBox="0 0 100 100" class="h-24 w-24" role="img"
+                  aria-label={`PetScore ${breed.score} sur 100`}>
+                  <circle cx="50" cy="50" r="44" fill="none" stroke="#e5e7eb" stroke-width="9" />
+                  <circle
+                    cx="50" cy="50" r="44" fill="none"
+                    stroke={hex} stroke-width="9"
+                    stroke-dasharray={dash}
+                    stroke-linecap="round"
+                    transform="rotate(-90 50 50)"
+                  />
+                  <text x="50" y="46" text-anchor="middle" dominant-baseline="middle"
+                    font-size="24" font-weight="700" fill={hex} font-family="Sora, sans-serif">
+                    {breed.score}
+                  </text>
+                  <text x="50" y="62" text-anchor="middle"
+                    font-size="10" fill="#94a3b8" font-family="Inter, sans-serif">
+                    / 100
+                  </text>
+                </svg>
+              </div>
+
+              <!-- CTA -->
+              <div class="mt-auto flex items-center justify-between">
+                <span class="text-xs text-slate-400 capitalize">{breed.size} · {breed.origin}</span>
+                <span class="rounded-full bg-green-50 px-3 py-1 text-xs font-semibold text-green-700 transition-colors duration-200 group-hover:bg-green-100">
+                  Voir le bulletin →
+                </span>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+
+      <div class="mt-6 text-center sm:hidden">
+        <a
+          href="/fr/races/"
+          class="inline-block rounded-full border border-gray-200 px-5 py-2.5 text-sm font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-50"
+        >
+          Voir toutes les races
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       COMMENT ÇA MARCHE
+  ============================================================ -->
+  <section class="bg-gray-50 py-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <h2 class="mb-12 text-center font-display text-2xl font-bold text-gray-900 sm:text-3xl">
+        Comment ça marche
+      </h2>
+
+      <div class="grid gap-8 sm:grid-cols-3">
+        <!-- Étape 1 -->
+        <div class="flex flex-col items-center text-center">
+          <div class="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-green-100">
+            <svg class="h-7 w-7 text-green-600" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+            </svg>
+          </div>
+          <div class="mb-2 font-display text-3xl font-bold text-green-600">1</div>
+          <h3 class="mb-2 font-display font-semibold text-gray-900">Cherchez votre race</h3>
+          <p class="text-sm leading-relaxed text-slate-500">
+            Tapez le nom de la race de votre chien dans la barre de recherche pour accéder
+            à sa fiche complète.
+          </p>
+        </div>
+
+        <!-- Flèche -->
+        <div class="hidden items-center justify-center sm:flex" aria-hidden="true">
+          <!-- Étape 2 (center col) -->
+          <div class="flex flex-col items-center text-center w-full">
+            <div class="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-100">
+              <svg class="h-7 w-7 text-blue-600" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <div class="mb-2 font-display text-3xl font-bold text-blue-600">2</div>
+            <h3 class="mb-2 font-display font-semibold text-gray-900">Découvrez les risques</h3>
+            <p class="text-sm leading-relaxed text-slate-500">
+              Consultez le PetScore™ et les principales prédispositions sanitaires de votre
+              race, avec les coûts vétérinaires estimés.
+            </p>
+          </div>
+        </div>
+
+        <!-- Étape 2 mobile uniquement -->
+        <div class="flex flex-col items-center text-center sm:hidden">
+          <div class="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-100">
+            <svg class="h-7 w-7 text-blue-600" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          <div class="mb-2 font-display text-3xl font-bold text-blue-600">2</div>
+          <h3 class="mb-2 font-display font-semibold text-gray-900">Découvrez les risques</h3>
+          <p class="text-sm leading-relaxed text-slate-500">
+            Consultez le PetScore™ et les principales prédispositions sanitaires de votre race.
+          </p>
+        </div>
+
+        <!-- Étape 3 -->
+        <div class="flex flex-col items-center text-center">
+          <div class="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100">
+            <svg class="h-7 w-7 text-slate-600" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <div class="mb-2 font-display text-3xl font-bold text-slate-600">3</div>
+          <h3 class="mb-2 font-display font-semibold text-gray-900">Comparez les assurances</h3>
+          <p class="text-sm leading-relaxed text-slate-500">
+            Estimez votre budget assurance-santé avec notre calculateur et comparez les
+            options disponibles au Québec.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<!-- ============================================================
+     AUTOCOMPLÉTION — JavaScript vanilla
+============================================================ -->
+<script is:inline define:vars={{ breeds: breedsRaw }}>
+  function normalize(str) {
+    return str
+      .normalize('NFD')
+      .replace(/[̀-ͯ]/g, '')
+      .toLowerCase()
+      .trim();
+  }
+
+  function getScoreHex(score) {
+    if (score > 80) return '#16A34A';
+    if (score >= 65) return '#F59E0B';
+    return '#DC2626';
+  }
+
+  const input = document.getElementById('search-input');
+  const results = document.getElementById('search-results');
+  let activeIndex = -1;
+  let matches = [];
+
+  function renderResults(list) {
+    matches = list;
+    activeIndex = -1;
+
+    if (!list.length) {
+      results.classList.add('hidden');
+      input.setAttribute('aria-expanded', 'false');
+      return;
+    }
+
+    results.innerHTML = list
+      .map(
+        (b, i) => `
+        <li
+          id="result-${i}"
+          role="option"
+          aria-selected="false"
+          data-slug="${b.slug}"
+          class="flex cursor-pointer items-center justify-between px-4 py-3 transition-colors duration-150 hover:bg-gray-50"
+        >
+          <span class="font-medium text-gray-900">${b.name}</span>
+          <span class="ml-3 shrink-0 text-sm font-bold" style="color:${getScoreHex(b.score)}">${b.score}/100</span>
+        </li>
+      `
+      )
+      .join('');
+
+    results.classList.remove('hidden');
+    input.setAttribute('aria-expanded', 'true');
+
+    results.querySelectorAll('li').forEach((li) => {
+      li.addEventListener('click', () => navigate(li.dataset.slug));
+      li.addEventListener('mouseenter', () => {
+        activeIndex = parseInt(li.dataset.slug ? results.querySelector(`[data-slug="${li.dataset.slug}"]`)?.id?.replace('result-', '') ?? '-1' : '-1');
+        updateActive();
+      });
+    });
+  }
+
+  function navigate(slug) {
+    window.location.href = `/fr/races/${slug}`;
+  }
+
+  function updateActive() {
+    results.querySelectorAll('li').forEach((li, i) => {
+      const isActive = i === activeIndex;
+      li.setAttribute('aria-selected', String(isActive));
+      li.classList.toggle('bg-green-50', isActive);
+      li.classList.toggle('hover:bg-gray-50', !isActive);
+      if (isActive) {
+        input.setAttribute('aria-activedescendant', `result-${i}`);
+      }
+    });
+    if (activeIndex === -1) input.removeAttribute('aria-activedescendant');
+  }
+
+  function closeDropdown() {
+    results.classList.add('hidden');
+    input.setAttribute('aria-expanded', 'false');
+    activeIndex = -1;
+  }
+
+  input.addEventListener('input', () => {
+    const query = normalize(input.value);
+    if (!query) { closeDropdown(); return; }
+
+    const filtered = breeds
+      .filter((b) => normalize(b.name).includes(query))
+      .slice(0, 6);
+
+    renderResults(filtered);
+  });
+
+  input.addEventListener('keydown', (e) => {
+    const items = results.querySelectorAll('li');
+    if (!items.length) return;
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        activeIndex = Math.min(activeIndex + 1, items.length - 1);
+        updateActive();
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        activeIndex = Math.max(activeIndex - 1, 0);
+        updateActive();
+        break;
+      case 'Enter':
+        e.preventDefault();
+        if (activeIndex >= 0 && matches[activeIndex]) {
+          navigate(matches[activeIndex].slug);
+        }
+        break;
+      case 'Escape':
+        closeDropdown();
+        break;
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!input.contains(e.target) && !results.contains(e.target)) {
+      closeDropdown();
+    }
+  });
+</script>

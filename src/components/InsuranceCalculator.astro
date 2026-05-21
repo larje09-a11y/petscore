@@ -1,0 +1,52 @@
+---
+// Phase 3 — placeholder
+import type { Breed } from '@/types/breed';
+
+interface Props {
+  breed: Breed;
+}
+
+const { breed } = Astro.props;
+const { annualVetCost, insuranceMonthly } = breed;
+---
+
+<section class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+  <div class="mb-4 flex items-center gap-2">
+    <span class="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
+      Estimateur de coûts
+    </span>
+    <span class="text-xs text-slate-400">Québec · CAD</span>
+  </div>
+
+  <h3 class="mb-6 font-display text-lg font-semibold text-gray-900">
+    Coûts vétérinaires estimés
+  </h3>
+
+  <div class="grid gap-4 sm:grid-cols-2">
+    <!-- Coût annuel vétérinaire -->
+    <div class="rounded-2xl bg-slate-50 p-4">
+      <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Coût vétérinaire annuel</p>
+      <p class="mt-1 font-display text-2xl font-bold text-gray-900">
+        {annualVetCost.min.toLocaleString('fr-CA')}
+        <span class="text-slate-400">–</span>
+        {annualVetCost.max.toLocaleString('fr-CA')} $
+      </p>
+      <p class="mt-1 text-xs text-slate-500">Estimation pour le Québec</p>
+    </div>
+
+    <!-- Assurance mensuelle -->
+    <div class="rounded-2xl bg-green-50 p-4">
+      <p class="text-xs font-medium uppercase tracking-wide text-green-600">Assurance santé / mois</p>
+      <p class="mt-1 font-display text-2xl font-bold text-green-700">
+        {insuranceMonthly.min}
+        <span class="text-green-400">–</span>
+        {insuranceMonthly.max} $
+      </p>
+      <p class="mt-1 text-xs text-green-600">Fourchette des principales assurances</p>
+    </div>
+  </div>
+
+  <p class="mt-4 text-center text-xs text-slate-400 italic">
+    Phase 3 — Calculateur interactif avec comparaison d'assurances à venir.
+  </p>
+</section>

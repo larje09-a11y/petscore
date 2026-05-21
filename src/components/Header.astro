@@ -1,0 +1,25 @@
+---
+import { getLangFromUrl, useTranslations, localePath } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<header class="sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex h-16 items-center justify-between">
+      <a href={localePath(lang, '/')} class="text-lg font-bold text-gray-900 hover:text-gray-700">
+        {t('site.name')}
+      </a>
+
+      <nav class="flex items-center gap-6">
+        <a
+          href={localePath(lang, '/')}
+          class="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900"
+        >
+          {t('nav.home')}
+        </a>
+      </nav>
+    </div>
+  </div>
+</header>

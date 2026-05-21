@@ -1,0 +1,112 @@
+---
+// Phase 3 — placeholder
+import type { Breed } from '@/types/breed';
+import { getScoreHex, getScoreDashArray, getRiskLabel, getRiskBadgeClass } from '@/lib/breeds';
+
+interface Props {
+  breed: Breed;
+}
+
+const { breed } = Astro.props;
+const scoreHex = getScoreHex(breed.score);
+const dashArray = getScoreDashArray(breed.score);
+---
+
+<section class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+  <div class="mb-2 flex items-center gap-2">
+    <span class="rounded-full bg-green-50 px-3 py-1 text-xs font-semibold text-green-700">
+      PetScore™
+    </span>
+    <span class="text-xs text-slate-400">Score de santé prédictif</span>
+  </div>
+
+  <div class="flex flex-col items-center gap-8 sm:flex-row">
+    <!-- Cercle de score -->
+    <div class="flex flex-col items-center gap-2">
+      <svg viewBox="0 0 100 100" class="w-36 h-36" role="img" aria-label={`Score ${breed.score} sur 100`}>
+        <circle cx="50" cy="50" r="44" fill="none" stroke="#e5e7eb" stroke-width="9" />
+        <circle
+          cx="50"
+          cy="50"
+          r="44"
+          fill="none"
+          stroke={scoreHex}
+          stroke-width="9"
+          stroke-dasharray={dashArray}
+          stroke-linecap="round"
+          transform="rotate(-90 50 50)"
+        />
+        <text
+          x="50"
+          y="46"
+          text-anchor="middle"
+          dominant-baseline="middle"
+          font-size="26"
+          font-weight="700"
+          fill={scoreHex}
+          font-family="Sora, sans-serif"
+        >
+          {breed.score}
+        </text>
+        <text
+          x="50"
+          y="63"
+          text-anchor="middle"
+          font-size="10"
+          fill="#94a3b8"
+          font-family="Inter, sans-serif"
+        >
+          / 100
+        </text>
+      </svg>
+
+      <span class={`rounded-full px-3 py-1 text-xs font-semibold ${getRiskBadgeClass(breed.riskLevel)}`}>
+        {getRiskLabel(breed.riskLevel)}
+      </span>
+    </div>
+
+    <!-- Risques de santé -->
+    <div class="flex-1">
+      <h3 class="mb-3 font-display text-lg font-semibold text-gray-900">
+        Risques de santé principaux
+      </h3>
+      <ul class="space-y-2">
+        {breed.mainHealthRisks.map((risk) => (
+          <li class="flex items-start gap-2 text-sm text-gray-600">
+            <span class="mt-0.5 h-4 w-4 shrink-0 rounded-full bg-red-100 flex items-center justify-center">
+              <span class="h-1.5 w-1.5 rounded-full bg-red-500"></span>
+            </span>
+            {risk}
+          </li>
+        ))}
+      </ul>
+
+      <!-- Caractéristiques -->
+      <div class="mt-4 grid grid-cols-2 gap-3">
+        {Object.entries({
+          'Énergie': breed.traits.energy,
+          'Entretien': breed.traits.grooming,
+          'Dressage': breed.traits.trainability,
+          'Enfants': breed.traits.socialWithKids,
+        }).map(([label, value]) => (
+          <div>
+            <div class="mb-1 flex justify-between text-xs text-slate-500">
+              <span>{label}</span>
+              <span class="font-medium">{value}/5</span>
+            </div>
+            <div class="h-1.5 w-full rounded-full bg-gray-100">
+              <div
+                class="h-1.5 rounded-full bg-green-500"
+                style={`width: ${(value / 5) * 100}%`}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <p class="mt-4 text-center text-xs text-slate-400 italic">
+    Phase 3 — Ce composant sera enrichi avec des graphiques interactifs.
+  </p>
+</section>

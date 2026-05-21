@@ -1,0 +1,194 @@
+---
+import Layout from '@/components/Layout.astro';
+import ScoreDashboard from '@/components/ScoreDashboard.tsx';
+import InsuranceCalculator from '@/components/InsuranceCalculator.tsx';
+import breedsRaw from '@/data/breeds.json';
+import type { Breed, RiskLevel } from '@/types/breed';
+import {
+  getScoreHex,
+  getScoreDashArray,
+  getRiskLabel,
+  getRiskBadgeClass,
+  getSimilarBreeds,
+} from '@/lib/breeds';
+
+export async function getStaticPaths() {
+  const breeds = breedsRaw as Breed[];
+  return breeds.map((breed) => ({
+    params: { slug: breed.slug },
+    props: { breed, allBreeds: breeds },
+  }));
+}
+
+export interface Props {
+  breed: Breed;
+  allBreeds: Breed[];
+}
+
+const { breed, allBreeds } = Astro.props;
+const similarBreeds = getSimilarBreeds(allBreeds, breed, 3);
+
+const title = `${breed.name} — PetScore™`;
+const description = `Découvrez le PetScore™ du ${breed.name} : ${breed.score}/100. Risques de santé, coûts vétérinaires estimés et assurances au Québec. Risque ${breed.riskLevel}.`;
+
+// Mappage breed → props du ScoreDashboard React
+const costRangeByRisk: Record<RiskLevel, string> = {
+  faible: '300 – 2 000 $',
+  moyen:  '800 – 5 000 $',
+  élevé:  '1 500 – 10 000 $',
+};
+const probByIndex = ['Élevée', 'Modérée', 'Modérée', 'Faible'] as const;
+const topRisks = breed.mainHealthRisks.slice(0, 3).map((name, i) => ({
+  name,
+  probability: probByIndex[i] ?? 'Modérée',
+  costRange: costRangeByRisk[breed.riskLevel],
+}));
+const longevity = `${breed.lifespan.min}–${breed.lifespan.max} ans`;
+const estimated10YearCost = breed.annualVetCost.max * 10;
+---
+
+<Layout title={title} description={description} canonicalUrl={`/fr/races/${breed.slug}`}>
+  <div class="mx-auto max-w-4xl px-4 py-10 sm:px-6">
+
+    <!-- ============================================================
+         FIL D'ARIANE
+    ============================================================ -->
+    <nav aria-label="Fil d'Ariane" class="mb-8">
+      <ol class="flex flex-wrap items-center gap-1.5 text-sm text-slate-400">
+        <li>
+          <a href="/fr/" class="hover:text-green-600 transition-colors duration-200">Accueil</a>
+        </li>
+        <li aria-hidden="true">
+          <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </li>
+        <li>
+          <a href="/fr/races/" class="hover:text-green-600 transition-colors duration-200">Races</a>
+        </li>
+        <li aria-hidden="true">
+          <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </li>
+        <li aria-current="page" class="font-medium text-gray-700 truncate max-w-[12rem]">
+          {breed.name}
+        </li>
+      </ol>
+    </nav>
+
+    <!-- ============================================================
+         EN-TÊTE DE LA RACE
+    ============================================================ -->
+    <header class="mb-8">
+      <div class="flex flex-wrap items-start gap-4">
+        <div class="flex-1">
+          <div class="mb-2 flex flex-wrap items-center gap-2">
+            <span class={`rounded-full px-3 py-1 text-xs font-semibold ${getRiskBadgeClass(breed.riskLevel)}`}>
+              {getRiskLabel(breed.riskLevel)}
+            </span>
+            <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-500 capitalize">
+              {breed.size}
+            </span>
+            <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-500">
+              {breed.origin}
+            </span>
+          </div>
+          <h1 class="font-display text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            {breed.name}
+          </h1>
+          <p class="mt-3 leading-relaxed text-slate-500">
+            {breed.description}
+          </p>
+        </div>
+
+        <!-- Méta rapide -->
+        <div class="flex shrink-0 gap-4 rounded-2xl bg-gray-50 p-4 text-center">
+          <div>
+            <p class="text-xs text-slate-400">Poids</p>
+            <p class="font-display font-semibold text-gray-800">{breed.weight.min}–{breed.weight.max} kg</p>
+          </div>
+          <div class="w-px bg-gray-200" aria-hidden="true"></div>
+          <div>
+            <p class="text-xs text-slate-400">Longévité</p>
+            <p class="font-display font-semibold text-gray-800">{breed.lifespan.min}–{breed.lifespan.max} ans</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============================================================
+         SCORE DASHBOARD
+    ============================================================ -->
+    <div class="mb-6">
+      <ScoreDashboard
+        client:load
+        name={breed.name}
+        petScore={breed.score}
+        longevity={longevity}
+        riskLevel={breed.riskLevel}
+        topRisks={topRisks}
+        estimated10YearCost={estimated10YearCost}
+        description={breed.description}
+      />
+    </div>
+
+    <!-- ============================================================
+         ESTIMATEUR D'ASSURANCE
+    ============================================================ -->
+    <div class="mb-12">
+      <InsuranceCalculator
+        client:load
+        basePremium={breed.insuranceMonthly.min}
+      />
+    </div>
+
+    <!-- ============================================================
+         RACES SIMILAIRES
+    ============================================================ -->
+    {similarBreeds.length > 0 && (
+      <section>
+        <h2 class="mb-6 font-display text-xl font-bold text-gray-900">
+          Races similaires
+          <span class="ml-2 text-sm font-normal text-slate-400 capitalize">({breed.size})</span>
+        </h2>
+
+        <div class="grid gap-4 sm:grid-cols-3">
+          {similarBreeds.map((similar) => {
+            const hex = getScoreHex(similar.score);
+            const dash = getScoreDashArray(similar.score);
+            return (
+              <a
+                href={`/fr/races/${similar.slug}`}
+                class="group flex items-center gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
+              >
+                <svg viewBox="0 0 100 100" class="h-12 w-12 shrink-0" aria-hidden="true">
+                  <circle cx="50" cy="50" r="44" fill="none" stroke="#e5e7eb" stroke-width="11" />
+                  <circle
+                    cx="50" cy="50" r="44" fill="none"
+                    stroke={hex} stroke-width="11"
+                    stroke-dasharray={dash}
+                    stroke-linecap="round"
+                    transform="rotate(-90 50 50)"
+                  />
+                  <text x="50" y="50" text-anchor="middle" dominant-baseline="middle"
+                    font-size="28" font-weight="700" fill={hex} font-family="Sora, sans-serif">
+                    {similar.score}
+                  </text>
+                </svg>
+                <div class="min-w-0">
+                  <p class="truncate font-display font-semibold text-gray-900 group-hover:text-green-600 transition-colors duration-200">
+                    {similar.name}
+                  </p>
+                  <span class={`mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-medium ${getRiskBadgeClass(similar.riskLevel)}`}>
+                    {getRiskLabel(similar.riskLevel)}
+                  </span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    )}
+  </div>
+</Layout>
