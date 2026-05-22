@@ -20,12 +20,24 @@ const {
 const SITE_URL = 'https://petscore.ca';
 const canonical = canonicalUrl ? `${SITE_URL}${canonicalUrl}` : Astro.url.href;
 
-// hreflang alternates — derive the other-language URL from canonical
-const frUrl  = canonical.replace(`${SITE_URL}/en/`, `${SITE_URL}/fr/`);
-const enUrl  = canonical.replace(`${SITE_URL}/fr/`, `${SITE_URL}/en/`);
+// hreflang alternates — only emit EN alternate when the EN page actually exists:
+//   - /en/ homepage
+//   - /en/breeds/ index
+//   - /en/breeds/[slug] pages
+//   - any page with lang='en' (EN pages always have a FR counterpart)
+const frUrl = canonical.replace(`${SITE_URL}/en/`, `${SITE_URL}/fr/`);
+const enUrl = canonical.replace(`${SITE_URL}/fr/races/`, `${SITE_URL}/en/breeds/`);
+const hasEnAlternate =
+  lang === 'en' ||
+  canonical === `${SITE_URL}/fr/` ||
+  canonical === `${SITE_URL}/fr/races/` ||
+  /\/fr\/races\/[^/]+\/$/.test(canonical);   // /fr/races/[slug]/
 
 // ogImage : accepte une URL absolue ou un chemin relatif
 const ogImageFull = ogImage?.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}`;
+
+// og:locale — correct per language
+const ogLocale = lang === 'en' ? 'en_CA' : 'fr_CA';
 ---
 
 <!doctype html>
@@ -48,7 +60,7 @@ const ogImageFull = ogImage?.startsWith('http') ? ogImage : `${SITE_URL}${ogImag
     <meta property="og:image" content={ogImageFull} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:locale" content="fr_CA" />
+    <meta property="og:locale" content={ogLocale} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -56,10 +68,19 @@ const ogImageFull = ogImage?.startsWith('http') ? ogImage : `${SITE_URL}${ogImag
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageFull} />
 
-    <!-- hreflang bilingue fr / en -->
-    <link rel="alternate" hreflang="fr-CA" href={frUrl} />
-    <link rel="alternate" hreflang="en-CA" href={enUrl} />
-    <link rel="alternate" hreflang="x-default" href={frUrl} />
+    <!-- hreflang — only when EN counterpart actually exists -->
+    {hasEnAlternate ? (
+      <>
+        <link rel="alternate" hreflang="fr-CA" href={frUrl} />
+        <link rel="alternate" hreflang="en-CA" href={enUrl} />
+        <link rel="alternate" hreflang="x-default" href={frUrl} />
+      </>
+    ) : (
+      <>
+        <link rel="alternate" hreflang="fr-CA" href={canonical} />
+        <link rel="alternate" hreflang="x-default" href={canonical} />
+      </>
+    )}
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
