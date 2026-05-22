@@ -1,0 +1,281 @@
+---
+import Layout from '@/components/Layout.astro';
+import breedsRaw from '@/data/breeds.json';
+import type { Breed } from '@/types/breed';
+import { breedGroups, groupById } from '@/data/breedGroups';
+import { getScoreHex, getScoreDashArray, getRiskLabel, getRiskBadgeClass } from '@/lib/breeds';
+import { getBreedImageUrl } from '@/lib/breedImages';
+
+export function getStaticPaths() {
+  return breedGroups.map(g => ({ params: { groupe: g.id }, props: { group: g } }));
+}
+
+export interface Props {
+  group: (typeof breedGroups)[number];
+}
+
+const { group } = Astro.props;
+const allBreeds = breedsRaw as Breed[];
+const groupBreeds = allBreeds.filter(b => group.slugs.includes(b.slug));
+const avgScore = Math.round(groupBreeds.reduce((s, b) => s + b.score, 0) / groupBreeds.length);
+const avgCost  = Math.round(groupBreeds.reduce((s, b) => s + (b.annualVetCost.min + b.annualVetCost.max) / 2, 0) / groupBreeds.length);
+const avgLife  = (groupBreeds.reduce((s, b) => s + (b.lifespan.min + b.lifespan.max) / 2, 0) / groupBreeds.length).toFixed(1);
+
+const otherGroups = breedGroups.filter(g => g.id !== group.id);
+
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://petscore.ca/fr/" },
+        { "@type": "ListItem", "position": 2, "name": "Races", "item": "https://petscore.ca/fr/races/" },
+        { "@type": "ListItem", "position": 3, "name": "Groupes", "item": "https://petscore.ca/fr/races/groupes/" },
+        { "@type": "ListItem", "position": 4, "name": group.name, "item": `https://petscore.ca/fr/races/groupe/${group.id}/` },
+      ],
+    },
+    {
+      "@type": "ItemList",
+      "name": `${group.name} — PetScore™`,
+      "numberOfItems": groupBreeds.length,
+      "itemListElement": groupBreeds.map((b, i) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "url": `https://petscore.ca/fr/races/${b.slug}`,
+        "name": b.name,
+      })),
+    },
+  ],
+});
+---
+
+<Layout
+  title={`${group.name} — ${groupBreeds.length} races · PetScore™ Québec`}
+  description={`${group.name} : ${group.tagline}. PetScore™ moyen ${avgScore}/100, coût vét. moyen ${avgCost}$/an. Comparez ${groupBreeds.length} races au Québec.`}
+  canonicalUrl={`/fr/races/groupe/${group.id}/`}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={jsonLd} />
+  </Fragment>
+
+  <div class="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Fil d'Ariane" class="mb-8">
+      <ol class="flex flex-wrap items-center gap-1.5 text-sm text-slate-400">
+        <li><a href="/fr/" class="hover:text-green-600 transition-colors">Accueil</a></li>
+        <li aria-hidden="true"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li><a href="/fr/races/" class="hover:text-green-600 transition-colors">Races</a></li>
+        <li aria-hidden="true"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li><a href="/fr/races/groupes/" class="hover:text-green-600 transition-colors">Groupes</a></li>
+        <li aria-hidden="true"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li aria-current="page" class="font-medium text-gray-700">{group.name}</li>
+      </ol>
+    </nav>
+
+    <!-- Header -->
+    <header class="mb-10">
+      <div class="mb-3 text-4xl">{group.emoji}</div>
+      <h1 class="font-display text-4xl font-bold tracking-tight text-gray-900">
+        {group.name}
+      </h1>
+      <p class="mt-1 text-lg text-slate-500">{group.tagline}</p>
+
+      <!-- Stats rapides -->
+      <div class="mt-6 grid grid-cols-3 gap-4 sm:grid-cols-3">
+        <div class="rounded-2xl border border-gray-100 bg-white p-4 text-center shadow-sm">
+          <p class="text-2xl font-bold text-gray-900">{groupBreeds.length}</p>
+          <p class="text-xs text-slate-400 mt-0.5">races analysées</p>
+        </div>
+        <div class="rounded-2xl border border-gray-100 bg-white p-4 text-center shadow-sm">
+          <p class="text-2xl font-bold" style={`color: ${getScoreHex(avgScore)}`}>{avgScore}</p>
+          <p class="text-xs text-slate-400 mt-0.5">PetScore™ moyen</p>
+        </div>
+        <div class="rounded-2xl border border-gray-100 bg-white p-4 text-center shadow-sm">
+          <p class="text-2xl font-bold text-gray-900">{avgLife}</p>
+          <p class="text-xs text-slate-400 mt-0.5">ans de vie moy.</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Description + traits -->
+    <div class="mb-10 grid gap-6 lg:grid-cols-3">
+      <div class="lg:col-span-2">
+        <p class="leading-relaxed text-slate-600">{group.description}</p>
+      </div>
+      <div class="space-y-4">
+        <div class="rounded-2xl border border-green-100 bg-green-50 p-4">
+          <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-green-700">Caractéristiques</p>
+          <ul class="space-y-1">
+            {group.traits.map(t => (
+              <li class="flex items-center gap-2 text-sm text-green-800">
+                <span class="text-green-500">✓</span> {t}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="rounded-2xl border border-blue-100 bg-blue-50 p-4">
+          <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-blue-700">Idéal pour</p>
+          <ul class="space-y-1">
+            {group.bestFor.map(t => (
+              <li class="text-sm text-blue-800">🎯 {t}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="rounded-2xl border border-amber-100 bg-amber-50 p-4">
+          <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-amber-700">À savoir</p>
+          <ul class="space-y-1">
+            {group.watchOut.map(t => (
+              <li class="text-sm text-amber-800">⚠ {t}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Breed grid -->
+    <h2 class="mb-6 font-display text-2xl font-bold text-gray-900">
+      {groupBreeds.length} races du groupe {group.name}
+    </h2>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {groupBreeds
+        .sort((a, b) => b.score - a.score)
+        .map((breed) => {
+          const hex  = getScoreHex(breed.score);
+          const dash = getScoreDashArray(breed.score);
+          const img  = getBreedImageUrl(breed.slug);
+          return (
+            <a
+              href={`/fr/races/${breed.slug}`}
+              class="group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
+            >
+              <img
+                src={img}
+                alt={breed.name}
+                width="400" height="180"
+                class="h-32 w-full object-cover"
+                loading="lazy"
+              />
+              <div class="flex items-center gap-3 p-4">
+                <svg viewBox="0 0 100 100" class="h-12 w-12 shrink-0" aria-hidden="true">
+                  <circle cx="50" cy="50" r="44" fill="none" stroke="#e5e7eb" stroke-width="11" />
+                  <circle cx="50" cy="50" r="44" fill="none" stroke={hex} stroke-width="11"
+                    stroke-dasharray={dash} stroke-linecap="round" transform="rotate(-90 50 50)" />
+                  <text x="50" y="50" text-anchor="middle" dominant-baseline="middle"
+                    font-size="26" font-weight="700" fill={hex} font-family="Sora, sans-serif">
+                    {breed.score}
+                  </text>
+                </svg>
+                <div class="min-w-0">
+                  <p class="truncate font-display font-semibold text-gray-900 group-hover:text-green-600 transition-colors">
+                    {breed.name}
+                  </p>
+                  <span class={`mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-medium ${getRiskBadgeClass(breed.riskLevel)}`}>
+                    {getRiskLabel(breed.riskLevel)}
+                  </span>
+                  <p class="mt-0.5 text-xs text-slate-400">
+                    {breed.annualVetCost.min}–{breed.annualVetCost.max} $/an
+                  </p>
+                </div>
+              </div>
+            </a>
+          );
+        })
+      }
+    </div>
+
+    <!-- Cost comparison table -->
+    <div class="mt-10 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+      <h2 class="mb-4 font-display text-lg font-bold text-gray-900">
+        Comparaison budgétaire — {group.name}
+      </h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-gray-100 text-left text-xs font-semibold uppercase tracking-wide text-slate-400">
+              <th class="pb-3">Race</th>
+              <th class="pb-3 text-center">PetScore™</th>
+              <th class="pb-3 text-right">Vét. annuel</th>
+              <th class="pb-3 text-right">Vét. 10 ans</th>
+              <th class="pb-3 text-right">Longévité</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-50">
+            {groupBreeds
+              .sort((a, b) => b.score - a.score)
+              .map(breed => {
+                const hex = getScoreHex(breed.score);
+                return (
+                  <tr>
+                    <td class="py-2.5">
+                      <a href={`/fr/races/${breed.slug}`} class="font-medium text-gray-900 hover:text-green-600 transition-colors">
+                        {breed.name}
+                      </a>
+                    </td>
+                    <td class="py-2.5 text-center">
+                      <span class="font-bold" style={`color: ${hex}`}>{breed.score}</span>
+                    </td>
+                    <td class="py-2.5 text-right text-slate-600">
+                      {breed.annualVetCost.min}–{breed.annualVetCost.max} $
+                    </td>
+                    <td class="py-2.5 text-right text-slate-600">
+                      {(breed.annualVetCost.max * 10).toLocaleString('fr-CA')} $
+                    </td>
+                    <td class="py-2.5 text-right text-slate-600">
+                      {breed.lifespan.min}–{breed.lifespan.max} ans
+                    </td>
+                  </tr>
+                );
+              })
+            }
+          </tbody>
+          <tfoot>
+            <tr class="border-t-2 border-gray-200">
+              <td class="pt-3 font-semibold text-gray-700">Moyenne du groupe</td>
+              <td class="pt-3 text-center">
+                <span class="font-bold" style={`color: ${getScoreHex(avgScore)}`}>{avgScore}</span>
+              </td>
+              <td class="pt-3 text-right font-semibold text-gray-700">{avgCost} $</td>
+              <td class="pt-3 text-right font-semibold text-gray-700">{(avgCost * 10).toLocaleString('fr-CA')} $</td>
+              <td class="pt-3 text-right font-semibold text-gray-700">{avgLife} ans</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <!-- Other groups -->
+    <div class="mt-10">
+      <h2 class="mb-5 font-display text-xl font-bold text-gray-900">Autres groupes de races</h2>
+      <div class="grid gap-3 sm:grid-cols-3">
+        {otherGroups.map(og => (
+          <a href={`/fr/races/groupe/${og.id}/`}
+            class="flex items-center gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition hover:shadow-md hover:-translate-y-0.5">
+            <span class="text-2xl">{og.emoji}</span>
+            <div>
+              <p class="font-semibold text-gray-900">{og.name}</p>
+              <p class="text-xs text-slate-400">{og.slugs.length} races</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-10 rounded-2xl bg-gradient-to-br from-green-50 to-white border border-green-100 p-6 text-center">
+      <p class="font-display text-lg font-bold text-gray-900 mb-3">
+        Comparez toutes les races du groupe {group.name}
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="/fr/races/" class="rounded-full bg-green-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-700 transition">
+          🐕 Voir toutes les races
+        </a>
+        <a href="/fr/comparer/" class="rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-gray-50 transition">
+          ⚖️ Comparer deux races
+        </a>
+      </div>
+    </div>
+
+  </div>
+</Layout>

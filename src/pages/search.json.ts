@@ -55,6 +55,11 @@ export const GET: APIRoute = async () => {
     { type: 'page', title: 'Checklist adoption chien',       subtitle: '30 étapes — sauvegarde auto',       tags: ['checklist', 'adoption', 'débutant'], url: '/fr/checklist-adoption/' },
     { type: 'page', title: 'FAQ — Questions fréquentes',     subtitle: '30 réponses santé, races, légal',   tags: ['faq', 'questions', 'guide'],         url: '/fr/faq/' },
     { type: 'page', title: 'Dog Breeds (English)',           subtitle: '50 breeds · health scores',          tags: ['english', 'breeds', 'health'],       url: '/en/breeds/' },
+    { type: 'page', title: 'Groupes de races',               subtitle: '7 groupes · sportifs, berger, toy…', tags: ['groupes', 'ckc', 'classification'],   url: '/fr/races/groupes/' },
+    { type: 'page', title: 'Chiens sportifs',                subtitle: 'Retrievers, épagneuls, setters',     tags: ['sportifs', 'retrievers', 'chasse'],   url: '/fr/races/groupe/sportifs/' },
+    { type: 'page', title: 'Chiens de berger',               subtitle: 'Border Collie, Berger Allemand…',    tags: ['berger', 'troupeaux', 'intelligent'], url: '/fr/races/groupe/berger/' },
+    { type: 'page', title: 'Chiens de travail',              subtitle: 'Husky, Rottweiler, Malamute…',       tags: ['travail', 'traîneau', 'garde'],       url: '/fr/races/groupe/travail/' },
+    { type: 'page', title: 'Chiens de compagnie',            subtitle: 'Bouledogue, Caniche, Dalmatien…',    tags: ['compagnie', 'appartement', 'urbain'], url: '/fr/races/groupe/compagnie/' },
   ];
 
   return new Response(JSON.stringify(items), {

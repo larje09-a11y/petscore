@@ -1,0 +1,140 @@
+---
+import Layout from '@/components/Layout.astro';
+import breedsRaw from '@/data/breeds.json';
+import type { Breed } from '@/types/breed';
+import { breedGroups } from '@/data/breedGroups';
+import { getScoreHex } from '@/lib/breeds';
+
+const allBreeds = breedsRaw as Breed[];
+
+// Compute per-group stats
+const groupsWithStats = breedGroups.map(g => {
+  const breeds = allBreeds.filter(b => g.slugs.includes(b.slug));
+  const avgScore = Math.round(breeds.reduce((s, b) => s + b.score, 0) / (breeds.length || 1));
+  const avgCost  = Math.round(breeds.reduce((s, b) => s + (b.annualVetCost.min + b.annualVetCost.max) / 2, 0) / (breeds.length || 1));
+  return { ...g, breeds, avgScore, avgCost };
+});
+
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://petscore.ca/fr/" },
+    { "@type": "ListItem", "position": 2, "name": "Races", "item": "https://petscore.ca/fr/races/" },
+    { "@type": "ListItem", "position": 3, "name": "Groupes de races", "item": "https://petscore.ca/fr/races/groupes/" },
+  ],
+});
+---
+
+<Layout
+  title="Groupes de races de chiens au Québec — PetScore™"
+  description="Découvrez les 7 groupes de races de chiens (sportifs, courants, travail, terriers, agrément, compagnie, berger) avec PetScore™ moyen et coûts vétérinaires au Québec."
+  canonicalUrl="/fr/races/groupes/"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={jsonLd} />
+  </Fragment>
+
+  <div class="mx-auto max-w-5xl px-4 py-12 sm:px-6">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Fil d'Ariane" class="mb-8">
+      <ol class="flex flex-wrap items-center gap-1.5 text-sm text-slate-400">
+        <li><a href="/fr/" class="hover:text-green-600 transition-colors">Accueil</a></li>
+        <li aria-hidden="true"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li><a href="/fr/races/" class="hover:text-green-600 transition-colors">Races</a></li>
+        <li aria-hidden="true"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li aria-current="page" class="font-medium text-gray-700">Groupes</li>
+      </ol>
+    </nav>
+
+    <!-- Header -->
+    <div class="mb-12 text-center">
+      <h1 class="font-display text-4xl font-bold tracking-tight text-gray-900">
+        Races par groupe
+      </h1>
+      <p class="mt-3 text-lg text-slate-500">
+        Les {allBreeds.length} races analysées classées en {breedGroups.length} groupes selon leur origine et leur fonction.
+        Chaque groupe a son propre profil de santé, ses coûts vétérinaires typiques et ses besoins spécifiques.
+      </p>
+    </div>
+
+    <!-- Group cards -->
+    <div class="space-y-8">
+      {groupsWithStats.map(group => (
+        <section class="rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden">
+          <!-- Group header -->
+          <a href={`/fr/races/groupe/${group.id}/`}
+            class="group flex items-center justify-between gap-4 border-b border-gray-50 p-6 transition hover:bg-gray-50">
+            <div class="flex items-center gap-4">
+              <span class="text-3xl">{group.emoji}</span>
+              <div>
+                <h2 class="font-display text-xl font-bold text-gray-900 group-hover:text-green-600 transition-colors">
+                  {group.name}
+                </h2>
+                <p class="mt-0.5 text-sm text-slate-500">{group.tagline}</p>
+              </div>
+            </div>
+            <div class="flex shrink-0 items-center gap-6 text-center">
+              <div>
+                <p class="text-xl font-bold" style={`color: ${getScoreHex(group.avgScore)}`}>{group.avgScore}</p>
+                <p class="text-xs text-slate-400">Score moy.</p>
+              </div>
+              <div>
+                <p class="text-xl font-bold text-gray-800">{group.breeds.length}</p>
+                <p class="text-xs text-slate-400">races</p>
+              </div>
+              <div class="hidden sm:block">
+                <p class="text-xl font-bold text-gray-800">{group.avgCost} $</p>
+                <p class="text-xs text-slate-400">vét./an moy.</p>
+              </div>
+              <svg class="h-5 w-5 shrink-0 text-slate-300 group-hover:text-green-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </a>
+
+          <!-- Breed chips preview -->
+          <div class="flex flex-wrap gap-2 p-5">
+            {group.breeds
+              .sort((a, b) => b.score - a.score)
+              .slice(0, 6)
+              .map(b => (
+                <a href={`/fr/races/${b.slug}`}
+                  class="flex items-center gap-1.5 rounded-full border border-gray-100 bg-gray-50 px-3 py-1 text-xs font-medium text-slate-600 transition hover:border-green-200 hover:text-green-700">
+                  <span class="font-bold" style={`color: ${getScoreHex(b.score)}`}>{b.score}</span>
+                  {b.name}
+                </a>
+              ))
+            }
+            {group.breeds.length > 6 && (
+              <a href={`/fr/races/groupe/${group.id}/`}
+                class="rounded-full border border-dashed border-gray-200 px-3 py-1 text-xs text-slate-400 transition hover:border-green-300 hover:text-green-600">
+                +{group.breeds.length - 6} races →
+              </a>
+            )}
+          </div>
+        </section>
+      ))}
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-12 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 p-8 text-center">
+      <h2 class="font-display text-xl font-bold text-gray-900 mb-2">
+        Vous ne savez pas quel groupe vous convient ?
+      </h2>
+      <p class="text-slate-500 mb-6 text-sm">
+        Notre quiz analyse votre mode de vie, votre expérience et votre budget pour recommander les races idéales — tous groupes confondus.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="/fr/quiz/" class="rounded-full bg-green-600 px-6 py-3 text-sm font-bold text-white shadow-sm hover:bg-green-700 transition">
+          🐾 Faire le quiz gratuit
+        </a>
+        <a href="/fr/races/" class="rounded-full border border-gray-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 hover:bg-gray-50 transition">
+          Voir toutes les races →
+        </a>
+      </div>
+    </div>
+
+  </div>
+</Layout>
