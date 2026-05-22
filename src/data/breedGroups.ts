@@ -24,6 +24,8 @@ export const breedGroups: BreedGroup[] = [
     slugs: [
       'labrador-retriever', 'golden-retriever', 'cocker-americain',
       'setter-irlandais', 'weimaraner', 'epagneul-breton',
+      'vizsla', 'epagneul-springer-anglais', 'labradoodle', 'goldendoodle',
+      'nova-scotia-duck-tolling-retriever',
     ],
   },
   {
@@ -38,6 +40,7 @@ export const breedGroups: BreedGroup[] = [
     watchOut: ['Rappel difficile — jamais sans laisse dans un espace ouvert', 'Instinct de poursuite élevé'],
     slugs: [
       'beagle', 'teckel', 'basenji', 'whippet', 'rhodesian-ridgeback',
+      'levrier-greyhound',
     ],
   },
   {
@@ -53,6 +56,7 @@ export const breedGroups: BreedGroup[] = [
     slugs: [
       'rottweiler', 'boxer', 'husky-siberien', 'dobermann', 'samoyede',
       'terre-neuve', 'malamute-alaska', 'cane-corso', 'saint-bernard', 'dogue-allemand',
+      'leonberg', 'montagne-des-pyrenees', 'bouvier-des-flandres',
     ],
   },
   {
@@ -114,6 +118,7 @@ export const breedGroups: BreedGroup[] = [
     slugs: [
       'berger-allemand', 'border-collie', 'berger-australien',
       'berger-de-shetland', 'berger-belge-malinois', 'bouvier-bernois', 'spitz-finlandais',
+      'berger-blanc-suisse',
     ],
   },
 ];

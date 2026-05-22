@@ -1,7 +1,9 @@
 ---
 import Layout from '@/components/Layout.astro';
+import InsuranceCalculator from '@/components/InsuranceCalculator.tsx';
 import breedsRaw from '@/data/breeds.json';
 import type { Breed } from '@/types/breed';
+import { breadcrumbJsonLd } from '@/lib/jsonld';
 
 const breeds = breedsRaw as Breed[];
 
@@ -14,11 +16,27 @@ const insurers = [
     reimbursement: '90 %',
     annual_cap: 'Illimité',
     directPay: true,
-    pros: ['Plafond illimité', 'Paiement direct aux cliniques', 'Franchise unique (pas par an)', 'Idéal races à risque élevé'],
-    cons: ['Prime plus élevée', 'Pas de soins dentaires de routine'],
+    pros: ['Plafond illimité à vie', 'Paiement direct aux cliniques', 'Franchise unique (pas annuelle)', 'Idéal races à risque élevé'],
+    cons: ['Prime plus élevée', 'Pas de soins dentaires de routine', 'Pas de prévention incluse'],
     link: 'https://trupanion.com/canada',
     best_for: 'Races à risque élevé (Bouledogue, Golden, Dobermann)',
     badgeColor: 'bg-yellow-100 text-yellow-800',
+    score: 93,
+  },
+  {
+    name: 'Paw Protect',
+    logo: '🐾',
+    monthlyRange: '50 – 95 $',
+    deductible: 'Annuelle (100–500 $)',
+    reimbursement: '90 %',
+    annual_cap: 'Jusqu\'à 25 000 $/an',
+    directPay: false,
+    pros: ['Remboursement 90 % parmi les meilleurs', 'Interface numérique moderne', 'Plafond élevé (25 000 $/an)', 'Maladies héréditaires incluses'],
+    cons: ['Moins connu au Québec', 'Service en anglais principalement', 'Délai carence 14 jours'],
+    link: 'https://pawprotect.ca',
+    best_for: 'Propriétaires tech-savvy · races à risque moyen-élevé',
+    badgeColor: 'bg-purple-100 text-purple-800',
+    score: 88,
   },
   {
     name: 'Petsecure (Sun Life)',
@@ -29,10 +47,11 @@ const insurers = [
     annual_cap: 'Jusqu\'à 15 000 $/an',
     directPay: false,
     pros: ['Bon rapport qualité-prix', 'Couverture dentaire partielle', '4 niveaux de plans', 'Marque reconnue au Canada'],
-    cons: ['Franchise annuelle (moins avantageux pour maladies chroniques)', 'Pas de paiement direct'],
+    cons: ['Franchise annuelle (moins avantageux maladies chroniques)', 'Pas de paiement direct'],
     link: 'https://petsecure.com',
     best_for: 'Races à risque modéré (Labrador, Berger Allemand)',
     badgeColor: 'bg-blue-100 text-blue-800',
+    score: 82,
   },
   {
     name: 'Intact Assurance',
@@ -47,6 +66,7 @@ const insurers = [
     link: 'https://intact.ca',
     best_for: 'Clients Intact existants · races à faible risque',
     badgeColor: 'bg-green-100 text-green-700',
+    score: 76,
   },
   {
     name: 'Desjardins',
@@ -56,11 +76,12 @@ const insurers = [
     reimbursement: '80 %',
     annual_cap: 'Jusqu\'à 8 000 $/an',
     directPay: false,
-    pros: ['Primes parmi les plus basses', 'Intégré à l\'application Desjardins', 'Populaire au Québec'],
-    cons: ['Plafond 8 000 $ trop faible pour grands sinistres', 'Couverture limitée'],
+    pros: ['Primes parmi les plus basses', 'Application Desjardins intégrée', 'Service 100 % en français'],
+    cons: ['Plafond 8 000 $ trop faible pour grands sinistres', 'Couverture limitée vs concurrents'],
     link: 'https://desjardins.com',
     best_for: 'Membres Desjardins · petit budget · races en bonne santé',
     badgeColor: 'bg-emerald-100 text-emerald-700',
+    score: 72,
   },
 ];
 
@@ -68,15 +89,52 @@ const insurers = [
 const topExpensive = [...breeds].sort((a, b) => b.insuranceMonthly.max - a.insuranceMonthly.max).slice(0, 5);
 // Top 5 races les moins chères
 const topCheap    = [...breeds].sort((a, b) => a.insuranceMonthly.min - b.insuranceMonthly.min).slice(0, 5);
+
+const faqItems = [
+  {
+    q: "À quel âge souscrire une assurance pour son chien ?",
+    a: "Le plus tôt possible — idéalement dès les premiers jours après l'adoption. Les assureurs excluent systématiquement les conditions préexistantes. Si votre chien développe une dysplasie à 18 mois et que vous souscrivez à 2 ans, cette condition sera exclue à vie de votre couverture. Souscrire un chiot en parfaite santé vous garantit la couverture la plus complète possible. La plupart des assureurs acceptent les chiens dès 8 semaines."
+  },
+  {
+    q: "L'assurance animaux est-elle rentable financièrement au Québec ?",
+    a: "En moyenne, sur la vie entière d'un chien, vous payez plus en primes que vous ne recevez. MAIS l'assurance est un outil de gestion du risque, pas un investissement. Sa valeur réelle : vous protéger contre les sinistres catastrophiques (cancer, chirurgie ortho, DTG) qui peuvent dépasser 10 000-20 000 $. Pour les races à risque élevé (Golden Retriever, Boxer, Bouledogue Français), la rentabilité mathématique est beaucoup plus probable. Pour un Chihuahua en bonne santé, moins certaine."
+  },
+  {
+    q: "Quelle différence entre franchise par condition et franchise annuelle ?",
+    a: "Franchise annuelle (Desjardins, Intact, Petsecure) : vous payez la franchise UNE FOIS par année, puis tout est couvert à 80-90%. Avantage : si plusieurs problèmes dans l'année, vous ne payez la franchise qu'une fois. Inconvénient : un seul problème chronique vous coûte la franchise chaque année. Franchise par condition (Trupanion) : vous payez une franchise unique PAR condition — et jamais plus pour cette même condition. Avantage majeur pour les maladies chroniques (allergies, dysplasie) — vous payez la franchise une seule fois à vie pour cette condition."
+  },
+];
+
+// JSON-LD
+const crumbs = breadcrumbJsonLd([
+  { name: 'Accueil', url: 'https://petscore.ca/fr/' },
+  { name: 'Assurance animaux Québec 2026' },
+]);
+
+const faqJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map(item => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": { "@type": "Answer", "text": item.a }
+  }))
+});
 ---
 
 <Layout
-  title="Assurance animaux au Québec — Comparatif Trupanion, Petsecure, Intact, Desjardins | PetScore™"
-  description="Comparatif complet des assurances animaux au Québec en 2025 : Trupanion, Petsecure, Intact et Desjardins. Primes, franchises, plafonds et quelle assurance choisir selon votre race."
+  title="Assurance animaux Québec 2026 — Comparatif Trupanion, Paw Protect, Intact, Desjardins | PetScore™"
+  description="Comparatif complet des assurances animaux au Québec 2026 : Trupanion, Paw Protect, Petsecure, Intact et Desjardins. Calculateur de primes interactif, analyse coût-bénéfice et guide pour choisir selon votre race."
   canonicalUrl="/fr/assurance/"
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={crumbs} />
+    <script type="application/ld+json" set:html={faqJsonLd} />
+  </Fragment>
+
   <div class="mx-auto max-w-5xl px-4 py-10 sm:px-6">
 
+    <!-- Breadcrumb -->
     <nav aria-label="Fil d'Ariane" class="mb-8">
       <ol class="flex flex-wrap items-center gap-1.5 text-sm text-slate-400">
         <li><a href="/fr/" class="hover:text-green-600 transition-colors">Accueil</a></li>
@@ -85,34 +143,70 @@ const topCheap    = [...breeds].sort((a, b) => a.insuranceMonthly.min - b.insura
       </ol>
     </nav>
 
+    <!-- Header -->
     <header class="mb-10">
+      <div class="mb-3 flex flex-wrap gap-2">
+        <span class="rounded-full bg-green-50 px-3 py-0.5 text-xs font-semibold text-green-700">Mis à jour 2026</span>
+        <span class="rounded-full bg-blue-50 px-3 py-0.5 text-xs font-semibold text-blue-700">5 assureurs comparés</span>
+        <span class="rounded-full bg-purple-50 px-3 py-0.5 text-xs font-semibold text-purple-700">Calculateur interactif</span>
+      </div>
       <h1 class="font-display text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-        🛡️ Comparatif assurance animaux Québec 2025
+        🛡️ Assurance animaux Québec 2026 : comparatif complet
       </h1>
       <p class="mt-4 max-w-2xl leading-relaxed text-slate-500">
-        Une urgence vétérinaire peut coûter entre 3 000 $ et 20 000 $ au Québec. L'assurance animaux est-elle rentable ?
-        Ça dépend entièrement de votre race. Voici le comparatif complet pour choisir intelligemment.
+        Une urgence vétérinaire peut coûter 3 000 à 20 000 $ au Québec. L'assurance animaux est-elle rentable
+        pour votre race ? Calculateur interactif, analyse par assureur et guide de décision.
       </p>
     </header>
 
-    <!-- Pourquoi s'assurer -->
+    <!-- Statistiques choc -->
     <div class="mb-10 grid gap-4 sm:grid-cols-3">
       {[
-        { icon: '🦴', stat: '7 000 $', label: 'Chirurgie dysplasie hanche (par articulation)' },
-        { icon: '🎗️', stat: '15 000 $', label: 'Traitement lymphome Golden Retriever' },
-        { icon: '🫁', stat: '10 000 $', label: 'Urgence DTG (Dobermann, Dogue Allemand)' },
+        { icon: '🦴', stat: '5 000–12 000 $', label: 'Chirurgie dysplasie de hanche' },
+        { icon: '🎗️', stat: '8 000–18 000 $', label: 'Traitement lymphome chez le Golden' },
+        { icon: '🫁', stat: '6 000–10 000 $', label: 'Dilatation-torsion gastrique (urgence)' },
       ].map(({ icon, stat, label }) => (
         <div class="rounded-2xl border border-red-100 bg-red-50 p-4 text-center">
           <div class="text-2xl mb-1">{icon}</div>
-          <p class="font-display text-2xl font-bold text-red-700">{stat}</p>
+          <p class="font-display text-xl font-bold text-red-700">{stat}</p>
           <p class="mt-1 text-xs text-red-600">{label}</p>
         </div>
       ))}
     </div>
 
-    <!-- Comparatif assureurs -->
+    <!-- FAQ accordéon (featured snippet) -->
+    <aside class="mb-10 rounded-2xl border border-green-100 bg-green-50 p-5">
+      <p class="mb-3 text-xs font-bold uppercase tracking-widest text-green-700">Questions fréquentes</p>
+      <div class="space-y-2">
+        {faqItems.map((item) => (
+          <details class="group">
+            <summary class="flex cursor-pointer items-start justify-between gap-3 py-2 font-semibold text-sm text-gray-900 hover:text-green-700 list-none transition-colors">
+              <span>{item.q}</span>
+              <svg class="mt-0.5 h-4 w-4 shrink-0 text-green-500 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <p class="pb-3 pt-1 text-sm leading-relaxed text-slate-600 border-t border-green-100 mt-1">{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </aside>
+
+    <!-- Calculateur interactif -->
     <section class="mb-12">
-      <h2 class="mb-6 font-display text-2xl font-bold text-gray-900">Les 4 principaux assureurs au Québec</h2>
+      <h2 class="mb-2 font-display text-2xl font-bold text-gray-900">Calculateur de primes interactif</h2>
+      <p class="mb-6 text-sm text-slate-500">
+        Ajustez l'âge de votre chien, la franchise et le taux de remboursement pour comparer les primes estimées.
+      </p>
+      <div class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+        <InsuranceCalculator client:load basePremium={60} />
+      </div>
+    </section>
+
+    <!-- Comparatif détaillé assureurs -->
+    <section class="mb-12">
+      <h2 class="mb-2 font-display text-2xl font-bold text-gray-900">Les 5 assureurs au Québec — analyse détaillée</h2>
+      <p class="mb-6 text-sm text-slate-500">Classés par score PetScore™ (rapport couverture / prix / service).</p>
       <div class="space-y-4">
         {insurers.map((ins) => (
           <div class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
@@ -120,7 +214,12 @@ const topCheap    = [...breeds].sort((a, b) => a.insuranceMonthly.min - b.insura
               <div class="flex items-center gap-3">
                 <span class="text-3xl">{ins.logo}</span>
                 <div>
-                  <h3 class="font-display text-xl font-bold text-gray-900">{ins.name}</h3>
+                  <div class="flex items-center gap-2">
+                    <h3 class="font-display text-xl font-bold text-gray-900">{ins.name}</h3>
+                    <span class="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-bold text-gray-600">
+                      Score {ins.score}/100
+                    </span>
+                  </div>
                   <span class={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${ins.badgeColor}`}>
                     {ins.best_for}
                   </span>
@@ -130,6 +229,14 @@ const topCheap    = [...breeds].sort((a, b) => a.insuranceMonthly.min - b.insura
                 class="rounded-full bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 transition-colors">
                 Obtenir un devis →
               </a>
+            </div>
+
+            <!-- Barre de score -->
+            <div class="mb-4 h-1.5 w-full rounded-full bg-gray-100">
+              <div
+                class="h-1.5 rounded-full bg-green-500"
+                style={`width: ${ins.score}%`}
+              />
             </div>
 
             <div class="mb-4 grid gap-3 sm:grid-cols-4 text-sm">
@@ -150,50 +257,125 @@ const topCheap    = [...breeds].sort((a, b) => a.insuranceMonthly.min - b.insura
               <div>
                 <p class="mb-1 text-xs font-semibold text-green-700">✓ Points forts</p>
                 <ul class="space-y-1">
-                  {ins.pros.map((p) => <li class="text-slate-600">{p}</li>)}
+                  {ins.pros.map((p) => <li class="flex items-start gap-1.5 text-slate-600"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-green-400 shrink-0" />{p}</li>)}
                 </ul>
               </div>
               <div>
                 <p class="mb-1 text-xs font-semibold text-red-600">✗ Limites</p>
                 <ul class="space-y-1">
-                  {ins.cons.map((c) => <li class="text-slate-600">{c}</li>)}
+                  {ins.cons.map((c) => <li class="flex items-start gap-1.5 text-slate-600"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-red-300 shrink-0" />{c}</li>)}
                 </ul>
               </div>
             </div>
             {ins.directPay && (
-              <p class="mt-3 text-xs font-semibold text-green-600">💳 Paiement direct à la clinique disponible</p>
+              <p class="mt-3 rounded-lg bg-blue-50 px-3 py-1.5 text-xs font-semibold text-blue-700 inline-block">
+                💳 Paiement direct à la clinique disponible
+              </p>
             )}
           </div>
         ))}
       </div>
     </section>
 
-    <!-- Tableau rapide -->
+    <!-- Tableau comparatif rapide -->
     <section class="mb-12">
-      <h2 class="mb-4 font-display text-xl font-bold text-gray-900">Tableau comparatif rapide</h2>
+      <h2 class="mb-4 font-display text-xl font-bold text-gray-900">Tableau comparatif en un coup d'œil</h2>
       <div class="overflow-x-auto rounded-2xl border border-gray-100 shadow-sm">
         <table class="w-full text-sm">
           <thead class="bg-gray-50 text-xs font-semibold uppercase tracking-wide text-slate-400">
             <tr>
               <th class="px-4 py-3 text-left">Assureur</th>
-              <th class="px-4 py-3 text-center">Prime</th>
+              <th class="px-4 py-3 text-center">Prime/mois</th>
               <th class="px-4 py-3 text-center">Remb.</th>
               <th class="px-4 py-3 text-center">Plafond</th>
               <th class="px-4 py-3 text-center">Pmt direct</th>
+              <th class="px-4 py-3 text-center">Score</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-50">
             {insurers.map((ins) => (
-              <tr class="hover:bg-gray-50">
+              <tr class="hover:bg-gray-50 transition-colors">
                 <td class="px-4 py-3 font-semibold text-gray-800">{ins.logo} {ins.name}</td>
                 <td class="px-4 py-3 text-center text-slate-600">{ins.monthlyRange}</td>
                 <td class="px-4 py-3 text-center font-semibold text-gray-800">{ins.reimbursement}</td>
                 <td class="px-4 py-3 text-center text-slate-600">{ins.annual_cap}</td>
                 <td class="px-4 py-3 text-center">{ins.directPay ? '✅' : '—'}</td>
+                <td class="px-4 py-3 text-center">
+                  <span class={`rounded-full px-2 py-0.5 text-xs font-bold ${ins.score >= 90 ? 'bg-green-100 text-green-700' : ins.score >= 80 ? 'bg-yellow-100 text-yellow-700' : 'bg-gray-100 text-gray-600'}`}>
+                    {ins.score}
+                  </span>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
+    </section>
+
+    <!-- Guide de décision -->
+    <section class="mb-12">
+      <h2 class="mb-5 font-display text-2xl font-bold text-gray-900">Quelle assurance choisir selon votre situation ?</h2>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {[
+          {
+            title: '🏆 Race à risque élevé',
+            desc: 'Golden Retriever, Bouledogue, Dobermann, Boxer, Dogue Allemand',
+            rec: 'Trupanion',
+            why: 'Plafond illimité + franchise unique par condition = protection maximale contre les maladies chroniques et cancers fréquents.',
+            bg: 'bg-yellow-50 border-yellow-100',
+            badge: 'bg-yellow-100 text-yellow-800',
+          },
+          {
+            title: '📱 Technophile, veut le meilleur',
+            desc: 'Propriétaire moderne, race à risque moyen-élevé',
+            rec: 'Paw Protect',
+            why: 'Remboursement 90 %, plafond élevé (25 000 $), interface moderne. Meilleur rapport couverture/prix en 2026.',
+            bg: 'bg-purple-50 border-purple-100',
+            badge: 'bg-purple-100 text-purple-800',
+          },
+          {
+            title: '⚖️ Race à risque modéré',
+            desc: 'Labrador, Berger Allemand, Border Collie, Caniche',
+            rec: 'Petsecure',
+            why: 'Couverture complète, 4 plans flexibles, dentaire partiel inclus. Bon rapport qualité-prix sans surpayer.',
+            bg: 'bg-blue-50 border-blue-100',
+            badge: 'bg-blue-100 text-blue-800',
+          },
+          {
+            title: '🏦 Déjà client Intact',
+            desc: 'Vous avez auto, habitation ou vie chez Intact',
+            rec: 'Intact',
+            why: 'Rabais multi-produits significatifs. Bon choix si race à faible risque et vous êtes déjà client.',
+            bg: 'bg-green-50 border-green-100',
+            badge: 'bg-green-100 text-green-700',
+          },
+          {
+            title: '🍁 Membre Desjardins',
+            desc: 'Budget serré, race en bonne santé, moins de 5 ans',
+            rec: 'Desjardins',
+            why: 'Primes les plus basses + service 100 % français. Pour les races à faible risque sans historique médical.',
+            bg: 'bg-emerald-50 border-emerald-100',
+            badge: 'bg-emerald-100 text-emerald-700',
+          },
+          {
+            title: '🐕 Race petite, longévité élevée',
+            desc: 'Chihuahua, Maltais, Yorkshire, Bichon',
+            rec: 'Évaluer le ROI',
+            why: 'Pour les races très longévives en bonne santé, calculez le seuil de rentabilité. Parfois une épargne dédiée remplace avantageusement l\'assurance.',
+            bg: 'bg-gray-50 border-gray-100',
+            badge: 'bg-gray-100 text-gray-600',
+          },
+        ].map((card) => (
+          <div class={`rounded-2xl border p-5 ${card.bg}`}>
+            <h3 class="font-display text-sm font-bold text-gray-900 mb-1">{card.title}</h3>
+            <p class="text-xs text-slate-500 mb-3">{card.desc}</p>
+            <div class="mb-2">
+              <span class="text-xs font-semibold text-slate-500">Recommandé : </span>
+              <span class={`rounded-full px-2 py-0.5 text-xs font-bold ${card.badge}`}>{card.rec}</span>
+            </div>
+            <p class="text-xs leading-relaxed text-slate-600">{card.why}</p>
+          </div>
+        ))}
       </div>
     </section>
 
@@ -223,19 +405,82 @@ const topCheap    = [...breeds].sort((a, b) => a.insuranceMonthly.min - b.insura
       </div>
     </section>
 
-    <!-- Quand souscrire -->
-    <section class="mb-10 rounded-2xl border border-amber-100 bg-amber-50 p-6">
-      <h2 class="mb-3 font-display text-lg font-bold text-gray-900">⏰ Quand souscrire ?</h2>
-      <p class="text-sm leading-relaxed text-slate-600">
-        <strong>Dès l'adoption, dans les 30 premiers jours.</strong> Les conditions préexistantes ne sont jamais couvertes.
-        Si votre chien développe une dysplasie à 2 ans et que vous souscrivez à 3 ans, cette condition sera exclue à vie.
-        Souscrire quand l'animal est en parfaite santé est la règle d'or.
+    <!-- Analyse de rentabilité -->
+    <section class="mb-10 rounded-2xl border border-slate-100 bg-slate-50 p-6">
+      <h2 class="mb-4 font-display text-lg font-bold text-gray-900">📊 Analyse du seuil de rentabilité</h2>
+      <p class="mb-4 text-sm text-slate-600 leading-relaxed">
+        Pour un chien de taille moyenne avec une prime de 70 $/mois (840 $/an) et une franchise de 250 $, voici le point de rentabilité :
+      </p>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="text-xs font-semibold uppercase tracking-wide text-slate-400">
+            <tr>
+              <th class="py-2 text-left">Scénario</th>
+              <th class="py-2 text-center">Coût vétérinaire</th>
+              <th class="py-2 text-center">Avec assurance</th>
+              <th class="py-2 text-center">Sans assurance</th>
+              <th class="py-2 text-center">Résultat</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            {[
+              { scenario: 'Gastro légère (1 an)', vet: '400 $', avec: '840 $ (primes) + 250 $ (franchise) − 135 $ (remb.) = 955 $', sans: '400 $', win: false },
+              { scenario: 'Fracture (1 an)', vet: '3 500 $', avec: '840 $ + 250 $ − 2 600 $ (remb. 80%) = 490 $', sans: '3 500 $', win: true },
+              { scenario: 'Cancer (1 an)', vet: '12 000 $', avec: '840 $ + 250 $ − 9 400 $ = 690 $ net', sans: '12 000 $', win: true },
+              { scenario: 'Aucun incident (10 ans)', vet: '0 $', avec: '8 400 $ total de primes payées', sans: '0 $', win: false },
+            ].map(({ scenario, vet, avec, sans, win }) => (
+              <tr class={win ? 'bg-green-50' : ''}>
+                <td class="py-2.5 font-medium text-gray-800">{scenario}</td>
+                <td class="py-2.5 text-center text-slate-600">{vet}</td>
+                <td class="py-2.5 text-center text-xs text-slate-500">{avec}</td>
+                <td class="py-2.5 text-center text-slate-600">{sans}</td>
+                <td class="py-2.5 text-center">
+                  {win
+                    ? <span class="rounded-full bg-green-100 px-2 py-0.5 text-xs font-bold text-green-700">✓ Assurance gagnante</span>
+                    : <span class="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-bold text-gray-600">Sans assurance = meilleur</span>
+                  }
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-4 text-xs text-slate-400">
+        *Calculs illustratifs basés sur franchise 250 $, remboursement 80 %, prime 70 $/mois. Les chiffres réels varient selon le plan et la clinique.
       </p>
     </section>
 
-    <!-- Avertissement -->
-    <p class="text-xs text-slate-400">
-      * Les liens vers les assureurs sont des liens affiliés. PetScore™ peut percevoir une commission si vous souscrivez via ces liens. Les informations tarifaires sont indicatives et peuvent varier. Consultez les conditions officielles de chaque assureur.
+    <!-- Règle d'or -->
+    <section class="mb-10 rounded-2xl border border-amber-100 bg-amber-50 p-6">
+      <h2 class="mb-3 font-display text-lg font-bold text-gray-900">⏰ La règle d'or : souscrire dès l'adoption</h2>
+      <p class="text-sm leading-relaxed text-slate-600">
+        <strong class="text-gray-900">Dès l'adoption, dans les 30 premiers jours.</strong> Les conditions préexistantes ne sont jamais couvertes.
+        Si votre chien développe une dysplasie à 18 mois et que vous souscrivez à 2 ans, cette condition sera exclue à vie.
+        Souscrire quand l'animal est en parfaite santé vous garantit la couverture la plus complète. La plupart des assureurs
+        acceptent les chiens dès 8 semaines.
+      </p>
+    </section>
+
+    <!-- Articles liés -->
+    <section class="mb-10">
+      <h2 class="mb-4 font-display text-lg font-bold text-gray-900">Articles connexes</h2>
+      <div class="grid gap-3 sm:grid-cols-3">
+        {[
+          { href: '/fr/blog/budget-annuel-chien-quebec/', title: 'Budget annuel complet d\'un chien au Québec 2026', tag: 'Budget' },
+          { href: '/fr/blog/chien-senior-soins/', title: 'Chien senior : arthrite, soins et qualité de vie', tag: 'Santé' },
+          { href: '/fr/blog/ostetoarthrite-chien-traitement/', title: 'Ostéoarthrite : nouveaux traitements 2025-2026', tag: 'Santé' },
+        ].map(({ href, title, tag }) => (
+          <a href={href} class="group rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5">
+            <span class="rounded-full bg-green-50 px-2 py-0.5 text-xs font-medium text-green-700">#{tag}</span>
+            <p class="mt-2 font-display text-sm font-bold text-gray-900 group-hover:text-green-600 transition-colors leading-snug">{title}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Note légale -->
+    <p class="text-xs text-slate-400 border-t border-gray-100 pt-4">
+      * Les liens vers les assureurs sont des liens affiliés. PetScore™ peut percevoir une commission si vous souscrivez via ces liens. Les informations tarifaires sont indicatives pour 2026 et peuvent varier selon votre région, la race et l'état de santé de votre animal. Consultez les conditions officielles de chaque assureur.
     </p>
   </div>
 </Layout>

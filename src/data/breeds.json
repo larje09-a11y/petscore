@@ -6,20 +6,54 @@
     "score": 72,
     "riskLevel": "moyen",
     "size": "grand",
-    "weight": { "min": 25, "max": 36 },
-    "lifespan": { "min": 10, "max": 12 },
+    "weight": {
+      "min": 25,
+      "max": 36
+    },
+    "lifespan": {
+      "min": 10,
+      "max": 12
+    },
     "origin": "Canada",
     "description": "Le Labrador Retriever est la race la plus populaire au Québec. Affectueux, actif et facile à dresser, il est néanmoins prédisposé à plusieurs conditions héréditaires courantes chez les grandes races.",
-    "mainHealthRisks": ["Dysplasie de la hanche", "Dysplasie du coude", "Obésité", "Rétinopathie progressive"],
-    "healthRisksWithCosts": [
-      { "name": "Dysplasie de la hanche", "estimatedCost": "2 000 – 6 000 $" },
-      { "name": "Dysplasie du coude", "estimatedCost": "1 500 – 5 000 $" },
-      { "name": "Obésité (gestion long terme)", "estimatedCost": "500 – 2 000 $" },
-      { "name": "Rétinopathie progressive", "estimatedCost": "800 – 3 000 $" }
+    "mainHealthRisks": [
+      "Dysplasie de la hanche",
+      "Dysplasie du coude",
+      "Obésité",
+      "Rétinopathie progressive"
     ],
-    "annualVetCost": { "min": 800, "max": 2500 },
-    "insuranceMonthly": { "min": 45, "max": 95 },
-    "traits": { "energy": 4, "grooming": 2, "trainability": 5, "socialWithKids": 5 }
+    "healthRisksWithCosts": [
+      {
+        "name": "Dysplasie de la hanche",
+        "estimatedCost": "2 000 – 6 000 $"
+      },
+      {
+        "name": "Dysplasie du coude",
+        "estimatedCost": "1 500 – 5 000 $"
+      },
+      {
+        "name": "Obésité (gestion long terme)",
+        "estimatedCost": "500 – 2 000 $"
+      },
+      {
+        "name": "Rétinopathie progressive",
+        "estimatedCost": "800 – 3 000 $"
+      }
+    ],
+    "annualVetCost": {
+      "min": 800,
+      "max": 2500
+    },
+    "insuranceMonthly": {
+      "min": 45,
+      "max": 95
+    },
+    "traits": {
+      "energy": 4,
+      "grooming": 2,
+      "trainability": 5,
+      "socialWithKids": 5
+    }
   },
   {
     "name": "Golden Retriever",
@@ -28,20 +62,54 @@
     "score": 68,
     "riskLevel": "moyen",
     "size": "grand",
-    "weight": { "min": 25, "max": 34 },
-    "lifespan": { "min": 10, "max": 12 },
+    "weight": {
+      "min": 25,
+      "max": 34
+    },
+    "lifespan": {
+      "min": 10,
+      "max": 12
+    },
     "origin": "Écosse",
     "description": "Le Golden Retriever est réputé pour son tempérament doux et sa grande loyauté. Malheureusement, c'est l'une des races les plus touchées par le cancer, ce qui pèse sur son PetScore.",
-    "mainHealthRisks": ["Cancer (lymphome, ostéosarcome)", "Dysplasie de la hanche", "Hypothyroïdie", "Problèmes cardiaques"],
-    "healthRisksWithCosts": [
-      { "name": "Cancer (lymphome, ostéosarcome)", "estimatedCost": "5 000 – 20 000 $" },
-      { "name": "Dysplasie de la hanche", "estimatedCost": "2 000 – 6 000 $" },
-      { "name": "Hypothyroïdie (médication vie entière)", "estimatedCost": "300 – 1 200 $ / an" },
-      { "name": "Problèmes cardiaques", "estimatedCost": "1 500 – 8 000 $" }
+    "mainHealthRisks": [
+      "Cancer (lymphome, ostéosarcome)",
+      "Dysplasie de la hanche",
+      "Hypothyroïdie",
+      "Problèmes cardiaques"
     ],
-    "annualVetCost": { "min": 900, "max": 3000 },
-    "insuranceMonthly": { "min": 50, "max": 105 },
-    "traits": { "energy": 4, "grooming": 3, "trainability": 5, "socialWithKids": 5 }
+    "healthRisksWithCosts": [
+      {
+        "name": "Cancer (lymphome, ostéosarcome)",
+        "estimatedCost": "5 000 – 20 000 $"
+      },
+      {
+        "name": "Dysplasie de la hanche",
+        "estimatedCost": "2 000 – 6 000 $"
+      },
+      {
+        "name": "Hypothyroïdie (médication vie entière)",
+        "estimatedCost": "300 – 1 200 $ / an"
+      },
+      {
+        "name": "Problèmes cardiaques",
+        "estimatedCost": "1 500 – 8 000 $"
+      }
+    ],
+    "annualVetCost": {
+      "min": 900,
+      "max": 3000
+    },
+    "insuranceMonthly": {
+      "min": 50,
+      "max": 105
+    },
+    "traits": {
+      "energy": 4,
+      "grooming": 3,
+      "trainability": 5,
+      "socialWithKids": 5
+    }
   },
   {
     "name": "Bouledogue Français",
@@ -50,20 +118,54 @@
     "score": 52,
     "riskLevel": "élevé",
     "size": "petit",
-    "weight": { "min": 8, "max": 14 },
-    "lifespan": { "min": 10, "max": 12 },
+    "weight": {
+      "min": 8,
+      "max": 14
+    },
+    "lifespan": {
+      "min": 10,
+      "max": 12
+    },
     "origin": "France",
     "description": "Très populaire en milieu urbain, le Bouledogue Français souffre de nombreux problèmes liés à sa morphologie brachycéphale. Les frais vétérinaires sont parmi les plus élevés de toutes les races.",
-    "mainHealthRisks": ["Syndrome brachycéphale obstructif", "Problèmes vertébraux (IVDD)", "Allergies cutanées sévères", "Problèmes oculaires"],
-    "healthRisksWithCosts": [
-      { "name": "Syndrome brachycéphale obstructif (chirurgie)", "estimatedCost": "3 000 – 7 000 $" },
-      { "name": "Hernie discale IVDD (chirurgie spinale)", "estimatedCost": "4 000 – 10 000 $" },
-      { "name": "Allergies cutanées sévères (traitement chronique)", "estimatedCost": "800 – 3 500 $ / an" },
-      { "name": "Problèmes oculaires (ulcères, entropion)", "estimatedCost": "500 – 2 500 $" }
+    "mainHealthRisks": [
+      "Syndrome brachycéphale obstructif",
+      "Problèmes vertébraux (IVDD)",
+      "Allergies cutanées sévères",
+      "Problèmes oculaires"
     ],
-    "annualVetCost": { "min": 1200, "max": 4500 },
-    "insuranceMonthly": { "min": 65, "max": 130 },
-    "traits": { "energy": 2, "grooming": 2, "trainability": 3, "socialWithKids": 4 }
+    "healthRisksWithCosts": [
+      {
+        "name": "Syndrome brachycéphale obstructif (chirurgie)",
+        "estimatedCost": "3 000 – 7 000 $"
+      },
+      {
+        "name": "Hernie discale IVDD (chirurgie spinale)",
+        "estimatedCost": "4 000 – 10 000 $"
+      },
+      {
+        "name": "Allergies cutanées sévères (traitement chronique)",
+        "estimatedCost": "800 – 3 500 $ / an"
+      },
+      {
+        "name": "Problèmes oculaires (ulcères, entropion)",
+        "estimatedCost": "500 – 2 500 $"
+      }
+    ],
+    "annualVetCost": {
+      "min": 1200,
+      "max": 4500
+    },
+    "insuranceMonthly": {
+      "min": 65,
+      "max": 130
+    },
+    "traits": {
+      "energy": 2,
+      "grooming": 2,
+      "trainability": 3,
+      "socialWithKids": 4
+    }
   },
   {
     "name": "Berger Allemand",
@@ -72,14 +174,36 @@
     "score": 70,
     "riskLevel": "moyen",
     "size": "grand",
-    "weight": { "min": 22, "max": 40 },
-    "lifespan": { "min": 9, "max": 13 },
+    "weight": {
+      "min": 22,
+      "max": 40
+    },
+    "lifespan": {
+      "min": 9,
+      "max": 13
+    },
     "origin": "Allemagne",
     "description": "Polyvalent et intelligent, le Berger Allemand est utilisé dans les forces de l'ordre et comme chien de thérapie. Il est toutefois prédisposé à la dysplasie et à plusieurs maladies héréditaires.",
-    "mainHealthRisks": ["Dysplasie de la hanche", "Myélopathie dégénérative", "Dilatation-torsion gastrique", "Épilepsie"],
-    "annualVetCost": { "min": 850, "max": 2800 },
-    "insuranceMonthly": { "min": 50, "max": 100 },
-    "traits": { "energy": 4, "grooming": 3, "trainability": 5, "socialWithKids": 4 }
+    "mainHealthRisks": [
+      "Dysplasie de la hanche",
+      "Myélopathie dégénérative",
+      "Dilatation-torsion gastrique",
+      "Épilepsie"
+    ],
+    "annualVetCost": {
+      "min": 850,
+      "max": 2800
+    },
+    "insuranceMonthly": {
+      "min": 50,
+      "max": 100
+    },
+    "traits": {
+      "energy": 4,
+      "grooming": 3,
+      "trainability": 5,
+      "socialWithKids": 4
+    }
   },
   {
     "name": "Caniche",
@@ -88,14 +212,35 @@
     "score": 87,
     "riskLevel": "faible",
     "size": "moyen",
-    "weight": { "min": 6, "max": 15 },
-    "lifespan": { "min": 12, "max": 15 },
+    "weight": {
+      "min": 6,
+      "max": 15
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 15
+    },
     "origin": "France",
     "description": "L'une des races les plus intelligentes et les plus saines, le Caniche présente un excellent PetScore. Il est longévif, peu sujet aux maladies héréditaires graves et s'adapte facilement à tous les modes de vie.",
-    "mainHealthRisks": ["Atrophie rétinienne progressive", "Maladie d'Addison", "Épilepsie idiopathique"],
-    "annualVetCost": { "min": 500, "max": 1500 },
-    "insuranceMonthly": { "min": 35, "max": 70 },
-    "traits": { "energy": 3, "grooming": 4, "trainability": 5, "socialWithKids": 4 }
+    "mainHealthRisks": [
+      "Atrophie rétinienne progressive",
+      "Maladie d'Addison",
+      "Épilepsie idiopathique"
+    ],
+    "annualVetCost": {
+      "min": 500,
+      "max": 1500
+    },
+    "insuranceMonthly": {
+      "min": 35,
+      "max": 70
+    },
+    "traits": {
+      "energy": 3,
+      "grooming": 4,
+      "trainability": 5,
+      "socialWithKids": 4
+    }
   },
   {
     "name": "Beagle",
@@ -104,14 +249,36 @@
     "score": 82,
     "riskLevel": "faible",
     "size": "moyen",
-    "weight": { "min": 8, "max": 14 },
-    "lifespan": { "min": 12, "max": 15 },
+    "weight": {
+      "min": 8,
+      "max": 14
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 15
+    },
     "origin": "Angleterre",
     "description": "Robuste et généralement en bonne santé, le Beagle obtient un bon PetScore. Ses prédispositions les plus fréquentes sont les infections d'oreilles (dues à ses grandes oreilles tombantes) et la tendance à l'obésité.",
-    "mainHealthRisks": ["Infections d'oreilles chroniques", "Obésité", "Hypothyroïdie", "Épilepsie"],
-    "annualVetCost": { "min": 600, "max": 1800 },
-    "insuranceMonthly": { "min": 38, "max": 75 },
-    "traits": { "energy": 4, "grooming": 2, "trainability": 3, "socialWithKids": 5 }
+    "mainHealthRisks": [
+      "Infections d'oreilles chroniques",
+      "Obésité",
+      "Hypothyroïdie",
+      "Épilepsie"
+    ],
+    "annualVetCost": {
+      "min": 600,
+      "max": 1800
+    },
+    "insuranceMonthly": {
+      "min": 38,
+      "max": 75
+    },
+    "traits": {
+      "energy": 4,
+      "grooming": 2,
+      "trainability": 3,
+      "socialWithKids": 5
+    }
   },
   {
     "name": "Rottweiler",
@@ -120,14 +287,36 @@
     "score": 63,
     "riskLevel": "élevé",
     "size": "grand",
-    "weight": { "min": 35, "max": 60 },
-    "lifespan": { "min": 8, "max": 10 },
+    "weight": {
+      "min": 35,
+      "max": 60
+    },
+    "lifespan": {
+      "min": 8,
+      "max": 10
+    },
     "origin": "Allemagne",
     "description": "Le Rottweiler est un chien puissant et loyal, mais son espérance de vie plus courte et ses prédispositions au cancer et aux maladies articulaires font baisser son PetScore. Une assurance santé est fortement recommandée.",
-    "mainHealthRisks": ["Cancer des os (ostéosarcome)", "Dysplasie de la hanche", "Dilatation-torsion gastrique", "Problèmes cardiaques"],
-    "annualVetCost": { "min": 1000, "max": 3500 },
-    "insuranceMonthly": { "min": 60, "max": 120 },
-    "traits": { "energy": 3, "grooming": 1, "trainability": 4, "socialWithKids": 3 }
+    "mainHealthRisks": [
+      "Cancer des os (ostéosarcome)",
+      "Dysplasie de la hanche",
+      "Dilatation-torsion gastrique",
+      "Problèmes cardiaques"
+    ],
+    "annualVetCost": {
+      "min": 1000,
+      "max": 3500
+    },
+    "insuranceMonthly": {
+      "min": 60,
+      "max": 120
+    },
+    "traits": {
+      "energy": 3,
+      "grooming": 1,
+      "trainability": 4,
+      "socialWithKids": 3
+    }
   },
   {
     "name": "Yorkshire Terrier",
@@ -136,14 +325,36 @@
     "score": 74,
     "riskLevel": "moyen",
     "size": "petit",
-    "weight": { "min": 2, "max": 3 },
-    "lifespan": { "min": 13, "max": 16 },
+    "weight": {
+      "min": 2,
+      "max": 3
+    },
+    "lifespan": {
+      "min": 13,
+      "max": 16
+    },
     "origin": "Angleterre",
     "description": "Le Yorkshire est un petit chien avec une grande personnalité et une belle longévité. Ses principales vulnérabilités sont les problèmes dentaires (fréquents chez les petites races) et la luxation de la rotule.",
-    "mainHealthRisks": ["Maladie parodontale", "Luxation de la rotule", "Trachée collabée", "Hypoglycémie"],
-    "annualVetCost": { "min": 700, "max": 2200 },
-    "insuranceMonthly": { "min": 40, "max": 80 },
-    "traits": { "energy": 3, "grooming": 4, "trainability": 3, "socialWithKids": 3 }
+    "mainHealthRisks": [
+      "Maladie parodontale",
+      "Luxation de la rotule",
+      "Trachée collabée",
+      "Hypoglycémie"
+    ],
+    "annualVetCost": {
+      "min": 700,
+      "max": 2200
+    },
+    "insuranceMonthly": {
+      "min": 40,
+      "max": 80
+    },
+    "traits": {
+      "energy": 3,
+      "grooming": 4,
+      "trainability": 3,
+      "socialWithKids": 3
+    }
   },
   {
     "name": "Boxer",
@@ -152,14 +363,36 @@
     "score": 65,
     "riskLevel": "moyen",
     "size": "grand",
-    "weight": { "min": 25, "max": 32 },
-    "lifespan": { "min": 10, "max": 12 },
+    "weight": {
+      "min": 25,
+      "max": 32
+    },
+    "lifespan": {
+      "min": 10,
+      "max": 12
+    },
     "origin": "Allemagne",
     "description": "Le Boxer est un chien joueur et affectueux, particulièrement apprécié des familles. Son score est affecté par une prédisposition au cancer et à des problèmes cardiaques liés à sa morphologie légèrement brachycéphale.",
-    "mainHealthRisks": ["Cancer (mastocytome, lymphome)", "Cardiomyopathie", "Syndrome brachycéphale", "Dysplasie de la hanche"],
-    "annualVetCost": { "min": 950, "max": 3200 },
-    "insuranceMonthly": { "min": 55, "max": 110 },
-    "traits": { "energy": 4, "grooming": 1, "trainability": 4, "socialWithKids": 5 }
+    "mainHealthRisks": [
+      "Cancer (mastocytome, lymphome)",
+      "Cardiomyopathie",
+      "Syndrome brachycéphale",
+      "Dysplasie de la hanche"
+    ],
+    "annualVetCost": {
+      "min": 950,
+      "max": 3200
+    },
+    "insuranceMonthly": {
+      "min": 55,
+      "max": 110
+    },
+    "traits": {
+      "energy": 4,
+      "grooming": 1,
+      "trainability": 4,
+      "socialWithKids": 5
+    }
   },
   {
     "name": "Border Collie",
@@ -168,14 +401,36 @@
     "score": 86,
     "riskLevel": "faible",
     "size": "moyen",
-    "weight": { "min": 14, "max": 20 },
-    "lifespan": { "min": 12, "max": 15 },
+    "weight": {
+      "min": 14,
+      "max": 20
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 15
+    },
     "origin": "Écosse",
     "description": "Considéré comme le chien le plus intelligent au monde, le Border Collie est aussi l'une des races les plus saines. Il a besoin d'une stimulation mentale et physique intense — un chien parfait pour les personnes actives.",
-    "mainHealthRisks": ["Anomalie de l'œil du Collie (CEA)", "Épilepsie idiopathique", "Hypersensibilité MDR1", "Dysplasie de la hanche"],
-    "annualVetCost": { "min": 550, "max": 1600 },
-    "insuranceMonthly": { "min": 36, "max": 72 },
-    "traits": { "energy": 5, "grooming": 3, "trainability": 5, "socialWithKids": 4 }
+    "mainHealthRisks": [
+      "Anomalie de l'œil du Collie (CEA)",
+      "Épilepsie idiopathique",
+      "Hypersensibilité MDR1",
+      "Dysplasie de la hanche"
+    ],
+    "annualVetCost": {
+      "min": 550,
+      "max": 1600
+    },
+    "insuranceMonthly": {
+      "min": 36,
+      "max": 72
+    },
+    "traits": {
+      "energy": 5,
+      "grooming": 3,
+      "trainability": 5,
+      "socialWithKids": 4
+    }
   },
   {
     "name": "Husky Sibérien",
@@ -184,14 +439,36 @@
     "score": 81,
     "riskLevel": "faible",
     "size": "moyen",
-    "weight": { "min": 16, "max": 27 },
-    "lifespan": { "min": 12, "max": 14 },
+    "weight": {
+      "min": 16,
+      "max": 27
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 14
+    },
     "origin": "Sibérie",
     "description": "Le Husky Sibérien est une race robuste naturellement sélectionnée pour l'endurance en conditions extrêmes. Son PetScore élevé reflète sa bonne santé générale, bien qu'il soit adapté aux climates froids comme le Québec.",
-    "mainHealthRisks": ["Cataracte héréditaire", "Rétinopathie progressive", "Dermatite", "Hypothyroïdie"],
-    "annualVetCost": { "min": 600, "max": 1800 },
-    "insuranceMonthly": { "min": 40, "max": 80 },
-    "traits": { "energy": 5, "grooming": 3, "trainability": 3, "socialWithKids": 4 }
+    "mainHealthRisks": [
+      "Cataracte héréditaire",
+      "Rétinopathie progressive",
+      "Dermatite",
+      "Hypothyroïdie"
+    ],
+    "annualVetCost": {
+      "min": 600,
+      "max": 1800
+    },
+    "insuranceMonthly": {
+      "min": 40,
+      "max": 80
+    },
+    "traits": {
+      "energy": 5,
+      "grooming": 3,
+      "trainability": 3,
+      "socialWithKids": 4
+    }
   },
   {
     "name": "Teckel",
@@ -200,14 +477,36 @@
     "score": 71,
     "riskLevel": "moyen",
     "size": "petit",
-    "weight": { "min": 7, "max": 14 },
-    "lifespan": { "min": 12, "max": 16 },
+    "weight": {
+      "min": 7,
+      "max": 14
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 16
+    },
     "origin": "Allemagne",
     "description": "Le Teckel (Dachshund) est reconnaissable à sa silhouette allongée unique. Malheureusement, cette morphologie le rend très vulnérable aux hernies discales, qui peuvent nécessiter des chirurgies coûteuses.",
-    "mainHealthRisks": ["Hernie discale intervertébrale (IVDD)", "Luxation de la rotule", "Maladie parodontale", "Épilepsie"],
-    "annualVetCost": { "min": 750, "max": 2800 },
-    "insuranceMonthly": { "min": 42, "max": 85 },
-    "traits": { "energy": 3, "grooming": 2, "trainability": 3, "socialWithKids": 3 }
+    "mainHealthRisks": [
+      "Hernie discale intervertébrale (IVDD)",
+      "Luxation de la rotule",
+      "Maladie parodontale",
+      "Épilepsie"
+    ],
+    "annualVetCost": {
+      "min": 750,
+      "max": 2800
+    },
+    "insuranceMonthly": {
+      "min": 42,
+      "max": 85
+    },
+    "traits": {
+      "energy": 3,
+      "grooming": 2,
+      "trainability": 3,
+      "socialWithKids": 3
+    }
   },
   {
     "name": "Cavalier King Charles Spaniel",
@@ -216,14 +515,36 @@
     "score": 58,
     "riskLevel": "élevé",
     "size": "petit",
-    "weight": { "min": 5, "max": 8 },
-    "lifespan": { "min": 9, "max": 14 },
+    "weight": {
+      "min": 5,
+      "max": 8
+    },
+    "lifespan": {
+      "min": 9,
+      "max": 14
+    },
     "origin": "Royaume-Uni",
     "description": "Malgré son apparence adorable et son caractère doux, le Cavalier King Charles Spaniel est l'une des races les plus affectées par des maladies cardiaques et neurologiques graves. Une surveillance vétérinaire régulière est indispensable.",
-    "mainHealthRisks": ["Malformation de Chiari-Like (CM/SM)", "Régurgitation mitrale précoce", "Syringomyélie", "Épilepsie"],
-    "annualVetCost": { "min": 1100, "max": 4000 },
-    "insuranceMonthly": { "min": 60, "max": 115 },
-    "traits": { "energy": 2, "grooming": 3, "trainability": 4, "socialWithKids": 5 }
+    "mainHealthRisks": [
+      "Malformation de Chiari-Like (CM/SM)",
+      "Régurgitation mitrale précoce",
+      "Syringomyélie",
+      "Épilepsie"
+    ],
+    "annualVetCost": {
+      "min": 1100,
+      "max": 4000
+    },
+    "insuranceMonthly": {
+      "min": 60,
+      "max": 115
+    },
+    "traits": {
+      "energy": 2,
+      "grooming": 3,
+      "trainability": 4,
+      "socialWithKids": 5
+    }
   },
   {
     "name": "Berger Australien",
@@ -232,14 +553,36 @@
     "score": 77,
     "riskLevel": "moyen",
     "size": "moyen",
-    "weight": { "min": 16, "max": 32 },
-    "lifespan": { "min": 12, "max": 15 },
+    "weight": {
+      "min": 16,
+      "max": 32
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 15
+    },
     "origin": "États-Unis",
     "description": "Très apprécié pour son intelligence et son agilité, le Berger Australien est un chien de travail dans l'âme. Il est en bonne santé globalement, mais certaines lignées portent des mutations génétiques importantes à tester.",
-    "mainHealthRisks": ["Anomalie de l'œil du Collie (CEA)", "Épilepsie idiopathique", "Hypersensibilité MDR1", "Dysplasie de la hanche"],
-    "annualVetCost": { "min": 650, "max": 2000 },
-    "insuranceMonthly": { "min": 42, "max": 85 },
-    "traits": { "energy": 5, "grooming": 3, "trainability": 5, "socialWithKids": 4 }
+    "mainHealthRisks": [
+      "Anomalie de l'œil du Collie (CEA)",
+      "Épilepsie idiopathique",
+      "Hypersensibilité MDR1",
+      "Dysplasie de la hanche"
+    ],
+    "annualVetCost": {
+      "min": 650,
+      "max": 2000
+    },
+    "insuranceMonthly": {
+      "min": 42,
+      "max": 85
+    },
+    "traits": {
+      "energy": 5,
+      "grooming": 3,
+      "trainability": 5,
+      "socialWithKids": 4
+    }
   },
   {
     "name": "Shih-tzu",
@@ -248,14 +591,36 @@
     "score": 75,
     "riskLevel": "moyen",
     "size": "petit",
-    "weight": { "min": 4, "max": 7 },
-    "lifespan": { "min": 10, "max": 16 },
+    "weight": {
+      "min": 4,
+      "max": 7
+    },
+    "lifespan": {
+      "min": 10,
+      "max": 16
+    },
     "origin": "Tibet",
     "description": "Le Shih-tzu est un compagnon affectueux et adapté à la vie en appartement. Sa longévité potentielle est un point fort, mais sa morphologie brachycéphale légère et ses yeux proéminents nécessitent une attention particulière.",
-    "mainHealthRisks": ["Problèmes oculaires (ulcères cornéens)", "Syndrome brachycéphale léger", "Maladie parodontale", "Dermatite atopique"],
-    "annualVetCost": { "min": 700, "max": 2200 },
-    "insuranceMonthly": { "min": 40, "max": 80 },
-    "traits": { "energy": 2, "grooming": 5, "trainability": 3, "socialWithKids": 4 }
+    "mainHealthRisks": [
+      "Problèmes oculaires (ulcères cornéens)",
+      "Syndrome brachycéphale léger",
+      "Maladie parodontale",
+      "Dermatite atopique"
+    ],
+    "annualVetCost": {
+      "min": 700,
+      "max": 2200
+    },
+    "insuranceMonthly": {
+      "min": 40,
+      "max": 80
+    },
+    "traits": {
+      "energy": 2,
+      "grooming": 5,
+      "trainability": 3,
+      "socialWithKids": 4
+    }
   },
   {
     "name": "Chihuahua",
@@ -264,14 +629,36 @@
     "score": 76,
     "riskLevel": "moyen",
     "size": "petit",
-    "weight": { "min": 1.5, "max": 3 },
-    "lifespan": { "min": 12, "max": 17 },
+    "weight": {
+      "min": 1.5,
+      "max": 3
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 17
+    },
     "origin": "Mexique",
     "description": "Le Chihuahua est la plus petite race au monde, mais sa longévité exceptionnelle est un atout majeur. Malgré sa popularité en appartement au Québec, il est prédisposé à plusieurs conditions héréditaires courantes chez les petites races.",
-    "mainHealthRisks": ["Luxation de la rotule", "Maladie parodontale sévère", "Problèmes cardiaques (PDA)", "Hydrocéphalie"],
-    "annualVetCost": { "min": 600, "max": 2000 },
-    "insuranceMonthly": { "min": 35, "max": 70 },
-    "traits": { "energy": 2, "grooming": 1, "trainability": 3, "socialWithKids": 2 }
+    "mainHealthRisks": [
+      "Luxation de la rotule",
+      "Maladie parodontale sévère",
+      "Problèmes cardiaques (PDA)",
+      "Hydrocéphalie"
+    ],
+    "annualVetCost": {
+      "min": 600,
+      "max": 2000
+    },
+    "insuranceMonthly": {
+      "min": 35,
+      "max": 70
+    },
+    "traits": {
+      "energy": 2,
+      "grooming": 1,
+      "trainability": 3,
+      "socialWithKids": 2
+    }
   },
   {
     "name": "Bichon Frisé",
@@ -280,14 +667,35 @@
     "score": 84,
     "riskLevel": "faible",
     "size": "petit",
-    "weight": { "min": 3, "max": 6 },
-    "lifespan": { "min": 12, "max": 15 },
+    "weight": {
+      "min": 3,
+      "max": 6
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 15
+    },
     "origin": "France",
     "description": "Le Bichon Frisé est une race hypoallergénique idéale pour les familles québécoises sensibles aux allergies. Joyeux et robuste, il présente un excellent PetScore grâce à sa santé générale solide et à l'absence de maladies héréditaires graves.",
-    "mainHealthRisks": ["Allergies cutanées atopiques", "Cataracte héréditaire", "Luxation de la rotule"],
-    "annualVetCost": { "min": 450, "max": 1400 },
-    "insuranceMonthly": { "min": 32, "max": 62 },
-    "traits": { "energy": 3, "grooming": 5, "trainability": 4, "socialWithKids": 5 }
+    "mainHealthRisks": [
+      "Allergies cutanées atopiques",
+      "Cataracte héréditaire",
+      "Luxation de la rotule"
+    ],
+    "annualVetCost": {
+      "min": 450,
+      "max": 1400
+    },
+    "insuranceMonthly": {
+      "min": 32,
+      "max": 62
+    },
+    "traits": {
+      "energy": 3,
+      "grooming": 5,
+      "trainability": 4,
+      "socialWithKids": 5
+    }
   },
   {
     "name": "Poméranien",
@@ -296,14 +704,36 @@
     "score": 75,
     "riskLevel": "moyen",
     "size": "petit",
-    "weight": { "min": 1.5, "max": 3.5 },
-    "lifespan": { "min": 12, "max": 16 },
+    "weight": {
+      "min": 1.5,
+      "max": 3.5
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 16
+    },
     "origin": "Allemagne",
     "description": "Le Poméranien (Spitz Nain) est un petit chien vif et élégant très populaire en milieu urbain. Bien que longévif, il est prédisposé à plusieurs conditions héréditaires propres aux petites races, et son abondant pelage double couche nécessite un entretien régulier.",
-    "mainHealthRisks": ["Luxation de la rotule", "Alopécie X (syndrome Pom pelé)", "Trachée collabée", "Maladies dentaires"],
-    "annualVetCost": { "min": 600, "max": 1900 },
-    "insuranceMonthly": { "min": 35, "max": 72 },
-    "traits": { "energy": 3, "grooming": 4, "trainability": 4, "socialWithKids": 3 }
+    "mainHealthRisks": [
+      "Luxation de la rotule",
+      "Alopécie X (syndrome Pom pelé)",
+      "Trachée collabée",
+      "Maladies dentaires"
+    ],
+    "annualVetCost": {
+      "min": 600,
+      "max": 1900
+    },
+    "insuranceMonthly": {
+      "min": 35,
+      "max": 72
+    },
+    "traits": {
+      "energy": 3,
+      "grooming": 4,
+      "trainability": 4,
+      "socialWithKids": 3
+    }
   },
   {
     "name": "Carlin",
@@ -312,14 +742,36 @@
     "score": 47,
     "riskLevel": "élevé",
     "size": "petit",
-    "weight": { "min": 6, "max": 9 },
-    "lifespan": { "min": 10, "max": 13 },
+    "weight": {
+      "min": 6,
+      "max": 9
+    },
+    "lifespan": {
+      "min": 10,
+      "max": 13
+    },
     "origin": "Chine",
     "description": "Le Carlin est un chien attachant et humoristique, mais sa morphologie brachycéphale extrême engendre de nombreux problèmes chroniques. Les frais vétérinaires liés aux difficultés respiratoires, oculaires et cutanées sont parmi les plus élevés des petites races.",
-    "mainHealthRisks": ["Syndrome brachycéphale obstructif (BAOS)", "Encéphalite du Carlin (NME)", "Ulcères cornéens", "Obésité et problèmes articulaires"],
-    "annualVetCost": { "min": 1000, "max": 4000 },
-    "insuranceMonthly": { "min": 60, "max": 120 },
-    "traits": { "energy": 2, "grooming": 2, "trainability": 3, "socialWithKids": 4 }
+    "mainHealthRisks": [
+      "Syndrome brachycéphale obstructif (BAOS)",
+      "Encéphalite du Carlin (NME)",
+      "Ulcères cornéens",
+      "Obésité et problèmes articulaires"
+    ],
+    "annualVetCost": {
+      "min": 1000,
+      "max": 4000
+    },
+    "insuranceMonthly": {
+      "min": 60,
+      "max": 120
+    },
+    "traits": {
+      "energy": 2,
+      "grooming": 2,
+      "trainability": 3,
+      "socialWithKids": 4
+    }
   },
   {
     "name": "Bulldog Anglais",
@@ -328,14 +780,36 @@
     "score": 44,
     "riskLevel": "élevé",
     "size": "moyen",
-    "weight": { "min": 18, "max": 25 },
-    "lifespan": { "min": 8, "max": 10 },
+    "weight": {
+      "min": 18,
+      "max": 25
+    },
+    "lifespan": {
+      "min": 8,
+      "max": 10
+    },
     "origin": "Royaume-Uni",
     "description": "Malgré sa popularité croissante, le Bulldog Anglais est l'une des races les plus problématiques sur le plan médical. Son espérance de vie courte, ses nombreuses chirurgies brachycéphales et ses dermatites chroniques lui valent l'un des PetScores les plus bas.",
-    "mainHealthRisks": ["Syndrome brachycéphale sévère (BAOS)", "Dermatite des plis cutanés", "Dysplasie de la hanche", "Sténose pulmonaire"],
-    "annualVetCost": { "min": 1500, "max": 5000 },
-    "insuranceMonthly": { "min": 70, "max": 140 },
-    "traits": { "energy": 1, "grooming": 2, "trainability": 3, "socialWithKids": 4 }
+    "mainHealthRisks": [
+      "Syndrome brachycéphale sévère (BAOS)",
+      "Dermatite des plis cutanés",
+      "Dysplasie de la hanche",
+      "Sténose pulmonaire"
+    ],
+    "annualVetCost": {
+      "min": 1500,
+      "max": 5000
+    },
+    "insuranceMonthly": {
+      "min": 70,
+      "max": 140
+    },
+    "traits": {
+      "energy": 1,
+      "grooming": 2,
+      "trainability": 3,
+      "socialWithKids": 4
+    }
   },
   {
     "name": "Cocker Américain",
@@ -344,14 +818,36 @@
     "score": 73,
     "riskLevel": "moyen",
     "size": "moyen",
-    "weight": { "min": 9, "max": 14 },
-    "lifespan": { "min": 10, "max": 14 },
+    "weight": {
+      "min": 9,
+      "max": 14
+    },
+    "lifespan": {
+      "min": 10,
+      "max": 14
+    },
     "origin": "États-Unis",
     "description": "Le Cocker Américain est un chien affectueux et polyvalent, apprécié des familles. Ses longues oreilles tombantes favorisent les otites chroniques, et plusieurs lignées présentent des prédispositions aux maladies oculaires héréditaires.",
-    "mainHealthRisks": ["Otites chroniques", "Atrophie rétinienne progressive (PRA)", "Hypothyroïdie", "Déficience en phosphofructokinase (PFK)"],
-    "annualVetCost": { "min": 700, "max": 2200 },
-    "insuranceMonthly": { "min": 40, "max": 80 },
-    "traits": { "energy": 3, "grooming": 4, "trainability": 4, "socialWithKids": 5 }
+    "mainHealthRisks": [
+      "Otites chroniques",
+      "Atrophie rétinienne progressive (PRA)",
+      "Hypothyroïdie",
+      "Déficience en phosphofructokinase (PFK)"
+    ],
+    "annualVetCost": {
+      "min": 700,
+      "max": 2200
+    },
+    "insuranceMonthly": {
+      "min": 40,
+      "max": 80
+    },
+    "traits": {
+      "energy": 3,
+      "grooming": 4,
+      "trainability": 4,
+      "socialWithKids": 5
+    }
   },
   {
     "name": "Berger de Shetland",
@@ -360,14 +856,36 @@
     "score": 83,
     "riskLevel": "faible",
     "size": "moyen",
-    "weight": { "min": 7, "max": 12 },
-    "lifespan": { "min": 12, "max": 15 },
+    "weight": {
+      "min": 7,
+      "max": 12
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 15
+    },
     "origin": "Écosse",
     "description": "Le Berger de Shetland (Sheltie) est l'un des chiens les plus intelligents et les plus sains. Parfaitement adapté au climat québécois, il excelle en obéissance et sport canin. Son excellent PetScore reflète une robustesse et une longévité remarquables.",
-    "mainHealthRisks": ["Anomalie de l'œil du Collie (CEA)", "Hypersensibilité MDR1", "Dermatomyosite", "Luxation de la rotule"],
-    "annualVetCost": { "min": 500, "max": 1600 },
-    "insuranceMonthly": { "min": 35, "max": 68 },
-    "traits": { "energy": 4, "grooming": 3, "trainability": 5, "socialWithKids": 4 }
+    "mainHealthRisks": [
+      "Anomalie de l'œil du Collie (CEA)",
+      "Hypersensibilité MDR1",
+      "Dermatomyosite",
+      "Luxation de la rotule"
+    ],
+    "annualVetCost": {
+      "min": 500,
+      "max": 1600
+    },
+    "insuranceMonthly": {
+      "min": 35,
+      "max": 68
+    },
+    "traits": {
+      "energy": 4,
+      "grooming": 3,
+      "trainability": 5,
+      "socialWithKids": 4
+    }
   },
   {
     "name": "Schnauzer Miniature",
@@ -376,14 +894,36 @@
     "score": 80,
     "riskLevel": "faible",
     "size": "petit",
-    "weight": { "min": 4, "max": 8 },
-    "lifespan": { "min": 12, "max": 15 },
+    "weight": {
+      "min": 4,
+      "max": 8
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 15
+    },
     "origin": "Allemagne",
     "description": "Le Schnauzer Miniature est une race robuste, intelligente et hypoallergénique, très appréciée en appartement. Son PetScore élevé reflète une santé globalement solide, bien que certaines lignées présentent des prédispositions à la lithiase urinaire.",
-    "mainHealthRisks": ["Lithiase urinaire (calculs)", "Hyperlipidémie héréditaire", "Cataracte précoce", "Comédone du Schnauzer"],
-    "annualVetCost": { "min": 500, "max": 1600 },
-    "insuranceMonthly": { "min": 33, "max": 65 },
-    "traits": { "energy": 3, "grooming": 4, "trainability": 4, "socialWithKids": 4 }
+    "mainHealthRisks": [
+      "Lithiase urinaire (calculs)",
+      "Hyperlipidémie héréditaire",
+      "Cataracte précoce",
+      "Comédone du Schnauzer"
+    ],
+    "annualVetCost": {
+      "min": 500,
+      "max": 1600
+    },
+    "insuranceMonthly": {
+      "min": 33,
+      "max": 65
+    },
+    "traits": {
+      "energy": 3,
+      "grooming": 4,
+      "trainability": 4,
+      "socialWithKids": 4
+    }
   },
   {
     "name": "Maltais",
@@ -392,14 +932,36 @@
     "score": 78,
     "riskLevel": "moyen",
     "size": "petit",
-    "weight": { "min": 3, "max": 5 },
-    "lifespan": { "min": 12, "max": 15 },
+    "weight": {
+      "min": 3,
+      "max": 5
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 15
+    },
     "origin": "Malte",
     "description": "Le Maltais est un chien de compagnie élégant et affectueux, réputé hypoallergénique. Sa longue robe blanche nécessite beaucoup d'entretien. Généralement en bonne santé, il présente une sensibilité aux problèmes dentaires et aux shunts portosystémiques.",
-    "mainHealthRisks": ["Maladie parodontale sévère", "Shunt portosystémique", "Luxation de la rotule", "Sensibilité gastro-intestinale"],
-    "annualVetCost": { "min": 600, "max": 2000 },
-    "insuranceMonthly": { "min": 35, "max": 70 },
-    "traits": { "energy": 2, "grooming": 5, "trainability": 4, "socialWithKids": 4 }
+    "mainHealthRisks": [
+      "Maladie parodontale sévère",
+      "Shunt portosystémique",
+      "Luxation de la rotule",
+      "Sensibilité gastro-intestinale"
+    ],
+    "annualVetCost": {
+      "min": 600,
+      "max": 2000
+    },
+    "insuranceMonthly": {
+      "min": 35,
+      "max": 70
+    },
+    "traits": {
+      "energy": 2,
+      "grooming": 5,
+      "trainability": 4,
+      "socialWithKids": 4
+    }
   },
   {
     "name": "Dalmatien",
@@ -408,14 +970,36 @@
     "score": 69,
     "riskLevel": "moyen",
     "size": "grand",
-    "weight": { "min": 23, "max": 32 },
-    "lifespan": { "min": 11, "max": 13 },
+    "weight": {
+      "min": 23,
+      "max": 32
+    },
+    "lifespan": {
+      "min": 11,
+      "max": 13
+    },
     "origin": "Croatie",
     "description": "Le Dalmatien est une race athlétique et élégante facilement reconnaissable. Son PetScore modéré est influencé par une forte prévalence de surdité héréditaire et une prédisposition unique à la lithiase urinaire liée à son métabolisme particulier de l'urate.",
-    "mainHealthRisks": ["Surdité héréditaire (BAER)", "Lithiase urinaire à urate", "Allergie alimentaire", "Dysplasie de la hanche"],
-    "annualVetCost": { "min": 750, "max": 2500 },
-    "insuranceMonthly": { "min": 45, "max": 88 },
-    "traits": { "energy": 5, "grooming": 1, "trainability": 4, "socialWithKids": 4 }
+    "mainHealthRisks": [
+      "Surdité héréditaire (BAER)",
+      "Lithiase urinaire à urate",
+      "Allergie alimentaire",
+      "Dysplasie de la hanche"
+    ],
+    "annualVetCost": {
+      "min": 750,
+      "max": 2500
+    },
+    "insuranceMonthly": {
+      "min": 45,
+      "max": 88
+    },
+    "traits": {
+      "energy": 5,
+      "grooming": 1,
+      "trainability": 4,
+      "socialWithKids": 4
+    }
   },
   {
     "name": "Dobermann",
@@ -424,14 +1008,36 @@
     "score": 66,
     "riskLevel": "moyen",
     "size": "grand",
-    "weight": { "min": 30, "max": 45 },
-    "lifespan": { "min": 10, "max": 13 },
+    "weight": {
+      "min": 30,
+      "max": 45
+    },
+    "lifespan": {
+      "min": 10,
+      "max": 13
+    },
     "origin": "Allemagne",
     "description": "Le Dobermann est un chien de protection intelligent et loyal, mais ses prédispositions cardiaques méritent une attention particulière. La cardiomyopathie dilatée touche une proportion significative des Dobermanns, ce qui justifie un suivi cardiologique régulier.",
-    "mainHealthRisks": ["Cardiomyopathie dilatée (DCM)", "Wobbler syndrome", "Von Willebrand de type I", "Hypothyroïdie"],
-    "annualVetCost": { "min": 900, "max": 3000 },
-    "insuranceMonthly": { "min": 55, "max": 105 },
-    "traits": { "energy": 4, "grooming": 1, "trainability": 5, "socialWithKids": 3 }
+    "mainHealthRisks": [
+      "Cardiomyopathie dilatée (DCM)",
+      "Wobbler syndrome",
+      "Von Willebrand de type I",
+      "Hypothyroïdie"
+    ],
+    "annualVetCost": {
+      "min": 900,
+      "max": 3000
+    },
+    "insuranceMonthly": {
+      "min": 55,
+      "max": 105
+    },
+    "traits": {
+      "energy": 4,
+      "grooming": 1,
+      "trainability": 5,
+      "socialWithKids": 3
+    }
   },
   {
     "name": "Setter Irlandais",
@@ -440,14 +1046,36 @@
     "score": 78,
     "riskLevel": "moyen",
     "size": "grand",
-    "weight": { "min": 25, "max": 32 },
-    "lifespan": { "min": 11, "max": 15 },
+    "weight": {
+      "min": 25,
+      "max": 32
+    },
+    "lifespan": {
+      "min": 11,
+      "max": 15
+    },
     "origin": "Irlande",
     "description": "Le Setter Irlandais est une race élégante, joviale et énergique, appréciée des familles actives. Sa santé générale est bonne, mais il partage avec les autres grandes races certaines prédispositions aux torsions gastriques et aux problèmes articulaires.",
-    "mainHealthRisks": ["Dilatation-torsion gastrique (DTG)", "Dysplasie de la hanche", "Atrophie rétinienne progressive", "Hypothyroïdie"],
-    "annualVetCost": { "min": 700, "max": 2200 },
-    "insuranceMonthly": { "min": 42, "max": 85 },
-    "traits": { "energy": 5, "grooming": 3, "trainability": 4, "socialWithKids": 5 }
+    "mainHealthRisks": [
+      "Dilatation-torsion gastrique (DTG)",
+      "Dysplasie de la hanche",
+      "Atrophie rétinienne progressive",
+      "Hypothyroïdie"
+    ],
+    "annualVetCost": {
+      "min": 700,
+      "max": 2200
+    },
+    "insuranceMonthly": {
+      "min": 42,
+      "max": 85
+    },
+    "traits": {
+      "energy": 5,
+      "grooming": 3,
+      "trainability": 4,
+      "socialWithKids": 5
+    }
   },
   {
     "name": "Weimaraner",
@@ -456,14 +1084,36 @@
     "score": 73,
     "riskLevel": "moyen",
     "size": "grand",
-    "weight": { "min": 25, "max": 40 },
-    "lifespan": { "min": 10, "max": 13 },
+    "weight": {
+      "min": 25,
+      "max": 40
+    },
+    "lifespan": {
+      "min": 10,
+      "max": 13
+    },
     "origin": "Allemagne",
     "description": "Le Weimaraner (Braque de Weimar) est un chien de chasse polyvalent et dévoué. Sa santé est généralement bonne, mais sa profonde poitrine le prédispose à la redoutable dilatation-torsion gastrique, une urgence vétérinaire potentiellement fatale.",
-    "mainHealthRisks": ["Dilatation-torsion gastrique (DTG)", "Dysplasie de la hanche", "Hypertrophie gastrique", "Entropion"],
-    "annualVetCost": { "min": 800, "max": 2600 },
-    "insuranceMonthly": { "min": 48, "max": 95 },
-    "traits": { "energy": 5, "grooming": 1, "trainability": 4, "socialWithKids": 4 }
+    "mainHealthRisks": [
+      "Dilatation-torsion gastrique (DTG)",
+      "Dysplasie de la hanche",
+      "Hypertrophie gastrique",
+      "Entropion"
+    ],
+    "annualVetCost": {
+      "min": 800,
+      "max": 2600
+    },
+    "insuranceMonthly": {
+      "min": 48,
+      "max": 95
+    },
+    "traits": {
+      "energy": 5,
+      "grooming": 1,
+      "trainability": 4,
+      "socialWithKids": 4
+    }
   },
   {
     "name": "Bouvier Bernois",
@@ -472,14 +1122,36 @@
     "score": 58,
     "riskLevel": "élevé",
     "size": "grand",
-    "weight": { "min": 32, "max": 52 },
-    "lifespan": { "min": 7, "max": 10 },
+    "weight": {
+      "min": 32,
+      "max": 52
+    },
+    "lifespan": {
+      "min": 7,
+      "max": 10
+    },
     "origin": "Suisse",
     "description": "Le Bouvier Bernois est un chien magnifique et affectueux, particulièrement adapté au climat québécois. Malheureusement, c'est l'une des races les plus touchées par le cancer — cause principale de mortalité — et son espérance de vie courte est un défi important pour les propriétaires.",
-    "mainHealthRisks": ["Cancer (histiocytose maligne, mélanome)", "Dysplasie de la hanche et du coude", "Méningite artérite (SRMA)", "Dilatation-torsion gastrique"],
-    "annualVetCost": { "min": 1100, "max": 4000 },
-    "insuranceMonthly": { "min": 65, "max": 130 },
-    "traits": { "energy": 3, "grooming": 3, "trainability": 4, "socialWithKids": 5 }
+    "mainHealthRisks": [
+      "Cancer (histiocytose maligne, mélanome)",
+      "Dysplasie de la hanche et du coude",
+      "Méningite artérite (SRMA)",
+      "Dilatation-torsion gastrique"
+    ],
+    "annualVetCost": {
+      "min": 1100,
+      "max": 4000
+    },
+    "insuranceMonthly": {
+      "min": 65,
+      "max": 130
+    },
+    "traits": {
+      "energy": 3,
+      "grooming": 3,
+      "trainability": 4,
+      "socialWithKids": 5
+    }
   },
   {
     "name": "Shar Pei",
@@ -488,14 +1160,36 @@
     "score": 53,
     "riskLevel": "élevé",
     "size": "moyen",
-    "weight": { "min": 18, "max": 30 },
-    "lifespan": { "min": 8, "max": 12 },
+    "weight": {
+      "min": 18,
+      "max": 30
+    },
+    "lifespan": {
+      "min": 8,
+      "max": 12
+    },
     "origin": "Chine",
     "description": "Le Shar Pei est une race distinctive avec ses plis cutanés caractéristiques, mais ces mêmes plis génèrent des problèmes dermatologiques chroniques coûteux. La fièvre familiale du Shar Pei (FSF) est une condition héréditaire grave propre à la race nécessitant une prise en charge à vie.",
-    "mainHealthRisks": ["Fièvre familiale du Shar Pei (FSF / amyloïdose)", "Dermatite des plis cutanés", "Entropion sévère", "Dysplasie de la hanche"],
-    "annualVetCost": { "min": 1100, "max": 3800 },
-    "insuranceMonthly": { "min": 62, "max": 125 },
-    "traits": { "energy": 2, "grooming": 2, "trainability": 3, "socialWithKids": 3 }
+    "mainHealthRisks": [
+      "Fièvre familiale du Shar Pei (FSF / amyloïdose)",
+      "Dermatite des plis cutanés",
+      "Entropion sévère",
+      "Dysplasie de la hanche"
+    ],
+    "annualVetCost": {
+      "min": 1100,
+      "max": 3800
+    },
+    "insuranceMonthly": {
+      "min": 62,
+      "max": 125
+    },
+    "traits": {
+      "energy": 2,
+      "grooming": 2,
+      "trainability": 3,
+      "socialWithKids": 3
+    }
   },
   {
     "name": "Samoyède",
@@ -504,14 +1198,36 @@
     "score": 79,
     "riskLevel": "moyen",
     "size": "grand",
-    "weight": { "min": 16, "max": 30 },
-    "lifespan": { "min": 12, "max": 14 },
+    "weight": {
+      "min": 16,
+      "max": 30
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 14
+    },
     "origin": "Sibérie",
     "description": "Le Samoyède est une race magnifique naturellement adaptée aux hivers rigoureux du Québec. Son PetScore modéré-élevé reflète une bonne santé globale, bien que plusieurs conditions héréditaires soient à surveiller, notamment les problèmes rénaux propres à la race.",
-    "mainHealthRisks": ["Glomérulopathie du Samoyède (maladie rénale)", "Dysplasie de la hanche", "Rétinopathie progressive", "Diabète"],
-    "annualVetCost": { "min": 650, "max": 2000 },
-    "insuranceMonthly": { "min": 42, "max": 82 },
-    "traits": { "energy": 4, "grooming": 4, "trainability": 3, "socialWithKids": 5 }
+    "mainHealthRisks": [
+      "Glomérulopathie du Samoyède (maladie rénale)",
+      "Dysplasie de la hanche",
+      "Rétinopathie progressive",
+      "Diabète"
+    ],
+    "annualVetCost": {
+      "min": 650,
+      "max": 2000
+    },
+    "insuranceMonthly": {
+      "min": 42,
+      "max": 82
+    },
+    "traits": {
+      "energy": 4,
+      "grooming": 4,
+      "trainability": 3,
+      "socialWithKids": 5
+    }
   },
   {
     "name": "Terre-Neuve",
@@ -520,14 +1236,36 @@
     "score": 67,
     "riskLevel": "moyen",
     "size": "grand",
-    "weight": { "min": 45, "max": 70 },
-    "lifespan": { "min": 8, "max": 10 },
+    "weight": {
+      "min": 45,
+      "max": 70
+    },
+    "lifespan": {
+      "min": 8,
+      "max": 10
+    },
     "origin": "Canada",
     "description": "Race emblématique du Canada, le Terre-Neuve est un géant doux et protecteur. Sa taille imposante et son espérance de vie plus courte (commune aux races géantes) influencent son PetScore, et les frais vétérinaires proportionnels à son gabarit sont conséquents.",
-    "mainHealthRisks": ["Cardiomyopathie et sténose sous-aortique (SAS)", "Dysplasie de la hanche et du coude", "Dilatation-torsion gastrique", "Kystes et tumeurs cutanées"],
-    "annualVetCost": { "min": 900, "max": 3000 },
-    "insuranceMonthly": { "min": 55, "max": 110 },
-    "traits": { "energy": 2, "grooming": 4, "trainability": 4, "socialWithKids": 5 }
+    "mainHealthRisks": [
+      "Cardiomyopathie et sténose sous-aortique (SAS)",
+      "Dysplasie de la hanche et du coude",
+      "Dilatation-torsion gastrique",
+      "Kystes et tumeurs cutanées"
+    ],
+    "annualVetCost": {
+      "min": 900,
+      "max": 3000
+    },
+    "insuranceMonthly": {
+      "min": 55,
+      "max": 110
+    },
+    "traits": {
+      "energy": 2,
+      "grooming": 4,
+      "trainability": 4,
+      "socialWithKids": 5
+    }
   },
   {
     "name": "Jack Russell Terrier",
@@ -536,14 +1274,36 @@
     "score": 85,
     "riskLevel": "faible",
     "size": "petit",
-    "weight": { "min": 5, "max": 8 },
-    "lifespan": { "min": 13, "max": 16 },
+    "weight": {
+      "min": 5,
+      "max": 8
+    },
+    "lifespan": {
+      "min": 13,
+      "max": 16
+    },
     "origin": "Angleterre",
     "description": "Le Jack Russell Terrier est l'une des races les plus robustes et les plus longévives. Élevé à l'origine pour la chasse au renard, il est énergique et tenace. Son excellent PetScore reflète une constitution solide et l'absence de maladies héréditaires graves.",
-    "mainHealthRisks": ["Luxation de la rotule", "Cataracte héréditaire", "Ataxie spino-cérébelleuse (SCA)", "Surdité congénitale"],
-    "annualVetCost": { "min": 400, "max": 1400 },
-    "insuranceMonthly": { "min": 30, "max": 60 },
-    "traits": { "energy": 5, "grooming": 2, "trainability": 3, "socialWithKids": 3 }
+    "mainHealthRisks": [
+      "Luxation de la rotule",
+      "Cataracte héréditaire",
+      "Ataxie spino-cérébelleuse (SCA)",
+      "Surdité congénitale"
+    ],
+    "annualVetCost": {
+      "min": 400,
+      "max": 1400
+    },
+    "insuranceMonthly": {
+      "min": 30,
+      "max": 60
+    },
+    "traits": {
+      "energy": 5,
+      "grooming": 2,
+      "trainability": 3,
+      "socialWithKids": 3
+    }
   },
   {
     "name": "West Highland White Terrier",
@@ -552,14 +1312,36 @@
     "score": 74,
     "riskLevel": "moyen",
     "size": "petit",
-    "weight": { "min": 6, "max": 10 },
-    "lifespan": { "min": 12, "max": 16 },
+    "weight": {
+      "min": 6,
+      "max": 10
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 16
+    },
     "origin": "Écosse",
     "description": "Le Westie est un terrier robuste et joyeux avec un pelage blanc distinctif. Bien que généralement en bonne santé, il est particulièrement prédisposé à des affections cutanées chroniques et à la dermatite atopique, qui peuvent engendrer des coûts récurrents importants.",
-    "mainHealthRisks": ["Dermatite atopique sévère (syndrome Westie)", "Fibrose pulmonaire idiopathique", "Luxation de la rotule", "Ostéopathie cranio-mandibulaire (CMO)"],
-    "annualVetCost": { "min": 650, "max": 2200 },
-    "insuranceMonthly": { "min": 38, "max": 75 },
-    "traits": { "energy": 4, "grooming": 3, "trainability": 3, "socialWithKids": 3 }
+    "mainHealthRisks": [
+      "Dermatite atopique sévère (syndrome Westie)",
+      "Fibrose pulmonaire idiopathique",
+      "Luxation de la rotule",
+      "Ostéopathie cranio-mandibulaire (CMO)"
+    ],
+    "annualVetCost": {
+      "min": 650,
+      "max": 2200
+    },
+    "insuranceMonthly": {
+      "min": 38,
+      "max": 75
+    },
+    "traits": {
+      "energy": 4,
+      "grooming": 3,
+      "trainability": 3,
+      "socialWithKids": 3
+    }
   },
   {
     "name": "Bichon Havanais",
@@ -568,14 +1350,35 @@
     "score": 82,
     "riskLevel": "faible",
     "size": "petit",
-    "weight": { "min": 3, "max": 6 },
-    "lifespan": { "min": 12, "max": 16 },
+    "weight": {
+      "min": 3,
+      "max": 6
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 16
+    },
     "origin": "Cuba",
     "description": "Le Bichon Havanais est un chien de compagnie joyeux, hypoallergénique et particulièrement sociable. Sa santé robuste et sa longévité lui permettent d'afficher un excellent PetScore. Race idéale pour la vie en appartement au Québec.",
-    "mainHealthRisks": ["Cataracte héréditaire", "Luxation de la rotule", "Atrophie rétinienne progressive"],
-    "annualVetCost": { "min": 450, "max": 1400 },
-    "insuranceMonthly": { "min": 30, "max": 60 },
-    "traits": { "energy": 3, "grooming": 4, "trainability": 4, "socialWithKids": 5 }
+    "mainHealthRisks": [
+      "Cataracte héréditaire",
+      "Luxation de la rotule",
+      "Atrophie rétinienne progressive"
+    ],
+    "annualVetCost": {
+      "min": 450,
+      "max": 1400
+    },
+    "insuranceMonthly": {
+      "min": 30,
+      "max": 60
+    },
+    "traits": {
+      "energy": 3,
+      "grooming": 4,
+      "trainability": 4,
+      "socialWithKids": 5
+    }
   },
   {
     "name": "Basenji",
@@ -584,14 +1387,35 @@
     "score": 83,
     "riskLevel": "faible",
     "size": "moyen",
-    "weight": { "min": 9, "max": 12 },
-    "lifespan": { "min": 13, "max": 16 },
+    "weight": {
+      "min": 9,
+      "max": 12
+    },
+    "lifespan": {
+      "min": 13,
+      "max": 16
+    },
     "origin": "République du Congo",
     "description": "Le Basenji est une race ancienne et atypique — il ne jappe pas, mais émet un son unique appelé le baroo. Hypoallergénique et propre comme un chat, il affiche un excellent PetScore grâce à sa robustesse exceptionnelle et sa longévité remarquable.",
-    "mainHealthRisks": ["Syndrome de Fanconi (maladie rénale héréditaire)", "Atrophie rétinienne progressive", "Hernie ombilicale"],
-    "annualVetCost": { "min": 500, "max": 1500 },
-    "insuranceMonthly": { "min": 33, "max": 65 },
-    "traits": { "energy": 4, "grooming": 1, "trainability": 2, "socialWithKids": 3 }
+    "mainHealthRisks": [
+      "Syndrome de Fanconi (maladie rénale héréditaire)",
+      "Atrophie rétinienne progressive",
+      "Hernie ombilicale"
+    ],
+    "annualVetCost": {
+      "min": 500,
+      "max": 1500
+    },
+    "insuranceMonthly": {
+      "min": 33,
+      "max": 65
+    },
+    "traits": {
+      "energy": 4,
+      "grooming": 1,
+      "trainability": 2,
+      "socialWithKids": 3
+    }
   },
   {
     "name": "Whippet",
@@ -600,14 +1424,35 @@
     "score": 87,
     "riskLevel": "faible",
     "size": "moyen",
-    "weight": { "min": 11, "max": 19 },
-    "lifespan": { "min": 12, "max": 15 },
+    "weight": {
+      "min": 11,
+      "max": 19
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 15
+    },
     "origin": "Angleterre",
     "description": "Le Whippet est l'une des races les plus saines au monde, avec un PetScore parmi les plus élevés. Élégant lévrier de taille moyenne, il est doté d'une excellente constitution naturelle, d'une longévité remarquable et de peu de maladies héréditaires graves.",
-    "mainHealthRisks": ["Sensibilité aux anesthésiants (faible masse graisseuse)", "Hypothyroïdie légère", "Arythmies cardiaques bénignes"],
-    "annualVetCost": { "min": 400, "max": 1300 },
-    "insuranceMonthly": { "min": 28, "max": 58 },
-    "traits": { "energy": 4, "grooming": 1, "trainability": 3, "socialWithKids": 4 }
+    "mainHealthRisks": [
+      "Sensibilité aux anesthésiants (faible masse graisseuse)",
+      "Hypothyroïdie légère",
+      "Arythmies cardiaques bénignes"
+    ],
+    "annualVetCost": {
+      "min": 400,
+      "max": 1300
+    },
+    "insuranceMonthly": {
+      "min": 28,
+      "max": 58
+    },
+    "traits": {
+      "energy": 4,
+      "grooming": 1,
+      "trainability": 3,
+      "socialWithKids": 4
+    }
   },
   {
     "name": "Rhodesian Ridgeback",
@@ -616,14 +1461,36 @@
     "score": 71,
     "riskLevel": "moyen",
     "size": "grand",
-    "weight": { "min": 29, "max": 41 },
-    "lifespan": { "min": 10, "max": 12 },
+    "weight": {
+      "min": 29,
+      "max": 41
+    },
+    "lifespan": {
+      "min": 10,
+      "max": 12
+    },
     "origin": "Zimbabwe",
     "description": "Le Rhodesian Ridgeback est un chien athlétique et courageux, originellement sélectionné pour la chasse en Afrique. Robuste par nature, son PetScore modéré est principalement affecté par une prédisposition au dermoid sinus héréditaire et aux problèmes thyroïdiens.",
-    "mainHealthRisks": ["Dermoid sinus héréditaire", "Hypothyroïdie", "Dysplasie de la hanche", "Dilatation-torsion gastrique"],
-    "annualVetCost": { "min": 750, "max": 2400 },
-    "insuranceMonthly": { "min": 46, "max": 90 },
-    "traits": { "energy": 4, "grooming": 1, "trainability": 4, "socialWithKids": 4 }
+    "mainHealthRisks": [
+      "Dermoid sinus héréditaire",
+      "Hypothyroïdie",
+      "Dysplasie de la hanche",
+      "Dilatation-torsion gastrique"
+    ],
+    "annualVetCost": {
+      "min": 750,
+      "max": 2400
+    },
+    "insuranceMonthly": {
+      "min": 46,
+      "max": 90
+    },
+    "traits": {
+      "energy": 4,
+      "grooming": 1,
+      "trainability": 4,
+      "socialWithKids": 4
+    }
   },
   {
     "name": "Malamute d'Alaska",
@@ -632,14 +1499,36 @@
     "score": 76,
     "riskLevel": "moyen",
     "size": "grand",
-    "weight": { "min": 34, "max": 43 },
-    "lifespan": { "min": 10, "max": 14 },
+    "weight": {
+      "min": 34,
+      "max": 43
+    },
+    "lifespan": {
+      "min": 10,
+      "max": 14
+    },
     "origin": "Alaska (États-Unis)",
     "description": "Le Malamute d'Alaska est une race imposante naturellement adaptée aux conditions nordiques du Québec. Robuste et endurant, il présente un bon PetScore global, bien que sa taille et son énergie intense impliquent des coûts vétérinaires plus élevés que la moyenne.",
-    "mainHealthRisks": ["Dysplasie de la hanche", "Neuropathie héréditaire du Malamute (HPN)", "Polyneuropathie", "Hypothyroïdie"],
-    "annualVetCost": { "min": 750, "max": 2400 },
-    "insuranceMonthly": { "min": 48, "max": 92 },
-    "traits": { "energy": 5, "grooming": 3, "trainability": 2, "socialWithKids": 4 }
+    "mainHealthRisks": [
+      "Dysplasie de la hanche",
+      "Neuropathie héréditaire du Malamute (HPN)",
+      "Polyneuropathie",
+      "Hypothyroïdie"
+    ],
+    "annualVetCost": {
+      "min": 750,
+      "max": 2400
+    },
+    "insuranceMonthly": {
+      "min": 48,
+      "max": 92
+    },
+    "traits": {
+      "energy": 5,
+      "grooming": 3,
+      "trainability": 2,
+      "socialWithKids": 4
+    }
   },
   {
     "name": "Cane Corso",
@@ -648,14 +1537,36 @@
     "score": 64,
     "riskLevel": "moyen",
     "size": "grand",
-    "weight": { "min": 40, "max": 60 },
-    "lifespan": { "min": 9, "max": 12 },
+    "weight": {
+      "min": 40,
+      "max": 60
+    },
+    "lifespan": {
+      "min": 9,
+      "max": 12
+    },
     "origin": "Italie",
     "description": "Le Cane Corso est un molosse imposant et protecteur, issu des dogues romains antiques. Son PetScore modéré reflète les risques communs aux grandes races et son espérance de vie plus courte. Un propriétaire expérimenté et un suivi vétérinaire rigoureux sont indispensables.",
-    "mainHealthRisks": ["Dysplasie de la hanche et du coude", "Entropion et ectropion", "Dilatation-torsion gastrique", "Cardiomyopathie"],
-    "annualVetCost": { "min": 1000, "max": 3200 },
-    "insuranceMonthly": { "min": 60, "max": 115 },
-    "traits": { "energy": 3, "grooming": 1, "trainability": 4, "socialWithKids": 3 }
+    "mainHealthRisks": [
+      "Dysplasie de la hanche et du coude",
+      "Entropion et ectropion",
+      "Dilatation-torsion gastrique",
+      "Cardiomyopathie"
+    ],
+    "annualVetCost": {
+      "min": 1000,
+      "max": 3200
+    },
+    "insuranceMonthly": {
+      "min": 60,
+      "max": 115
+    },
+    "traits": {
+      "energy": 3,
+      "grooming": 1,
+      "trainability": 4,
+      "socialWithKids": 3
+    }
   },
   {
     "name": "Saint-Bernard",
@@ -664,14 +1575,36 @@
     "score": 61,
     "riskLevel": "élevé",
     "size": "grand",
-    "weight": { "min": 55, "max": 90 },
-    "lifespan": { "min": 8, "max": 10 },
+    "weight": {
+      "min": 55,
+      "max": 90
+    },
+    "lifespan": {
+      "min": 8,
+      "max": 10
+    },
     "origin": "Suisse",
     "description": "Le Saint-Bernard est un géant bienveillant et patient, icône des montagnes alpines. Comme beaucoup de races géantes, son espérance de vie courte et ses nombreuses prédispositions articulaires et cardiaques affectent significativement son PetScore.",
-    "mainHealthRisks": ["Dysplasie de la hanche et du coude", "Dilatation-torsion gastrique", "Ectropion et entropion", "Ostéosarcome"],
-    "annualVetCost": { "min": 1200, "max": 4000 },
-    "insuranceMonthly": { "min": 68, "max": 135 },
-    "traits": { "energy": 2, "grooming": 3, "trainability": 3, "socialWithKids": 5 }
+    "mainHealthRisks": [
+      "Dysplasie de la hanche et du coude",
+      "Dilatation-torsion gastrique",
+      "Ectropion et entropion",
+      "Ostéosarcome"
+    ],
+    "annualVetCost": {
+      "min": 1200,
+      "max": 4000
+    },
+    "insuranceMonthly": {
+      "min": 68,
+      "max": 135
+    },
+    "traits": {
+      "energy": 2,
+      "grooming": 3,
+      "trainability": 3,
+      "socialWithKids": 5
+    }
   },
   {
     "name": "Chow-Chow",
@@ -680,14 +1613,36 @@
     "score": 67,
     "riskLevel": "moyen",
     "size": "moyen",
-    "weight": { "min": 20, "max": 35 },
-    "lifespan": { "min": 9, "max": 15 },
+    "weight": {
+      "min": 20,
+      "max": 35
+    },
+    "lifespan": {
+      "min": 9,
+      "max": 15
+    },
     "origin": "Chine",
     "description": "Le Chow-Chow est une race ancienne au caractère indépendant et à l'allure de lion. Son PetScore modéré est influencé par ses prédispositions aux maladies auto-immunes et oculaires. Sa double fourrure dense s'avère particulièrement adaptée aux hivers québécois.",
-    "mainHealthRisks": ["Entropion et problèmes oculaires", "Dysplasie de la hanche", "Pemphigus (maladie auto-immune)", "Hypothyroïdie"],
-    "annualVetCost": { "min": 850, "max": 2600 },
-    "insuranceMonthly": { "min": 50, "max": 95 },
-    "traits": { "energy": 2, "grooming": 4, "trainability": 2, "socialWithKids": 2 }
+    "mainHealthRisks": [
+      "Entropion et problèmes oculaires",
+      "Dysplasie de la hanche",
+      "Pemphigus (maladie auto-immune)",
+      "Hypothyroïdie"
+    ],
+    "annualVetCost": {
+      "min": 850,
+      "max": 2600
+    },
+    "insuranceMonthly": {
+      "min": 50,
+      "max": 95
+    },
+    "traits": {
+      "energy": 2,
+      "grooming": 4,
+      "trainability": 2,
+      "socialWithKids": 2
+    }
   },
   {
     "name": "Lhassa Apso",
@@ -696,14 +1651,36 @@
     "score": 73,
     "riskLevel": "moyen",
     "size": "petit",
-    "weight": { "min": 5, "max": 8 },
-    "lifespan": { "min": 12, "max": 18 },
+    "weight": {
+      "min": 5,
+      "max": 8
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 18
+    },
     "origin": "Tibet",
     "description": "Le Lhassa Apso est une race ancienne aux remarquables capacités de longévité — certains individus dépassent 20 ans. Gardien traditionnel des monastères tibétains, il est généralement robuste, bien que des conditions rénales et oculaires soient à surveiller.",
-    "mainHealthRisks": ["Maladie rénale progressive héréditaire", "Atrophie rétinienne progressive", "Luxation de la rotule", "Allergies cutanées"],
-    "annualVetCost": { "min": 600, "max": 2000 },
-    "insuranceMonthly": { "min": 36, "max": 72 },
-    "traits": { "energy": 2, "grooming": 4, "trainability": 3, "socialWithKids": 3 }
+    "mainHealthRisks": [
+      "Maladie rénale progressive héréditaire",
+      "Atrophie rétinienne progressive",
+      "Luxation de la rotule",
+      "Allergies cutanées"
+    ],
+    "annualVetCost": {
+      "min": 600,
+      "max": 2000
+    },
+    "insuranceMonthly": {
+      "min": 36,
+      "max": 72
+    },
+    "traits": {
+      "energy": 2,
+      "grooming": 4,
+      "trainability": 3,
+      "socialWithKids": 3
+    }
   },
   {
     "name": "Épagneul Breton",
@@ -712,14 +1689,35 @@
     "score": 84,
     "riskLevel": "faible",
     "size": "moyen",
-    "weight": { "min": 13, "max": 18 },
-    "lifespan": { "min": 12, "max": 15 },
+    "weight": {
+      "min": 13,
+      "max": 18
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 15
+    },
     "origin": "France",
     "description": "L'Épagneul Breton est un chien de chasse polyvalent, très populaire dans les régions rurales du Québec. Sa constitution robuste et sa santé générale excellente lui valent un PetScore élevé. Il est idéal pour les familles actives ou les chasseurs amateurs.",
-    "mainHealthRisks": ["Dysplasie de la hanche (légère)", "Otites chroniques", "Épilepsie idiopathique"],
-    "annualVetCost": { "min": 500, "max": 1500 },
-    "insuranceMonthly": { "min": 33, "max": 65 },
-    "traits": { "energy": 5, "grooming": 2, "trainability": 5, "socialWithKids": 5 }
+    "mainHealthRisks": [
+      "Dysplasie de la hanche (légère)",
+      "Otites chroniques",
+      "Épilepsie idiopathique"
+    ],
+    "annualVetCost": {
+      "min": 500,
+      "max": 1500
+    },
+    "insuranceMonthly": {
+      "min": 33,
+      "max": 65
+    },
+    "traits": {
+      "energy": 5,
+      "grooming": 2,
+      "trainability": 5,
+      "socialWithKids": 5
+    }
   },
   {
     "name": "Scottish Terrier",
@@ -728,14 +1726,36 @@
     "score": 69,
     "riskLevel": "moyen",
     "size": "petit",
-    "weight": { "min": 8, "max": 11 },
-    "lifespan": { "min": 11, "max": 13 },
+    "weight": {
+      "min": 8,
+      "max": 11
+    },
+    "lifespan": {
+      "min": 11,
+      "max": 13
+    },
     "origin": "Écosse",
     "description": "Le Scottish Terrier (Scottie) est un chien au caractère affirmé et indépendant. Sa longévité modérée et une prédisposition héréditaire notable au cancer, notamment le carcinome de la vessie, influencent son PetScore de manière significative.",
-    "mainHealthRisks": ["Cancer de la vessie (carcinome à cellules transitionnelles)", "Scottie cramp (trouble neurologique)", "Von Willebrand de type III", "Hypoadrénocorticisme"],
-    "annualVetCost": { "min": 700, "max": 2400 },
-    "insuranceMonthly": { "min": 42, "max": 82 },
-    "traits": { "energy": 3, "grooming": 3, "trainability": 3, "socialWithKids": 3 }
+    "mainHealthRisks": [
+      "Cancer de la vessie (carcinome à cellules transitionnelles)",
+      "Scottie cramp (trouble neurologique)",
+      "Von Willebrand de type III",
+      "Hypoadrénocorticisme"
+    ],
+    "annualVetCost": {
+      "min": 700,
+      "max": 2400
+    },
+    "insuranceMonthly": {
+      "min": 42,
+      "max": 82
+    },
+    "traits": {
+      "energy": 3,
+      "grooming": 3,
+      "trainability": 3,
+      "socialWithKids": 3
+    }
   },
   {
     "name": "Berger Belge Malinois",
@@ -744,14 +1764,35 @@
     "score": 86,
     "riskLevel": "faible",
     "size": "grand",
-    "weight": { "min": 20, "max": 30 },
-    "lifespan": { "min": 12, "max": 14 },
+    "weight": {
+      "min": 20,
+      "max": 30
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 14
+    },
     "origin": "Belgique",
     "description": "Le Malinois est la race de chien de travail par excellence — police, armée, recherche et sauvetage. Sa constitution athlétique et sa santé robuste lui valent un PetScore élevé. Ses besoins en stimulation mentale et physique sont parmi les plus intenses de toutes les races.",
-    "mainHealthRisks": ["Dysplasie de la hanche (légère)", "Épilepsie idiopathique", "Sensibilité aux médicaments (MDR1)"],
-    "annualVetCost": { "min": 600, "max": 1800 },
-    "insuranceMonthly": { "min": 38, "max": 75 },
-    "traits": { "energy": 5, "grooming": 2, "trainability": 5, "socialWithKids": 3 }
+    "mainHealthRisks": [
+      "Dysplasie de la hanche (légère)",
+      "Épilepsie idiopathique",
+      "Sensibilité aux médicaments (MDR1)"
+    ],
+    "annualVetCost": {
+      "min": 600,
+      "max": 1800
+    },
+    "insuranceMonthly": {
+      "min": 38,
+      "max": 75
+    },
+    "traits": {
+      "energy": 5,
+      "grooming": 2,
+      "trainability": 5,
+      "socialWithKids": 3
+    }
   },
   {
     "name": "Dogue Allemand",
@@ -760,14 +1801,36 @@
     "score": 53,
     "riskLevel": "élevé",
     "size": "grand",
-    "weight": { "min": 50, "max": 90 },
-    "lifespan": { "min": 6, "max": 10 },
+    "weight": {
+      "min": 50,
+      "max": 90
+    },
+    "lifespan": {
+      "min": 6,
+      "max": 10
+    },
     "origin": "Allemagne",
     "description": "Le Dogue Allemand (Great Dane) est l'une des plus grandes races au monde, avec une espérance de vie malheureusement très courte. Les frais vétérinaires sont conséquents et la dilatation-torsion gastrique représente un risque mortel fréquent chez cette race géante.",
-    "mainHealthRisks": ["Dilatation-torsion gastrique (DTG)", "Cardiomyopathie dilatée", "Ostéosarcome", "Wobbler syndrome"],
-    "annualVetCost": { "min": 1300, "max": 5000 },
-    "insuranceMonthly": { "min": 72, "max": 145 },
-    "traits": { "energy": 3, "grooming": 1, "trainability": 4, "socialWithKids": 4 }
+    "mainHealthRisks": [
+      "Dilatation-torsion gastrique (DTG)",
+      "Cardiomyopathie dilatée",
+      "Ostéosarcome",
+      "Wobbler syndrome"
+    ],
+    "annualVetCost": {
+      "min": 1300,
+      "max": 5000
+    },
+    "insuranceMonthly": {
+      "min": 72,
+      "max": 145
+    },
+    "traits": {
+      "energy": 3,
+      "grooming": 1,
+      "trainability": 4,
+      "socialWithKids": 4
+    }
   },
   {
     "name": "Akita Inu",
@@ -776,14 +1839,36 @@
     "score": 68,
     "riskLevel": "moyen",
     "size": "grand",
-    "weight": { "min": 32, "max": 45 },
-    "lifespan": { "min": 10, "max": 13 },
+    "weight": {
+      "min": 32,
+      "max": 45
+    },
+    "lifespan": {
+      "min": 10,
+      "max": 13
+    },
     "origin": "Japon",
     "description": "L'Akita Inu est une race nationale japonaise symbole de loyauté et de courage. Son caractère indépendant demande un propriétaire expérimenté. Bien qu'en santé globalement, sa prédisposition à certaines maladies auto-immunes nécessite une vigilance particulière.",
-    "mainHealthRisks": ["Syndrome uvéodermatologique (VKH)", "Pemphigus (maladie auto-immune)", "Hypothyroïdie", "Dysplasie de la hanche"],
-    "annualVetCost": { "min": 850, "max": 2700 },
-    "insuranceMonthly": { "min": 52, "max": 100 },
-    "traits": { "energy": 3, "grooming": 3, "trainability": 3, "socialWithKids": 2 }
+    "mainHealthRisks": [
+      "Syndrome uvéodermatologique (VKH)",
+      "Pemphigus (maladie auto-immune)",
+      "Hypothyroïdie",
+      "Dysplasie de la hanche"
+    ],
+    "annualVetCost": {
+      "min": 850,
+      "max": 2700
+    },
+    "insuranceMonthly": {
+      "min": 52,
+      "max": 100
+    },
+    "traits": {
+      "energy": 3,
+      "grooming": 3,
+      "trainability": 3,
+      "socialWithKids": 2
+    }
   },
   {
     "name": "Spitz Finlandais",
@@ -792,14 +1877,35 @@
     "score": 81,
     "riskLevel": "faible",
     "size": "moyen",
-    "weight": { "min": 7, "max": 14 },
-    "lifespan": { "min": 12, "max": 15 },
+    "weight": {
+      "min": 7,
+      "max": 14
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 15
+    },
     "origin": "Finlande",
     "description": "Le Spitz Finlandais est une race robuste et alerte, peu connue au Québec mais excellente pour les familles actives. Sa santé générale est remarquablement bonne, avec peu de maladies héréditaires graves. Son pelage dense l'adapte parfaitement aux hivers nordiques.",
-    "mainHealthRisks": ["Dysplasie de la hanche (légère)", "Épilepsie idiopathique", "Cataracte héréditaire"],
-    "annualVetCost": { "min": 500, "max": 1500 },
-    "insuranceMonthly": { "min": 33, "max": 65 },
-    "traits": { "energy": 4, "grooming": 3, "trainability": 3, "socialWithKids": 4 }
+    "mainHealthRisks": [
+      "Dysplasie de la hanche (légère)",
+      "Épilepsie idiopathique",
+      "Cataracte héréditaire"
+    ],
+    "annualVetCost": {
+      "min": 500,
+      "max": 1500
+    },
+    "insuranceMonthly": {
+      "min": 33,
+      "max": 65
+    },
+    "traits": {
+      "energy": 4,
+      "grooming": 3,
+      "trainability": 3,
+      "socialWithKids": 4
+    }
   },
   {
     "name": "Coton de Tuléar",
@@ -808,13 +1914,553 @@
     "score": 83,
     "riskLevel": "faible",
     "size": "petit",
-    "weight": { "min": 3.5, "max": 6 },
-    "lifespan": { "min": 13, "max": 16 },
+    "weight": {
+      "min": 3.5,
+      "max": 6
+    },
+    "lifespan": {
+      "min": 13,
+      "max": 16
+    },
     "origin": "Madagascar",
     "description": "Le Coton de Tuléar est un petit chien au pelage cotonneux unique, joyeux et hypoallergénique. Sa santé robuste et sa longévité élevée lui valent un excellent PetScore. Peu répandu mais très apprécié, il s'adapte parfaitement à la vie en appartement au Québec.",
-    "mainHealthRisks": ["Luxation de la rotule", "Atrophie rétinienne progressive", "Maladies dentaires"],
-    "annualVetCost": { "min": 400, "max": 1300 },
-    "insuranceMonthly": { "min": 28, "max": 58 },
-    "traits": { "energy": 3, "grooming": 5, "trainability": 4, "socialWithKids": 5 }
+    "mainHealthRisks": [
+      "Luxation de la rotule",
+      "Atrophie rétinienne progressive",
+      "Maladies dentaires"
+    ],
+    "annualVetCost": {
+      "min": 400,
+      "max": 1300
+    },
+    "insuranceMonthly": {
+      "min": 28,
+      "max": 58
+    },
+    "traits": {
+      "energy": 3,
+      "grooming": 5,
+      "trainability": 4,
+      "socialWithKids": 5
+    }
+  },
+  {
+    "name": "Vizsla",
+    "slug": "vizsla",
+    "popularityRank": 51,
+    "score": 78,
+    "riskLevel": "moyen",
+    "size": "grand",
+    "weight": {
+      "min": 20,
+      "max": 30
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 15
+    },
+    "origin": "Hongrie",
+    "description": "Le Vizsla est un chien de chasse hongrois au pelage roux doré, réputé pour son énergie débordante et sa grande affection envers sa famille. Athlétique et intelligent, il a besoin d'exercice intense quotidien. Sa santé relativement robuste lui vaut un bon PetScore, bien qu'il soit sensible à quelques conditions héréditaires.",
+    "mainHealthRisks": [
+      "Dysplasie de la hanche",
+      "Épilepsie idiopathique",
+      "Hypothyroïdie",
+      "Lymphosarcome"
+    ],
+    "healthRisksWithCosts": [
+      {
+        "name": "Dysplasie de la hanche",
+        "estimatedCost": "2 000 – 6 000 $"
+      },
+      {
+        "name": "Épilepsie idiopathique (médication)",
+        "estimatedCost": "500 – 2 000 $ / an"
+      },
+      {
+        "name": "Hypothyroïdie",
+        "estimatedCost": "300 – 1 000 $ / an"
+      }
+    ],
+    "annualVetCost": {
+      "min": 600,
+      "max": 1800
+    },
+    "insuranceMonthly": {
+      "min": 38,
+      "max": 78
+    },
+    "traits": {
+      "energy": 5,
+      "grooming": 1,
+      "trainability": 5,
+      "socialWithKids": 5
+    }
+  },
+  {
+    "name": "Épagneul Springer Anglais",
+    "slug": "epagneul-springer-anglais",
+    "popularityRank": 52,
+    "score": 76,
+    "riskLevel": "moyen",
+    "size": "moyen",
+    "weight": {
+      "min": 18,
+      "max": 25
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 14
+    },
+    "origin": "Angleterre",
+    "description": "L'Épagneul Springer Anglais est un chien de chasse polyvalent, joyeux et énergique. Excellent avec les familles et les enfants, il a besoin d'exercice régulier et de stimulation mentale. Son poil mi-long nécessite un entretien modéré. Sa santé est généralement bonne, avec quelques prédispositions héréditaires connues.",
+    "mainHealthRisks": [
+      "Otites chroniques",
+      "Dysplasie de la hanche",
+      "Atrophie rétinienne progressive",
+      "Rage du Springer (rares cas)"
+    ],
+    "healthRisksWithCosts": [
+      {
+        "name": "Otites chroniques (récurrentes)",
+        "estimatedCost": "300 – 1 500 $ / an"
+      },
+      {
+        "name": "Dysplasie de la hanche",
+        "estimatedCost": "2 000 – 6 000 $"
+      },
+      {
+        "name": "Atrophie rétinienne progressive",
+        "estimatedCost": "800 – 2 500 $"
+      }
+    ],
+    "annualVetCost": {
+      "min": 600,
+      "max": 2000
+    },
+    "insuranceMonthly": {
+      "min": 40,
+      "max": 82
+    },
+    "traits": {
+      "energy": 4,
+      "grooming": 3,
+      "trainability": 5,
+      "socialWithKids": 5
+    }
+  },
+  {
+    "name": "Labradoodle",
+    "slug": "labradoodle",
+    "popularityRank": 53,
+    "score": 74,
+    "riskLevel": "moyen",
+    "size": "grand",
+    "weight": {
+      "min": 23,
+      "max": 35
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 14
+    },
+    "origin": "Australie",
+    "description": "Issu du croisement Labrador × Caniche, le Labradoodle est populaire pour son tempérament sociable et son pelage souvent hypoallergénique. Très apprécié des familles québécoises, il hérite des qualités des deux races mais peut aussi en hériter les problèmes de santé. Les générations F1 varient beaucoup en tempérament et en pelage.",
+    "mainHealthRisks": [
+      "Dysplasie de la hanche",
+      "Dysplasie du coude",
+      "Otites (pelage bouclé)",
+      "Maladies héréditaires des races parentes"
+    ],
+    "healthRisksWithCosts": [
+      {
+        "name": "Dysplasie de la hanche",
+        "estimatedCost": "2 000 – 6 000 $"
+      },
+      {
+        "name": "Dysplasie du coude",
+        "estimatedCost": "1 500 – 5 000 $"
+      },
+      {
+        "name": "Otites chroniques",
+        "estimatedCost": "300 – 1 500 $ / an"
+      }
+    ],
+    "annualVetCost": {
+      "min": 700,
+      "max": 2200
+    },
+    "insuranceMonthly": {
+      "min": 42,
+      "max": 90
+    },
+    "traits": {
+      "energy": 4,
+      "grooming": 4,
+      "trainability": 5,
+      "socialWithKids": 5
+    }
+  },
+  {
+    "name": "Goldendoodle",
+    "slug": "goldendoodle",
+    "popularityRank": 54,
+    "score": 72,
+    "riskLevel": "moyen",
+    "size": "grand",
+    "weight": {
+      "min": 20,
+      "max": 35
+    },
+    "lifespan": {
+      "min": 10,
+      "max": 15
+    },
+    "origin": "États-Unis",
+    "description": "Croisement Golden Retriever × Caniche, le Goldendoodle est une des races hybrides les plus populaires au Québec. Son pelage souvent bouclé et hypoallergénique, combiné à un tempérament doux et affectueux, en fait un chien de famille apprécié. La taille, le pelage et le tempérament varient selon la génération (F1, F1b, F2) et la taille du Caniche parent.",
+    "mainHealthRisks": [
+      "Cancer (héritage Golden)",
+      "Dysplasie de la hanche",
+      "Hypothyroïdie",
+      "Otites chroniques"
+    ],
+    "healthRisksWithCosts": [
+      {
+        "name": "Cancer (héritage Golden)",
+        "estimatedCost": "5 000 – 18 000 $"
+      },
+      {
+        "name": "Dysplasie de la hanche",
+        "estimatedCost": "2 000 – 6 000 $"
+      },
+      {
+        "name": "Hypothyroïdie",
+        "estimatedCost": "300 – 1 000 $ / an"
+      }
+    ],
+    "annualVetCost": {
+      "min": 700,
+      "max": 2500
+    },
+    "insuranceMonthly": {
+      "min": 45,
+      "max": 95
+    },
+    "traits": {
+      "energy": 4,
+      "grooming": 4,
+      "trainability": 5,
+      "socialWithKids": 5
+    }
+  },
+  {
+    "name": "Leonberg",
+    "slug": "leonberg",
+    "popularityRank": 55,
+    "score": 62,
+    "riskLevel": "élevé",
+    "size": "grand",
+    "weight": {
+      "min": 41,
+      "max": 77
+    },
+    "lifespan": {
+      "min": 8,
+      "max": 10
+    },
+    "origin": "Allemagne",
+    "description": "Le Leonberg est un géant impressionnant issu du croisement Terre-Neuve, Saint-Bernard et Chow-Chow, au pelage lion magnifique. Doux et affectueux malgré sa taille imposante, il est excellent avec les enfants. Sa courte espérance de vie et ses coûts vétérinaires élevés pèsent sur son PetScore, mais ses propriétaires lui vouent une passion indéfectible.",
+    "mainHealthRisks": [
+      "Dysplasie de la hanche",
+      "Polyneuropathie du Leonberg (LPN)",
+      "Dilatation-torsion gastrique",
+      "Ostéosarcome"
+    ],
+    "healthRisksWithCosts": [
+      {
+        "name": "Dysplasie de la hanche",
+        "estimatedCost": "3 000 – 8 000 $"
+      },
+      {
+        "name": "Polyneuropathie du Leonberg (LPN)",
+        "estimatedCost": "1 000 – 5 000 $"
+      },
+      {
+        "name": "Dilatation-torsion gastrique (chirurgie)",
+        "estimatedCost": "4 000 – 9 000 $"
+      },
+      {
+        "name": "Ostéosarcome",
+        "estimatedCost": "5 000 – 15 000 $"
+      }
+    ],
+    "annualVetCost": {
+      "min": 1200,
+      "max": 4000
+    },
+    "insuranceMonthly": {
+      "min": 85,
+      "max": 175
+    },
+    "traits": {
+      "energy": 3,
+      "grooming": 4,
+      "trainability": 4,
+      "socialWithKids": 5
+    }
+  },
+  {
+    "name": "Lévrier Greyhound",
+    "slug": "levrier-greyhound",
+    "popularityRank": 56,
+    "score": 84,
+    "riskLevel": "faible",
+    "size": "grand",
+    "weight": {
+      "min": 27,
+      "max": 40
+    },
+    "lifespan": {
+      "min": 10,
+      "max": 14
+    },
+    "origin": "Angleterre",
+    "description": "Le Greyhound est le chien le plus rapide du monde, mais aussi l'un des plus calmes à la maison. Souvent adopté depuis les pistes de course, il est affectueux, propre et étonnamment peu actif en appartement. Sa santé robuste, sa faible prédisposition génétique et sa longévité correcte lui valent un excellent PetScore.",
+    "mainHealthRisks": [
+      "Sensibilité aux anesthésiants",
+      "Ostéosarcome (rare)",
+      "Blessures musculaires (exercice intense)"
+    ],
+    "healthRisksWithCosts": [
+      {
+        "name": "Sensibilité aux anesthésiants (monitoring renforcé)",
+        "estimatedCost": "100 – 400 $ de surcoût chirurgical"
+      },
+      {
+        "name": "Ostéosarcome",
+        "estimatedCost": "5 000 – 15 000 $"
+      }
+    ],
+    "annualVetCost": {
+      "min": 500,
+      "max": 1500
+    },
+    "insuranceMonthly": {
+      "min": 35,
+      "max": 72
+    },
+    "traits": {
+      "energy": 3,
+      "grooming": 1,
+      "trainability": 3,
+      "socialWithKids": 4
+    }
+  },
+  {
+    "name": "Montagne des Pyrénées",
+    "slug": "montagne-des-pyrenees",
+    "popularityRank": 57,
+    "score": 69,
+    "riskLevel": "moyen",
+    "size": "grand",
+    "weight": {
+      "min": 40,
+      "max": 70
+    },
+    "lifespan": {
+      "min": 10,
+      "max": 12
+    },
+    "origin": "France / Espagne",
+    "description": "Le Patou (Montagne des Pyrénées) est un chien de garde de troupeaux imposant et majestueux, apprécié des familles rurales québécoises. Indépendant, calme et loyal, il est moins facile à dresser que les races de berger. Son double pelage blanc nécessite un entretien important, surtout en période de mue. Sa grande taille entraîne des coûts vétérinaires plus élevés.",
+    "mainHealthRisks": [
+      "Dysplasie de la hanche",
+      "Dilatation-torsion gastrique",
+      "Entropion oculaire",
+      "Maladies articulaires dégénératives"
+    ],
+    "healthRisksWithCosts": [
+      {
+        "name": "Dysplasie de la hanche",
+        "estimatedCost": "3 000 – 8 000 $"
+      },
+      {
+        "name": "Dilatation-torsion gastrique",
+        "estimatedCost": "4 000 – 9 000 $"
+      },
+      {
+        "name": "Entropion oculaire",
+        "estimatedCost": "800 – 2 500 $"
+      }
+    ],
+    "annualVetCost": {
+      "min": 800,
+      "max": 2500
+    },
+    "insuranceMonthly": {
+      "min": 60,
+      "max": 120
+    },
+    "traits": {
+      "energy": 2,
+      "grooming": 4,
+      "trainability": 2,
+      "socialWithKids": 4
+    }
+  },
+  {
+    "name": "Bouvier des Flandres",
+    "slug": "bouvier-des-flandres",
+    "popularityRank": 58,
+    "score": 77,
+    "riskLevel": "moyen",
+    "size": "grand",
+    "weight": {
+      "min": 27,
+      "max": 40
+    },
+    "lifespan": {
+      "min": 10,
+      "max": 12
+    },
+    "origin": "Belgique",
+    "description": "Le Bouvier des Flandres est un chien de travail belge robuste, utilisé en police et en service. Très entraînable et loyal, il est excellent chien de garde familial. Son pelage rustique nécessite un brossage régulier. Une socialisation précoce est indispensable pour un tempérament équilibré. Populaire au Québec dans les milieux agricoles et chez les amateurs de sports canins.",
+    "mainHealthRisks": [
+      "Dysplasie de la hanche",
+      "Hypothyroïdie",
+      "Glaucome",
+      "Dilatation-torsion gastrique"
+    ],
+    "healthRisksWithCosts": [
+      {
+        "name": "Dysplasie de la hanche",
+        "estimatedCost": "2 500 – 7 000 $"
+      },
+      {
+        "name": "Hypothyroïdie",
+        "estimatedCost": "300 – 1 000 $ / an"
+      },
+      {
+        "name": "Glaucome",
+        "estimatedCost": "1 000 – 4 000 $"
+      }
+    ],
+    "annualVetCost": {
+      "min": 700,
+      "max": 2200
+    },
+    "insuranceMonthly": {
+      "min": 48,
+      "max": 98
+    },
+    "traits": {
+      "energy": 4,
+      "grooming": 3,
+      "trainability": 5,
+      "socialWithKids": 3
+    }
+  },
+  {
+    "name": "Berger Blanc Suisse",
+    "slug": "berger-blanc-suisse",
+    "popularityRank": 59,
+    "score": 79,
+    "riskLevel": "moyen",
+    "size": "grand",
+    "weight": {
+      "min": 25,
+      "max": 40
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 14
+    },
+    "origin": "Suisse",
+    "description": "Le Berger Blanc Suisse est un berger allemand entièrement blanc, doux et sensible. Moins courant que le Berger Allemand, il partage ses qualités d'intelligence et de trainabilité mais avec un tempérament plus calme. Sa popularité croît rapidement au Québec. Santé généralement bonne, bien qu'il partage certaines prédispositions avec le Berger Allemand.",
+    "mainHealthRisks": [
+      "Dysplasie de la hanche",
+      "Dysplasie du coude",
+      "Mégaœsophage",
+      "Sensibilités digestives"
+    ],
+    "healthRisksWithCosts": [
+      {
+        "name": "Dysplasie de la hanche",
+        "estimatedCost": "2 000 – 6 000 $"
+      },
+      {
+        "name": "Dysplasie du coude",
+        "estimatedCost": "1 500 – 5 000 $"
+      },
+      {
+        "name": "Mégaœsophage",
+        "estimatedCost": "800 – 3 000 $"
+      }
+    ],
+    "annualVetCost": {
+      "min": 650,
+      "max": 2000
+    },
+    "insuranceMonthly": {
+      "min": 42,
+      "max": 88
+    },
+    "traits": {
+      "energy": 4,
+      "grooming": 3,
+      "trainability": 5,
+      "socialWithKids": 5
+    }
+  },
+  {
+    "name": "Nova Scotia Duck Tolling Retriever",
+    "slug": "nova-scotia-duck-tolling-retriever",
+    "popularityRank": 60,
+    "score": 80,
+    "riskLevel": "moyen",
+    "size": "moyen",
+    "weight": {
+      "min": 17,
+      "max": 23
+    },
+    "lifespan": {
+      "min": 12,
+      "max": 14
+    },
+    "origin": "Canada (Nouvelle-Écosse)",
+    "description": "Le Toller est la seule race canine officielle du Canada. Ce retriever aux reflets roux était utilisé pour leurrer et récupérer le gibier d'eau en Nouvelle-Écosse. Énergique, affectueux et très intelligent, il est excellent pour les familles actives au Québec. Sa taille moyenne facilite la vie en appartement si l'exercice est suffisant.",
+    "mainHealthRisks": [
+      "Atrophie rétinienne progressive",
+      "Maladie de Addison (insuffisance surrénalienne)",
+      "Hypothyroïdie",
+      "Lupus discoïde"
+    ],
+    "healthRisksWithCosts": [
+      {
+        "name": "Atrophie rétinienne progressive",
+        "estimatedCost": "800 – 2 500 $"
+      },
+      {
+        "name": "Maladie de Addison",
+        "estimatedCost": "500 – 2 000 $ / an"
+      },
+      {
+        "name": "Hypothyroïdie",
+        "estimatedCost": "300 – 1 000 $ / an"
+      }
+    ],
+    "annualVetCost": {
+      "min": 600,
+      "max": 1900
+    },
+    "insuranceMonthly": {
+      "min": 38,
+      "max": 80
+    },
+    "traits": {
+      "energy": 5,
+      "grooming": 3,
+      "trainability": 5,
+      "socialWithKids": 4
+    }
   }
 ]
