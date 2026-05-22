@@ -13,6 +13,11 @@ export interface BreedTraits {
 export type RiskLevel = 'faible' | 'moyen' | 'élevé';
 export type BreedSize = 'petit' | 'moyen' | 'grand';
 
+export interface HealthRiskWithCost {
+  name: string;
+  estimatedCost: string;
+}
+
 export interface Breed {
   name: string;
   slug: string;
@@ -25,6 +30,7 @@ export interface Breed {
   origin: string;
   description: string;
   mainHealthRisks: string[];
+  healthRisksWithCosts?: HealthRiskWithCost[];
   annualVetCost: CostRange;
   insuranceMonthly: CostRange;
   traits: BreedTraits;

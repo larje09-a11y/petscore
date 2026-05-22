@@ -1,0 +1,267 @@
+---
+import Layout from '@/components/Layout.astro';
+import breedsRaw from '@/data/breeds.json';
+import type { Breed } from '@/types/breed';
+import { getRiskBadgeClass, getRiskLabel } from '@/lib/breeds';
+
+export async function getStaticPaths() {
+  const breeds = breedsRaw as Breed[];
+  const paths = [];
+  for (let i = 0; i < breeds.length; i++) {
+    for (let j = i + 1; j < breeds.length; j++) {
+      paths.push({
+        params: { vs: `${breeds[i].slug}-vs-${breeds[j].slug}` },
+        props:  { breed1: breeds[i], breed2: breeds[j] },
+      });
+    }
+  }
+  return paths;
+}
+
+export interface Props {
+  breed1: Breed;
+  breed2: Breed;
+}
+
+const { breed1, breed2 } = Astro.props;
+const { vs } = Astro.params;
+
+const title       = `${breed1.name} vs ${breed2.name} — PetScore™`;
+const description = `Comparez le ${breed1.name} (${breed1.score}/100) et le ${breed2.name} (${breed2.score}/100) : santé, risques héréditaires, coûts vétérinaires et caractère au Québec.`;
+
+// Calcul du gagnant
+const winner = breed1.score > breed2.score ? breed1 : breed2.score > breed1.score ? breed2 : null;
+
+function scoreColor(score: number) {
+  if (score > 80) return '#16A34A';
+  if (score >= 65) return '#F59E0B';
+  return '#DC2626';
+}
+
+const CIRCUMFERENCE = 2 * Math.PI * 44;
+
+function dashArray(score: number) {
+  const filled = (score / 100) * CIRCUMFERENCE;
+  return `${filled} ${CIRCUMFERENCE}`;
+}
+
+// Comparaison des traits
+const traitLabels: { key: keyof Breed['traits']; label: string; icon: string }[] = [
+  { key: 'energy',        label: 'Énergie',          icon: '⚡' },
+  { key: 'grooming',      label: 'Entretien pelage',  icon: '✂️' },
+  { key: 'trainability',  label: 'Facilité de dressage', icon: '🎓' },
+  { key: 'socialWithKids', label: 'Avec les enfants', icon: '👶' },
+];
+
+const fmtCAD = (n: number) => `${new Intl.NumberFormat('fr-CA').format(n)} $`;
+---
+
+<Layout {title} {description} canonicalUrl={`/fr/comparer/${vs}`}>
+  <div class="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+
+    <!-- Fil d'Ariane -->
+    <nav aria-label="Fil d'Ariane" class="mb-8">
+      <ol class="flex flex-wrap items-center gap-1.5 text-sm text-slate-400">
+        <li><a href="/fr/" class="hover:text-green-600 transition-colors">Accueil</a></li>
+        <li aria-hidden="true"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg></li>
+        <li><a href="/fr/comparer/" class="hover:text-green-600 transition-colors">Comparer</a></li>
+        <li aria-hidden="true"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg></li>
+        <li aria-current="page" class="truncate font-medium text-gray-700 max-w-[14rem]">
+          {breed1.name} vs {breed2.name}
+        </li>
+      </ol>
+    </nav>
+
+    <!-- Titre -->
+    <h1 class="mb-10 text-center font-display text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+      {breed1.name} <span class="text-slate-300">vs</span> {breed2.name}
+    </h1>
+
+    <!-- ═══════════ SCORES CÔTE À CÔTE ═══════════ -->
+    <section class="mb-8 grid gap-4 sm:grid-cols-2">
+      {[breed1, breed2].map((b) => {
+        const hex  = scoreColor(b.score);
+        const dash = dashArray(b.score);
+        return (
+          <a
+            href={`/fr/races/${b.slug}`}
+            class="flex flex-col items-center rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5"
+          >
+            <svg viewBox="0 0 100 100" class="h-32 w-32" role="img" aria-label={`PetScore ${b.score}`}>
+              <circle cx="50" cy="50" r="44" fill="none" stroke="#E5E7EB" stroke-width="10" />
+              <circle cx="50" cy="50" r="44" fill="none" stroke={hex} stroke-width="10"
+                stroke-dasharray={dash} stroke-linecap="round" transform="rotate(-90 50 50)" />
+              <text x="50" y="46" text-anchor="middle" dominant-baseline="middle"
+                font-size="26" font-weight="800" fill={hex} font-family="Sora, sans-serif">
+                {b.score}
+              </text>
+              <text x="50" y="62" text-anchor="middle"
+                font-size="10" fill="#94A3B8" font-family="Inter, sans-serif">
+                / 100
+              </text>
+            </svg>
+            <h2 class="mt-3 font-display text-xl font-bold text-gray-900 hover:text-green-600 transition-colors">
+              {b.name}
+            </h2>
+            <span class={`mt-2 rounded-full px-3 py-1 text-xs font-semibold ${getRiskBadgeClass(b.riskLevel)}`}>
+              {getRiskLabel(b.riskLevel)}
+            </span>
+            {winner?.slug === b.slug && (
+              <span class="mt-2 rounded-full bg-green-100 px-3 py-1 text-xs font-bold text-green-700">
+                ✓ Meilleur PetScore
+              </span>
+            )}
+            <p class="mt-2 text-center text-xs leading-relaxed text-slate-400 max-w-xs">
+              {b.description}
+            </p>
+          </a>
+        );
+      })}
+    </section>
+
+    <!-- ═══════════ STATS RAPIDES ═══════════ -->
+    <section class="mb-8 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+      <div class="border-b border-gray-50 px-5 py-4">
+        <h2 class="font-display text-base font-semibold text-gray-900">Fiche rapide</h2>
+      </div>
+      <div class="divide-y divide-gray-50">
+        {[
+          { label: 'Taille',    v1: breed1.size,        v2: breed2.size },
+          { label: 'Poids',     v1: `${breed1.weight.min}–${breed1.weight.max} kg`, v2: `${breed2.weight.min}–${breed2.weight.max} kg` },
+          { label: 'Longévité', v1: `${breed1.lifespan.min}–${breed1.lifespan.max} ans`, v2: `${breed2.lifespan.min}–${breed2.lifespan.max} ans` },
+          { label: 'Origine',   v1: breed1.origin,      v2: breed2.origin },
+        ].map(({ label, v1, v2 }) => (
+          <div class="grid grid-cols-3 items-center px-5 py-3 text-sm">
+            <span class="text-xs font-semibold uppercase tracking-wide text-slate-400">{label}</span>
+            <span class="text-center font-medium text-gray-800 capitalize">{v1}</span>
+            <span class="text-center font-medium text-gray-800 capitalize">{v2}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ═══════════ TRAITS ═══════════ -->
+    <section class="mb-8 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+      <div class="border-b border-gray-50 px-5 py-4">
+        <h2 class="font-display text-base font-semibold text-gray-900">Caractère & entretien</h2>
+      </div>
+      <div class="divide-y divide-gray-50 px-5">
+        {traitLabels.map(({ key, label, icon }) => {
+          const v1 = breed1.traits[key];
+          const v2 = breed2.traits[key];
+          return (
+            <div class="py-4">
+              <div class="mb-3 flex items-center justify-between text-sm">
+                <span class="flex items-center gap-1.5 font-semibold text-gray-700">
+                  <span>{icon}</span>{label}
+                </span>
+                <div class="flex items-center gap-4 text-xs font-bold">
+                  <span style={`color:${v1 >= v2 ? '#16A34A' : '#94A3B8'}`}>{v1}/5</span>
+                  <span class="text-slate-300">vs</span>
+                  <span style={`color:${v2 >= v1 ? '#16A34A' : '#94A3B8'}`}>{v2}/5</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                {[{ name: breed1.name, val: v1 }, { name: breed2.name, val: v2 }].map(({ name, val }) => (
+                  <div>
+                    <p class="mb-1 text-xs text-slate-400 truncate">{name}</p>
+                    <div class="flex gap-1">
+                      {[1,2,3,4,5].map((dot) => (
+                        <div class={`h-2 flex-1 rounded-full ${dot <= val ? 'bg-green-500' : 'bg-gray-100'}`} />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- ═══════════ COÛTS ═══════════ -->
+    <section class="mb-8 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+      <div class="border-b border-gray-50 px-5 py-4">
+        <h2 class="font-display text-base font-semibold text-gray-900">Coûts vétérinaires estimés</h2>
+      </div>
+      <div class="grid grid-cols-2 divide-x divide-gray-50 p-5 gap-4">
+        {[breed1, breed2].map((b) => {
+          const tenYear = b.annualVetCost.max * 10;
+          return (
+            <div class="text-center">
+              <p class="text-xs text-slate-400">{b.name}</p>
+              <p class="mt-1 font-display text-2xl font-extrabold text-red-600">
+                {fmtCAD(b.annualVetCost.min)}–{fmtCAD(b.annualVetCost.max)}
+              </p>
+              <p class="text-xs text-slate-400">par an</p>
+              <p class="mt-2 text-xs font-semibold text-slate-600">
+                ≈ {fmtCAD(tenYear)} sur 10 ans (max)
+              </p>
+              <p class="mt-2 text-xs text-slate-400">
+                Assurance : {b.insuranceMonthly.min}–{b.insuranceMonthly.max} $/mois
+              </p>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- ═══════════ RISQUES SANTÉ ═══════════ -->
+    <section class="mb-8 grid gap-4 sm:grid-cols-2">
+      {[breed1, breed2].map((b) => (
+        <div class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+          <h3 class="mb-3 font-display text-sm font-semibold text-gray-900">
+            Risques — {b.name}
+          </h3>
+          <ul class="space-y-2">
+            {b.mainHealthRisks.map((r) => (
+              <li class="flex items-start gap-2 text-xs text-slate-600">
+                <span class="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-red-100">
+                  <span class="h-1.5 w-1.5 rounded-full bg-red-500" />
+                </span>
+                {r}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
+
+    <!-- ═══════════ VERDICT ═══════════ -->
+    <section class="mb-8 rounded-2xl bg-green-50 p-6 border border-green-100">
+      <h2 class="mb-4 font-display text-lg font-bold text-gray-900">🏆 Verdict</h2>
+      <div class="space-y-2 text-sm leading-relaxed text-slate-600">
+        {winner ? (
+          <p>
+            <strong class="text-gray-800">{winner.name}</strong> obtient un meilleur PetScore™
+            ({winner.score}/100 vs {winner.slug === breed1.slug ? breed2.score : breed1.score}/100),
+            ce qui signifie moins de risques héréditaires et des coûts vétérinaires généralement
+            plus prévisibles.
+          </p>
+        ) : (
+          <p>Les deux races ont un PetScore identique — votre choix dépendra surtout de votre style de vie.</p>
+        )}
+        {breed1.lifespan.min + breed1.lifespan.max > breed2.lifespan.min + breed2.lifespan.max ? (
+          <p>Le <strong class="text-gray-800">{breed1.name}</strong> a une espérance de vie plus longue ({breed1.lifespan.min}–{breed1.lifespan.max} ans vs {breed2.lifespan.min}–{breed2.lifespan.max} ans).</p>
+        ) : breed2.lifespan.min + breed2.lifespan.max > breed1.lifespan.min + breed1.lifespan.max ? (
+          <p>Le <strong class="text-gray-800">{breed2.name}</strong> a une espérance de vie plus longue ({breed2.lifespan.min}–{breed2.lifespan.max} ans vs {breed1.lifespan.min}–{breed1.lifespan.max} ans).</p>
+        ) : null}
+        {breed1.annualVetCost.max < breed2.annualVetCost.max ? (
+          <p>Le <strong class="text-gray-800">{breed1.name}</strong> est généralement moins coûteux à soigner (max {fmtCAD(breed1.annualVetCost.max)}/an vs {fmtCAD(breed2.annualVetCost.max)}/an).</p>
+        ) : breed2.annualVetCost.max < breed1.annualVetCost.max ? (
+          <p>Le <strong class="text-gray-800">{breed2.name}</strong> est généralement moins coûteux à soigner (max {fmtCAD(breed2.annualVetCost.max)}/an vs {fmtCAD(breed1.annualVetCost.max)}/an).</p>
+        ) : null}
+      </div>
+    </section>
+
+    <!-- CTA Quiz -->
+    <div class="rounded-2xl border border-gray-100 bg-white p-6 text-center shadow-sm">
+      <p class="font-display font-semibold text-gray-900">Pas encore décidé·e ?</p>
+      <p class="mt-1 text-sm text-slate-500">Notre quiz trouve la race parfaite selon votre style de vie.</p>
+      <a href="/fr/quiz/" class="mt-4 inline-block rounded-xl bg-green-600 px-6 py-3 text-sm font-semibold text-white hover:bg-green-700 transition-colors">
+        Faire le quiz →
+      </a>
+    </div>
+
+  </div>
+</Layout>

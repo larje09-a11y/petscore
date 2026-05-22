@@ -83,12 +83,24 @@ const canonical = canonicalUrl ? `${SITE_URL}${canonicalUrl}` : Astro.url.href;
         </a>
 
         <!-- Navigation -->
-        <nav aria-label="Navigation principale">
+        <nav aria-label="Navigation principale" class="flex items-center gap-2">
           <a
             href="/fr/races/"
-            class="rounded-full bg-green-50 px-4 py-2 text-sm font-semibold text-green-700 transition-all duration-200 hover:bg-green-100"
+            class="rounded-full px-4 py-2 text-sm font-semibold text-slate-600 transition-all duration-200 hover:bg-gray-100"
           >
-            Toutes les races
+            Races
+          </a>
+          <a
+            href="/fr/comparer/"
+            class="rounded-full px-4 py-2 text-sm font-semibold text-slate-600 transition-all duration-200 hover:bg-gray-100"
+          >
+            Comparer
+          </a>
+          <a
+            href="/fr/quiz/"
+            class="rounded-full bg-green-600 px-4 py-2 text-sm font-semibold text-white transition-all duration-200 hover:bg-green-700"
+          >
+            🐾 Quiz
           </a>
         </nav>
       </div>

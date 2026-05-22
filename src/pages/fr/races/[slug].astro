@@ -2,6 +2,7 @@
 import Layout from '@/components/Layout.astro';
 import ScoreDashboard from '@/components/ScoreDashboard.tsx';
 import InsuranceCalculator from '@/components/InsuranceCalculator.tsx';
+import BudgetCalculator from '@/components/BudgetCalculator.tsx';
 import breedsRaw from '@/data/breeds.json';
 import type { Breed, RiskLevel } from '@/types/breed';
 import {
@@ -134,13 +135,94 @@ const estimated10YearCost = breed.annualVetCost.max * 10;
     </div>
 
     <!-- ============================================================
+         BUDGET TOTAL DE POSSESSION
+    ============================================================ -->
+    <div class="mb-6">
+      <BudgetCalculator
+        client:load
+        breed={breed}
+      />
+    </div>
+
+    <!-- ============================================================
          ESTIMATEUR D'ASSURANCE
     ============================================================ -->
-    <div class="mb-12">
+    <div class="mb-6">
       <InsuranceCalculator
         client:load
         basePremium={breed.insuranceMonthly.min}
       />
+    </div>
+
+    <!-- ============================================================
+         PRODUITS RECOMMANDÉS (affiliés)
+    ============================================================ -->
+    <div class="mb-12 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+      <h2 class="mb-4 font-display text-lg font-bold text-gray-900">
+        🛒 Produits recommandés pour le {breed.name}
+      </h2>
+      <div class="grid gap-3 sm:grid-cols-2">
+        {breed.traits.grooming >= 4 && (
+          <a href="https://www.mondou.com/fr-CA/chiens/toilettage" target="_blank" rel="noopener sponsored"
+            class="flex items-center gap-3 rounded-xl border border-gray-100 p-3 text-sm transition hover:border-green-200 hover:bg-green-50">
+            <span class="text-2xl">✂️</span>
+            <div>
+              <p class="font-semibold text-gray-800">Brosses & toilettage professionnel</p>
+              <p class="text-xs text-slate-400">Pour pelage à entretien intensif · Mondou</p>
+            </div>
+          </a>
+        )}
+        {(breed.riskLevel === 'élevé' || breed.annualVetCost.max > 2500) && (
+          <a href="https://www.mondou.com/fr-CA/chiens/sante-et-soins/supplements" target="_blank" rel="noopener sponsored"
+            class="flex items-center gap-3 rounded-xl border border-gray-100 p-3 text-sm transition hover:border-green-200 hover:bg-green-50">
+            <span class="text-2xl">💊</span>
+            <div>
+              <p class="font-semibold text-gray-800">Suppléments articulaires & santé</p>
+              <p class="text-xs text-slate-400">Glucosamine, oméga-3, probiotiques · Mondou</p>
+            </div>
+          </a>
+        )}
+        {breed.traits.energy >= 4 && (
+          <a href="https://www.mondou.com/fr-CA/chiens/jouets" target="_blank" rel="noopener sponsored"
+            class="flex items-center gap-3 rounded-xl border border-gray-100 p-3 text-sm transition hover:border-green-200 hover:bg-green-50">
+            <span class="text-2xl">🧠</span>
+            <div>
+              <p class="font-semibold text-gray-800">Jouets de stimulation mentale</p>
+              <p class="text-xs text-slate-400">Pour races actives et intelligentes · Mondou</p>
+            </div>
+          </a>
+        )}
+        {breed.size === 'grand' && (
+          <a href="https://www.mondou.com/fr-CA/chiens/nourriture-pour-chien/grandes-races" target="_blank" rel="noopener sponsored"
+            class="flex items-center gap-3 rounded-xl border border-gray-100 p-3 text-sm transition hover:border-green-200 hover:bg-green-50">
+            <span class="text-2xl">🍖</span>
+            <div>
+              <p class="font-semibold text-gray-800">Croquettes grandes races</p>
+              <p class="text-xs text-slate-400">Formule adaptée aux grands chiens · Mondou</p>
+            </div>
+          </a>
+        )}
+        {breed.size === 'petit' && (
+          <a href="https://www.mondou.com/fr-CA/chiens/nourriture-pour-chien/petites-races" target="_blank" rel="noopener sponsored"
+            class="flex items-center gap-3 rounded-xl border border-gray-100 p-3 text-sm transition hover:border-green-200 hover:bg-green-50">
+            <span class="text-2xl">🦴</span>
+            <div>
+              <p class="font-semibold text-gray-800">Croquettes petites races</p>
+              <p class="text-xs text-slate-400">Petites croquettes adaptées · Mondou</p>
+            </div>
+          </a>
+        )}
+        <a href="/fr/comparer/" class="flex items-center gap-3 rounded-xl border border-green-100 bg-green-50 p-3 text-sm transition hover:border-green-300">
+          <span class="text-2xl">⚖️</span>
+          <div>
+            <p class="font-semibold text-green-800">Comparer avec une autre race</p>
+            <p class="text-xs text-green-600">Voir la comparaison côte à côte · PetScore™</p>
+          </div>
+        </a>
+      </div>
+      <p class="mt-4 text-xs text-slate-400">
+        * Les liens produits sont des liens affiliés. PetScore™ peut recevoir une commission si vous effectuez un achat.
+      </p>
     </div>
 
     <!-- ============================================================
