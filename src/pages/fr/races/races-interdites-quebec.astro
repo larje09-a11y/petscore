@@ -1,0 +1,309 @@
+---
+import Layout from '@/components/Layout.astro';
+
+const title       = "Races de chiens interdites ou réglementées au Québec 2026 — PetScore™";
+const description = "Liste des races de chiens interdites ou réglementées au Québec : loi pit-bull, règlements municipaux (Montréal, Longueuil, etc.), sanctions et exceptions légales.";
+const canonicalUrl = "/fr/races/races-interdites-quebec";
+
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": title,
+  "description": description,
+  "url": "https://petscore.ca/fr/races/races-interdites-quebec",
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://petscore.ca/fr/" },
+      { "@type": "ListItem", "position": 2, "name": "Races", "item": "https://petscore.ca/fr/races/" },
+      { "@type": "ListItem", "position": 3, "name": "Races interdites Québec", "item": "https://petscore.ca/fr/races/races-interdites-quebec" }
+    ]
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Les pit-bulls sont-ils interdits au Québec ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Oui, la loi provinciale de 2016 interdit la possession de nouveaux pit-bulls au Québec. Les propriétaires déjà en possession d'un pit-bull avant l'entrée en vigueur de la loi ont pu obtenir un permis spécial pour le garder. Des règlements municipaux complémentaires s'appliquent dans plusieurs villes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quelles races sont visées par la loi québécoise ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "La loi québécoise vise les Staffordshire Bull Terriers américains, les Pit Bull Terriers américains, les Bull Terriers américains, les Staffordshire Bull Terriers (anglais), ainsi que tout chien qui ressemble à ces races selon l'appréciation d'un agent municipal."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Y a-t-il d'autres villes au Québec qui interdisent des races ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Oui. Plusieurs municipalités ont des règlements propres qui peuvent interdire ou restreindre des races comme le Rottweiler, le Dogue de Bordeaux, le Dobermann ou le Chow Chow, en plus des races visées par la loi provinciale. Vérifiez toujours auprès de votre municipalité."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Qu'est-ce que la BSL (Breed Specific Legislation) ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "La BSL (législation spécifique aux races) désigne les lois qui interdisent ou réglementent la possession de chiens en fonction de leur race ou apparence physique, plutôt que de leur comportement individuel. Ces lois sont controversées : la majorité des experts en comportement animal et les vétérinaires considèrent que l'éducation et la responsabilisation des propriétaires sont plus efficaces."
+        }
+      }
+    ]
+  }
+});
+---
+
+<Layout {title} {description} {canonicalUrl}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={jsonLd} />
+  </Fragment>
+
+  <div class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+
+    <!-- Fil d'Ariane -->
+    <nav aria-label="Fil d'Ariane" class="mb-8">
+      <ol class="flex flex-wrap items-center gap-1.5 text-sm text-slate-400">
+        <li><a href="/fr/" class="hover:text-green-600 transition-colors">Accueil</a></li>
+        <li aria-hidden="true"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li><a href="/fr/races/" class="hover:text-green-600 transition-colors">Races</a></li>
+        <li aria-hidden="true"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li aria-current="page" class="font-medium text-gray-700">Races interdites Québec</li>
+      </ol>
+    </nav>
+
+    <!-- Alerte légale -->
+    <div class="mb-8 flex items-start gap-3 rounded-2xl border border-red-200 bg-red-50 p-5">
+      <span class="text-2xl shrink-0">⚖️</span>
+      <div>
+        <p class="font-semibold text-red-800">Avertissement légal</p>
+        <p class="mt-1 text-sm text-red-700">
+          Cette page est à titre informatif uniquement et ne constitue pas un avis juridique.
+          La réglementation peut évoluer. Consultez <strong>votre municipalité</strong> et un
+          avocat spécialisé pour votre situation spécifique.
+        </p>
+      </div>
+    </div>
+
+    <header class="mb-10">
+      <h1 class="font-display text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        ⚠️ Races de chiens interdites et réglementées au Québec
+      </h1>
+      <p class="mt-4 leading-relaxed text-slate-500">
+        Depuis 2016, le Québec a adopté une législation sur les races de chiens considérées dangereuses (BSL —
+        <em>Breed Specific Legislation</em>). Cette page résume ce que dit la loi, quelles races sont visées
+        et ce que vous risquez si vous ne respectez pas ces règles.
+      </p>
+    </header>
+
+    <!-- Section 1 — Loi provinciale -->
+    <section class="mb-10">
+      <h2 class="mb-4 font-display text-2xl font-bold text-gray-900">1. La loi provinciale de 2016</h2>
+      <div class="space-y-4 text-sm leading-relaxed text-slate-600">
+        <p>
+          En 2016, le gouvernement du Québec a adopté la <strong>Loi visant à favoriser la protection des personnes
+          par la mise en place d'un encadrement concernant les chiens</strong> (communément appelée "loi pit-bull").
+          Cette loi a été adoptée suite à plusieurs incidents graves impliquant des chiens à Montréal et ailleurs
+          dans la province.
+        </p>
+        <p>
+          La loi crée deux niveaux de réglementation :
+        </p>
+        <div class="ml-4 space-y-3">
+          <div class="flex items-start gap-3 rounded-xl bg-red-50 border border-red-100 p-4">
+            <span class="text-xl shrink-0">🚫</span>
+            <div>
+              <p class="font-semibold text-red-800">Races visées par l'interdiction d'acquisition</p>
+              <p class="mt-1 text-red-700">Il est interdit d'acquérir ou d'accueillir tout nouveau spécimen des races suivantes :</p>
+              <ul class="mt-2 space-y-1 text-red-700">
+                <li>• Staffordshire Bull Terrier américain (American Staffordshire Terrier)</li>
+                <li>• Pit Bull Terrier américain (American Pit Bull Terrier)</li>
+                <li>• Bull Terrier américain</li>
+                <li>• Staffordshire Bull Terrier (anglais)</li>
+                <li>• Tout chien dont l'apparence physique rappelle ces races (notion floue en pratique)</li>
+              </ul>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 rounded-xl bg-amber-50 border border-amber-100 p-4">
+            <span class="text-xl shrink-0">📋</span>
+            <div>
+              <p class="font-semibold text-amber-800">Propriétaires existants avant 2016</p>
+              <p class="mt-1 text-amber-700">
+                Les propriétaires déjà en possession d'un pit-bull avant l'entrée en vigueur ont pu
+                obtenir un <strong>permis spécial</strong> et garder leur animal sous conditions strictes :
+                muselière en public, laisse non-extensible, assurance responsabilité civile, microchip,
+                stérilisation.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="mb-10 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" aria-hidden="true"></div>
+
+    <!-- Section 2 — Règlements municipaux -->
+    <section class="mb-10">
+      <h2 class="mb-4 font-display text-2xl font-bold text-gray-900">2. Règlements municipaux complémentaires</h2>
+      <p class="mb-4 text-sm leading-relaxed text-slate-600">
+        En plus de la loi provinciale, chaque municipalité peut adopter ses propres règlements plus restrictifs.
+        Voici un aperçu des principales villes :
+      </p>
+      <div class="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-gray-100 bg-gray-50 text-left">
+              <th class="px-4 py-3 font-semibold text-gray-700">Municipalité</th>
+              <th class="px-4 py-3 font-semibold text-gray-700">Races visées</th>
+              <th class="px-4 py-3 font-semibold text-gray-700">Mesures</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 text-xs">
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-3 font-semibold text-gray-800">Montréal</td>
+              <td class="px-4 py-3 text-slate-600">Races visées par la loi provinciale + Rottweiler (muselière obligatoire)</td>
+              <td class="px-4 py-3 text-slate-600">Laisse, muselière, permis spécial pour certaines races</td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-3 font-semibold text-gray-800">Longueuil</td>
+              <td class="px-4 py-3 text-slate-600">Pit-bull et assimilés, Rottweiler, Dogue de Bordeaux</td>
+              <td class="px-4 py-3 text-slate-600">Interdiction totale de nouvelles acquisitions</td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-3 font-semibold text-gray-800">Laval</td>
+              <td class="px-4 py-3 text-slate-600">Races de la loi provinciale</td>
+              <td class="px-4 py-3 text-slate-600">Conforme à la loi provinciale</td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-3 font-semibold text-gray-800">Québec (ville)</td>
+              <td class="px-4 py-3 text-slate-600">Races de la loi provinciale</td>
+              <td class="px-4 py-3 text-slate-600">Règlements complémentaires sur la laisse et le comportement</td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-3 font-semibold text-gray-800">Brossard</td>
+              <td class="px-4 py-3 text-slate-600">Pit-bull, Rottweiler, Dobermann, Chow Chow</td>
+              <td class="px-4 py-3 text-slate-600">Réglementation stricte — vérifier auprès de la ville</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-3 text-xs text-slate-400">
+        ⚠️ Ce tableau est indicatif. Les règlements municipaux changent fréquemment. Contactez votre
+        service municipal avant d'adopter une race visée.
+      </p>
+    </section>
+
+    <div class="mb-10 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" aria-hidden="true"></div>
+
+    <!-- Section 3 — Sanctions -->
+    <section class="mb-10">
+      <h2 class="mb-4 font-display text-2xl font-bold text-gray-900">3. Sanctions prévues</h2>
+      <div class="space-y-3">
+        {[
+          { icon: "💸", title: "Amendes", desc: "De 500 $ à 15 000 $ pour les propriétaires contrevenant à la loi provinciale ou aux règlements municipaux. Les infractions répétées entraînent des amendes majorées." },
+          { icon: "🐕", title: "Saisie de l'animal", desc: "Le chien peut être saisi par les autorités. Si le propriétaire ne se conforme pas aux exigences dans les délais impartis, le chien peut être euthanasié ou cédé à un refuge." },
+          { icon: "🔒", title: "Poursuites criminelles", desc: "En cas d'attaque grave, le propriétaire peut faire face à des accusations criminelles en vertu du Code criminel canadien (article 446 — cruauté envers les animaux ou voies de fait)." },
+          { icon: "💼", title: "Responsabilité civile", desc: "Le propriétaire est responsable des dommages causés par son chien. Une assurance responsabilité civile avec couverture pour les animaux est fortement recommandée." },
+        ].map(({ icon, title, desc }) => (
+          <div class="flex items-start gap-3 rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
+            <span class="text-2xl shrink-0">{icon}</span>
+            <div>
+              <p class="font-semibold text-gray-800">{title}</p>
+              <p class="mt-1 text-sm text-slate-500">{desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <div class="mb-10 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" aria-hidden="true"></div>
+
+    <!-- Section 4 — Débat BSL -->
+    <section class="mb-10">
+      <h2 class="mb-4 font-display text-2xl font-bold text-gray-900">4. La BSL est-elle efficace ? Le débat</h2>
+      <div class="space-y-3 text-sm leading-relaxed text-slate-600">
+        <p>
+          La législation spécifique aux races (BSL) est <strong>vivement contestée</strong> par la grande majorité
+          des experts en comportement animal, des associations vétérinaires et des groupes de protection des animaux :
+        </p>
+        <div class="grid gap-3 sm:grid-cols-2">
+          <div class="rounded-xl border border-red-100 bg-red-50 p-4">
+            <p class="font-semibold text-red-800 mb-2">Arguments contre la BSL</p>
+            <ul class="space-y-1 text-red-700 text-xs">
+              <li>• Difficile d'identifier une race avec certitude (phénotype vs génotype)</li>
+              <li>• Aucune étude ne démontre une réduction des morsures après la BSL</li>
+              <li>• Pénalise les propriétaires responsables</li>
+              <li>• Association Vétérinaire Canadienne s'y oppose officiellement</li>
+              <li>• Ontario et d'autres provinces ont commencé à abroger leurs BSL</li>
+            </ul>
+          </div>
+          <div class="rounded-xl border border-blue-100 bg-blue-50 p-4">
+            <p class="font-semibold text-blue-800 mb-2">Arguments pour la BSL</p>
+            <ul class="space-y-1 text-blue-700 text-xs">
+              <li>• Réponse politique visible après incidents graves</li>
+              <li>• Certaines municipalités rapportent moins d'incidents</li>
+              <li>• Facilite l'identification des propriétaires à risque</li>
+              <li>• Protège les populations vulnérables (enfants, aînés)</li>
+            </ul>
+          </div>
+        </div>
+        <p class="rounded-xl bg-gray-50 border border-gray-100 p-4 italic text-slate-500">
+          "La race d'un chien est un mauvais indicateur de dangerosité. Le comportement dépend principalement
+          de l'éducation, de la socialisation et des soins prodigués par le propriétaire."
+          — <strong>Association Vétérinaire Canadienne (AVC)</strong>
+        </p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="mb-10">
+      <h2 class="mb-6 font-display text-2xl font-bold text-gray-900">Questions fréquentes</h2>
+      <div class="space-y-3">
+        {[
+          {
+            q: "Les pit-bulls sont-ils interdits au Québec ?",
+            a: "Oui. La loi de 2016 interdit l'acquisition de nouveaux pit-bulls et races assimilées. Les propriétaires ayant déclaré leur animal avant l'entrée en vigueur ont pu obtenir un permis spécial avec conditions strictes (muselière, laisse, assurance, microchip, stérilisation)."
+          },
+          {
+            q: "Qu'est-ce que la BSL (Breed Specific Legislation) ?",
+            a: "La BSL désigne les lois qui réglementent ou interdisent la possession de chiens selon leur race ou apparence physique. Ces lois sont controversées : la majorité des vétérinaires et experts en comportement animal estiment que l'éducation et la responsabilisation des propriétaires sont plus efficaces."
+          },
+          {
+            q: "Mon chien ressemble à un pit-bull mais n'en est pas un. Suis-je concerné ?",
+            a: "Potentiellement oui. La loi québécoise vise aussi tout chien dont l'apparence physique rappelle les races interdites, selon l'appréciation d'un agent municipal. En cas de doute, un test ADN peut aider, mais n'est pas juridiquement contraignant. Consultez un avocat spécialisé."
+          },
+          {
+            q: "Est-ce que le Rottweiler est interdit au Québec ?",
+            a: "Le Rottweiler n'est pas interdit par la loi provinciale, mais certaines municipalités (Montréal, Longueuil) ont des règlements complémentaires qui peuvent imposer une muselière ou d'autres restrictions. Vérifiez auprès de votre ville."
+          },
+        ].map(({ q, a }) => (
+          <details class="group rounded-2xl border border-gray-100 bg-white shadow-sm">
+            <summary class="flex cursor-pointer items-center justify-between px-5 py-4 font-semibold text-gray-800">
+              <span class="text-sm pr-4">{q}</span>
+              <svg class="h-4 w-4 shrink-0 text-slate-400 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="border-t border-gray-50 px-5 py-4 text-sm leading-relaxed text-slate-600">{a}</div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="rounded-2xl bg-gray-50 border border-gray-100 p-6 text-center">
+      <p class="font-semibold text-gray-800">Cherchez une race sans restrictions légales ?</p>
+      <p class="mt-1 text-sm text-slate-500">Notre quiz trouve la race parfaite pour votre style de vie et votre région.</p>
+      <div class="mt-4 flex flex-wrap justify-center gap-3">
+        <a href="/fr/quiz/" class="rounded-xl bg-green-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-green-700 transition-colors">🐾 Faire le quiz</a>
+        <a href="/fr/races/top-debutants" class="rounded-xl border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors">Top débutants →</a>
+      </div>
+    </div>
+
+  </div>
+</Layout>

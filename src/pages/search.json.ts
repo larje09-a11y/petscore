@@ -48,6 +48,10 @@ export const GET: APIRoute = async () => {
     { type: 'page', title: 'Races les moins chères',         subtitle: 'Top 15 — budget vétérinaire bas',   tags: ['budget', 'économique'],         url: '/fr/races/races-moins-cheres' },
     { type: 'page', title: 'Races à longue espérance de vie', subtitle: 'Top 15 — longévité maximale',     tags: ['longévité', 'espérance de vie'], url: '/fr/races/races-longue-vie' },
     { type: 'page', title: 'Races pour personnes âgées',    subtitle: 'Top 12 — calmes et adaptées',       tags: ['retraite', 'senior', 'mobilité'], url: '/fr/races/races-personnes-agees' },
+    { type: 'page', title: 'Prix d\'achat races de chiens',  subtitle: 'Tableau complet — coût total 10 ans', tags: ['prix', 'achat', 'budget'],      url: '/fr/races/prix-races-chiens' },
+    { type: 'page', title: 'Races interdites Québec (BSL)',  subtitle: 'Loi pit-bull, règlements municipaux', tags: ['interdit', 'bsl', 'légal', 'pit-bull'], url: '/fr/races/races-interdites-quebec' },
+    { type: 'page', title: 'Guide premier chien Québec',     subtitle: '8 étapes essentielles + budget',   tags: ['guide', 'débutant', 'adoption'], url: '/fr/guide-premier-chien/' },
+    { type: 'page', title: 'Checklist adoption chien',       subtitle: '30 étapes — sauvegarde auto',       tags: ['checklist', 'adoption', 'débutant'], url: '/fr/checklist-adoption/' },
   ];
 
   return new Response(JSON.stringify(items), {

@@ -1,0 +1,374 @@
+---
+import Layout from '@/components/Layout.astro';
+
+const title       = "Guide complet premier chien au Québec 2026 — PetScore™";
+const description = "Le guide ultime pour adopter son premier chien au Québec : choisir la race, budget, vaccins, éducation, alimentation et assurance. Tout ce que vous devez savoir.";
+
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": title,
+  "description": description,
+  "url": "https://petscore.ca/fr/guide-premier-chien/",
+  "datePublished": "2026-01-01",
+  "dateModified": "2026-05-22",
+  "author": { "@type": "Organization", "name": "PetScore™" },
+  "publisher": { "@type": "Organization", "name": "PetScore™", "url": "https://petscore.ca" },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://petscore.ca/fr/" },
+      { "@type": "ListItem", "position": 2, "name": "Guide premier chien", "item": "https://petscore.ca/fr/guide-premier-chien/" }
+    ]
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Quel budget prévoir pour un premier chien au Québec ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "En première année, comptez 3 000 $ à 8 000 $ selon la race : prix d'achat (800–5 000 $) + équipements (300–600 $) + soins vétérinaires (500–1 500 $) + nourriture (400–1 200 $) + dressage (300–800 $). Les années suivantes, le budget annuel varie de 1 500 $ à 4 000 $."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quelle race choisir pour un premier chien ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pour un premier chien, choisissez une race avec une dressabilité élevée (4-5/5), un niveau d'énergie adapté à votre mode de vie et un PetScore™ élevé (moins de frais vétérinaires imprévus). Le Labrador, le Golden Retriever, le Bichon frisé et le Schnauzer miniature figurent parmi les meilleurs choix pour débutants au Québec."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Chiot ou chien adulte : que choisir ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Un chiot demande plus de temps et d'énergie (apprentissage de la propreté, socialisation, formation). Un chien adulte (3-7 ans) est souvent déjà propre et socialisé, et son caractère est connu. Pour un premier propriétaire avec peu de temps, un adulte en refuge peut être le meilleur choix."
+        }
+      }
+    ]
+  }
+});
+
+const steps = [
+  {
+    num: "01",
+    icon: "🔍",
+    title: "Choisir la bonne race",
+    color: "bg-green-50 border-green-100",
+    num_color: "text-green-600",
+    content: `
+      Avant tout achat ou adoption, posez-vous ces questions fondamentales :
+      <ul>
+        <li><strong>Espace de vie :</strong> appartement ou maison avec jardin ?</li>
+        <li><strong>Temps disponible :</strong> êtes-vous à la maison souvent ? Télétravail ou bureau ?</li>
+        <li><strong>Niveau d'activité :</strong> joggeur ou préférence pour les balades tranquilles ?</li>
+        <li><strong>Budget :</strong> prix d'achat + frais vétérinaires annuels sur 10–15 ans</li>
+        <li><strong>Famille :</strong> enfants en bas âge ? Autres animaux ?</li>
+        <li><strong>Allergies :</strong> quelqu'un dans la maison est-il allergique aux poils ?</li>
+      </ul>
+      <p>Notre <a href="/fr/quiz/" class="text-green-600 underline font-medium">quiz personnalisé</a> analyse ces 6 critères et vous recommande les races les mieux adaptées en 2 minutes.</p>
+    `,
+    links: [
+      { text: "Faire le quiz race", href: "/fr/quiz/" },
+      { text: "Top races débutants", href: "/fr/races/top-debutants" },
+      { text: "Races faible risque", href: "/fr/races/faible-risque" },
+    ],
+  },
+  {
+    num: "02",
+    icon: "💰",
+    title: "Calculer le budget réel",
+    color: "bg-blue-50 border-blue-100",
+    num_color: "text-blue-600",
+    content: `
+      Le prix d'achat n'est que le début. Voici le budget réaliste pour la <strong>première année</strong> :
+      <ul>
+        <li><strong>Achat/adoption :</strong> 100–5 500 $ (refuge à éleveur bulldog)</li>
+        <li><strong>Équipements de base :</strong> 300–600 $ (cage, gamelles, laisse, jouets, lit)</li>
+        <li><strong>Vétérinaire première année :</strong> 600–1 500 $ (vaccins, stérilisation, bilans)</li>
+        <li><strong>Nourriture annuelle :</strong> 400–1 200 $ selon taille et qualité</li>
+        <li><strong>Dressage :</strong> 300–800 $ pour des cours de groupe (10 séances)</li>
+        <li><strong>Toilettage :</strong> 0–1 200 $ selon la race (poil court vs poil long)</li>
+        <li><strong>Assurance santé :</strong> 35–120 $/mois = 420–1 440 $/an</li>
+      </ul>
+      <p><strong>Total première année : environ 2 000 $ – 8 000 $</strong> selon la race et vos choix.</p>
+    `,
+    links: [
+      { text: "Prix par race", href: "/fr/races/prix-races-chiens" },
+      { text: "Races moins chères", href: "/fr/races/races-moins-cheres" },
+      { text: "Comparer assurances", href: "/fr/assurance/" },
+    ],
+  },
+  {
+    num: "03",
+    icon: "🏡",
+    title: "Trouver un éleveur ou un refuge fiable",
+    color: "bg-purple-50 border-purple-100",
+    num_color: "text-purple-600",
+    content: `
+      <strong>Option 1 — Éleveur certifié CKC</strong> : Cherchez un membre du Club Canin Canadien (CKC).
+      Un bon éleveur effectue des tests génétiques OFA sur les parents, vous montre les conditions d'élevage
+      et vous fournit un contrat avec garantie de santé. Méfiez-vous des annonces Kijiji sans carnet de santé.
+      <br><br>
+      <strong>Option 2 — Refuge/SPCA</strong> : La SPCA de Montréal, les refuges municipaux et les organismes
+      de sauvetage ont de nombreux chiens adultes en attente d'une famille. Frais d'adoption : 100–450 $,
+      souvent incluant la stérilisation et les vaccins de base.
+      <br><br>
+      <strong>Signaux d'alarme chez un éleveur :</strong>
+      <ul>
+        <li>Vente avant 8 semaines (illégal au Québec)</li>
+        <li>Refus de montrer les parents</li>
+        <li>Plusieurs races disponibles en même temps (puppy mill)</li>
+        <li>Pas de contrat de vente ni de suivi post-vente</li>
+      </ul>
+    `,
+    links: [
+      { text: "Adopter vs acheter", href: "/fr/blog/adopter-vs-acheter-chien" },
+      { text: "Trouver éleveur certifié", href: "/fr/blog/trouver-eleveur-certifie-quebec" },
+    ],
+  },
+  {
+    num: "04",
+    icon: "🏥",
+    title: "Premiers soins vétérinaires",
+    color: "bg-red-50 border-red-100",
+    num_color: "text-red-600",
+    content: `
+      Dans les <strong>72 heures suivant l'adoption</strong>, prenez rendez-vous chez un vétérinaire pour :
+      <ul>
+        <li>Bilan de santé complet (parasites, malformations, morsures)</li>
+        <li>Vérification et mise à jour du calendrier de vaccins (DHPP, rage)</li>
+        <li>Pose de la micropuce (obligatoire dans plusieurs municipalités QC)</li>
+        <li>Premier traitement antiparasitaire (vers, puces, tiques)</li>
+        <li>Discussion sur la stérilisation / castration</li>
+      </ul>
+      <p>Ensuite, planifiez le <strong>calendrier de soins préventifs annuels</strong> pour les prochaines années.</p>
+    `,
+    links: [
+      { text: "Calendrier vaccins", href: "/fr/blog/calendrier-vaccins-chien-2026" },
+      { text: "PetCalendar™", href: "/fr/calendrier/" },
+      { text: "Urgence vétérinaire", href: "/fr/urgence/" },
+    ],
+  },
+  {
+    num: "05",
+    icon: "📋",
+    title: "Démarches administratives",
+    color: "bg-amber-50 border-amber-100",
+    num_color: "text-amber-600",
+    content: `
+      Au Québec, plusieurs démarches administratives sont obligatoires ou fortement recommandées :
+      <ul>
+        <li><strong>Micropuce :</strong> Reconnue internationalement, obligatoire dans plusieurs villes.</li>
+        <li><strong>Enregistrement municipal :</strong> Médaille de chien, renouvellement annuel (20–60 $).</li>
+        <li><strong>Vérification des règlements locaux :</strong> Certaines races réglementées selon la municipalité.</li>
+        <li><strong>Assurance responsabilité civile :</strong> Couvre les dommages causés à des tiers par votre chien.</li>
+        <li><strong>Souscrire une assurance santé :</strong> Avant la première visite vétérinaire pour éviter les exclusions.</li>
+      </ul>
+    `,
+    links: [
+      { text: "Races réglementées QC", href: "/fr/races/races-interdites-quebec" },
+      { text: "Assurance animaux QC", href: "/fr/assurance/" },
+    ],
+  },
+  {
+    num: "06",
+    icon: "🎓",
+    title: "Éducation et socialisation",
+    color: "bg-green-50 border-green-100",
+    num_color: "text-green-600",
+    content: `
+      La période critique de socialisation s'étend de <strong>3 à 14 semaines</strong> chez le chiot.
+      Plus vous exposez votre chien à des situations variées durant cette période, plus il sera équilibré.
+      <br><br>
+      <strong>Priorités :</strong>
+      <ul>
+        <li>Cours d'obéissance de base (assis, couché, rappel, marche en laisse)</li>
+        <li>Rencontres avec d'autres chiens vaccinés</li>
+        <li>Exposition aux bruits urbains, transports, gens en uniforme</li>
+        <li>Manipulation régulière (pattes, oreilles, gueule) pour faciliter les soins</li>
+        <li>Apprentissage de la propreté dès le premier jour (routine stricte)</li>
+      </ul>
+      <p>Pour les chiots anxieux, la <strong>méthode d'entraînement positive</strong> (récompenses vs punition) donne de meilleurs résultats à long terme.</p>
+    `,
+    links: [
+      { text: "Socialisation chiot", href: "/fr/blog/socialisation-chiot" },
+      { text: "Chien anxieux", href: "/fr/blog/chien-anxiete-separation" },
+    ],
+  },
+  {
+    num: "07",
+    icon: "🥗",
+    title: "Alimentation adaptée",
+    color: "bg-orange-50 border-orange-100",
+    num_color: "text-orange-600",
+    content: `
+      La qualité de l'alimentation a un impact direct sur la longévité et la santé de votre chien.
+      <br><br>
+      <strong>Recommandations générales :</strong>
+      <ul>
+        <li>Croquettes de haute qualité avec protéine animale en premier ingrédient</li>
+        <li>Taille de croquette adaptée (petit vs grande race)</li>
+        <li>Alimentation <em>junior</em> jusqu'à 12–18 mois selon la race</li>
+        <li>2 repas par jour à horaires fixes (réduit le risque de dilatation gastrique)</li>
+        <li>Eau fraîche disponible en permanence</li>
+      </ul>
+      <strong>À éviter absolument :</strong>
+      <ul>
+        <li>Chocolat, raisins, oignons, xylitol (bonbons "sans sucre"), avocat — toxiques</li>
+        <li>Os cuits (se fragmentent et perforent le tube digestif)</li>
+        <li>Restes de table trop riches, salés ou épicés</li>
+      </ul>
+    `,
+    links: [
+      { text: "Croquettes vs alimentation raw", href: "/fr/blog/alimentation-croquettes-vs-raw" },
+      { text: "Aliments toxiques", href: "/fr/blog/chocolat-toxique-chien" },
+    ],
+  },
+  {
+    num: "08",
+    icon: "🛡️",
+    title: "Assurance et protection financière",
+    color: "bg-indigo-50 border-indigo-100",
+    num_color: "text-indigo-600",
+    content: `
+      Une urgence vétérinaire peut coûter entre <strong>3 000 $ et 20 000 $</strong> au Québec.
+      L'assurance animale est le filet de sécurité le plus important pour un nouveau propriétaire.
+      <br><br>
+      <strong>Quand souscrire ?</strong> Idéalement le jour même de l'adoption, avant toute visite vétérinaire.
+      La plupart des assureurs excluent les conditions préexistantes diagnostiquées avant la souscription.
+      <br><br>
+      <strong>Que couvre une bonne assurance ?</strong>
+      <ul>
+        <li>Accidents et urgences chirurgicales</li>
+        <li>Maladies et conditions héréditaires</li>
+        <li>Examens diagnostiques (IRM, scanner, analyses)</li>
+        <li>Médicaments et traitements de longue durée</li>
+      </ul>
+      <p><strong>Budget :</strong> 35–120 $/mois selon la race, l'âge et le plan choisi.</p>
+    `,
+    links: [
+      { text: "Comparer Trupanion, Petsecure, Intact, Desjardins", href: "/fr/assurance/" },
+    ],
+  },
+];
+---
+
+<Layout {title} {description} canonicalUrl="/fr/guide-premier-chien/">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={jsonLd} />
+  </Fragment>
+
+  <div class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+
+    <!-- Fil d'Ariane -->
+    <nav aria-label="Fil d'Ariane" class="mb-8">
+      <ol class="flex flex-wrap items-center gap-1.5 text-sm text-slate-400">
+        <li><a href="/fr/" class="hover:text-green-600 transition-colors">Accueil</a></li>
+        <li aria-hidden="true">
+          <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </li>
+        <li aria-current="page" class="font-medium text-gray-700">Guide premier chien</li>
+      </ol>
+    </nav>
+
+    <!-- En-tête -->
+    <header class="mb-10">
+      <div class="mb-4 inline-flex items-center gap-2 rounded-full bg-green-50 px-4 py-1.5 text-sm font-semibold text-green-700">
+        <span>🐾</span> Guide complet 2026
+      </div>
+      <h1 class="font-display text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        Premier chien au Québec : le guide complet
+      </h1>
+      <p class="mt-4 text-lg leading-relaxed text-slate-500">
+        Adopter son premier chien est l'une des décisions les plus engageantes de sa vie. Ce guide couvre
+        les 8 étapes essentielles, de la sélection de la race aux soins préventifs, avec des chiffres
+        réels adaptés au contexte québécois.
+      </p>
+      <!-- Raccourcis vers sections -->
+      <div class="mt-5 flex flex-wrap gap-2">
+        {steps.map((s) => (
+          <a href={`#etape-${s.num}`} class="rounded-full border border-gray-200 px-3 py-1 text-xs font-medium text-slate-600 hover:bg-gray-50 transition-colors">
+            {s.icon} {s.title}
+          </a>
+        ))}
+      </div>
+    </header>
+
+    <!-- Étapes -->
+    <div class="space-y-10">
+      {steps.map((step) => (
+        <section id={`etape-${step.num}`} class={`rounded-2xl border p-6 ${step.color}`}>
+          <div class="flex items-center gap-3 mb-4">
+            <span class={`font-display text-3xl font-black ${step.num_color}`}>{step.num}</span>
+            <h2 class="font-display text-xl font-bold text-gray-900 flex items-center gap-2">
+              <span>{step.icon}</span> {step.title}
+            </h2>
+          </div>
+          <div class="prose prose-sm prose-slate max-w-none" set:html={step.content} />
+          {step.links.length > 0 && (
+            <div class="mt-4 flex flex-wrap gap-2">
+              {step.links.map(({ text, href }) => (
+                <a href={href} class="inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-medium text-slate-600 hover:bg-gray-50 hover:text-green-600 transition-colors">
+                  {text} →
+                </a>
+              ))}
+            </div>
+          )}
+        </section>
+      ))}
+    </div>
+
+    <!-- FAQ -->
+    <section class="mt-12">
+      <h2 class="mb-6 font-display text-2xl font-bold text-gray-900">Questions fréquentes</h2>
+      <div class="space-y-3">
+        {[
+          {
+            q: "Quel budget prévoir pour un premier chien au Québec ?",
+            a: "En première année, comptez 3 000 $ à 8 000 $ selon la race : prix d'achat (100–5 500 $) + équipements (300–600 $) + soins vétérinaires (500–1 500 $) + nourriture (400–1 200 $) + dressage (300–800 $). Les années suivantes : 1 500 $–4 000 $/an."
+          },
+          {
+            q: "Quelle race choisir pour un premier chien ?",
+            a: "Pour un débutant, choisissez une race avec une dressabilité élevée (4-5/5) et un PetScore™ élevé. Le Bichon frisé, le Labrador, le Golden Retriever et le Schnauzer miniature figurent parmi les meilleurs choix pour premier chien au Québec."
+          },
+          {
+            q: "Chiot ou chien adulte : que choisir ?",
+            a: "Un chiot demande plus de temps (propreté, socialisation, formation). Un chien adulte (3-7 ans) est souvent propre et socialisé — idéal pour un premier propriétaire occupé. Les refuges québécois ont de nombreux adultes en attente d'une famille."
+          },
+          {
+            q: "L'assurance animale est-elle obligatoire au Québec ?",
+            a: "Non, elle n'est pas obligatoire, mais fortement recommandée. Une urgence vétérinaire peut coûter 3 000 $–20 000 $. Souscrire une assurance dès l'adoption (avant la première visite vét.) évite les exclusions pour conditions préexistantes."
+          },
+        ].map(({ q, a }) => (
+          <details class="group rounded-2xl border border-gray-100 bg-white shadow-sm">
+            <summary class="flex cursor-pointer items-center justify-between px-5 py-4 font-semibold text-gray-800">
+              <span class="text-sm pr-4">{q}</span>
+              <svg class="h-4 w-4 shrink-0 text-slate-400 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="border-t border-gray-50 px-5 py-4 text-sm leading-relaxed text-slate-600">{a}</div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="mt-12 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100 p-8 text-center">
+      <p class="font-display text-xl font-bold text-gray-900">Prêt à commencer votre aventure ?</p>
+      <p class="mt-2 text-slate-500 text-sm">Utilisez nos outils pour trouver votre race et vous préparer.</p>
+      <div class="mt-5 flex flex-wrap justify-center gap-3">
+        <a href="/fr/quiz/" class="rounded-xl bg-green-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-green-700 transition-colors">🐾 Quiz — trouver ma race</a>
+        <a href="/fr/checklist-adoption/" class="rounded-xl border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors">✅ Checklist adoption</a>
+        <a href="/fr/races/" class="rounded-xl border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors">🐶 Toutes les races</a>
+      </div>
+    </div>
+
+  </div>
+</Layout>
