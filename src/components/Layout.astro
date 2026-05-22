@@ -113,6 +113,12 @@ const ogImageFull = ogImage?.startsWith('http') ? ogImage : `${SITE_URL}${ogImag
             Blog
           </a>
           <a
+            href="/fr/faq/"
+            class="hidden rounded-full px-3 py-2 text-sm font-semibold text-slate-600 transition-all duration-200 hover:bg-gray-100 lg:block lg:px-4"
+          >
+            FAQ
+          </a>
+          <a
             href="/fr/urgence/"
             class="hidden rounded-full px-3 py-2 text-sm font-semibold text-red-600 transition-all duration-200 hover:bg-red-50 lg:block lg:px-4"
             title="Mon chien a besoin d'urgences ?"
@@ -173,32 +179,93 @@ const ogImageFull = ogImage?.startsWith('http') ? ogImage : `${SITE_URL}${ogImag
 
     <!-- Footer -->
     <footer class="mt-auto border-t border-gray-100 bg-gray-50">
-      <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-        <div class="flex flex-col items-center gap-6 text-center sm:flex-row sm:justify-between sm:text-left">
-          <!-- Disclaimer légal -->
-          <p class="max-w-xl text-xs leading-relaxed text-slate-500">
-            <strong class="font-semibold text-slate-600">Avis légal :</strong> Les informations
-            présentées sont des estimations à titre éducatif seulement. Elles ne constituent pas
-            un avis vétérinaire. Consultez un vétérinaire pour tout diagnostic ou traitement
-            professionnel.
-          </p>
+      <div class="mx-auto max-w-6xl px-4 pt-12 pb-8 sm:px-6">
 
-          <!-- Liens du pied de page -->
-          <nav aria-label="Liens du pied de page" class="flex shrink-0 flex-wrap gap-x-4 gap-y-2 justify-center sm:justify-end">
-            <a href="/fr/blog/" class="text-xs text-slate-500 hover:text-green-600 transition-colors duration-200">Blog</a>
-            <a href="/fr/conditions/" class="text-xs text-slate-500 hover:text-green-600 transition-colors duration-200">Conditions médicales</a>
-            <a href="/fr/assurance/" class="text-xs text-slate-500 hover:text-green-600 transition-colors duration-200">Assurance</a>
-            <a href="/fr/urgence/" class="text-xs text-slate-500 hover:text-green-600 transition-colors duration-200">Urgence vét.</a>
-            <a href="/fr/favoris/" class="text-xs text-slate-500 hover:text-green-600 transition-colors duration-200">❤️ Favoris</a>
-            <a href="/en/" class="text-xs text-slate-500 hover:text-green-600 transition-colors duration-200">🇨🇦 English</a>
-            <a href="/fr/a-propos/" class="text-xs text-slate-500 hover:text-green-600 transition-colors duration-200">À propos</a>
-            <a href="/fr/confidentialite/" class="text-xs text-slate-500 hover:text-green-600 transition-colors duration-200">Confidentialité</a>
-          </nav>
+        <!-- 4-column footer grid -->
+        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 mb-10">
+
+          <!-- Colonne 1 : Brand -->
+          <div>
+            <a href="/fr/" class="flex items-center gap-2 text-green-600 hover:text-green-700 transition-colors mb-3">
+              <svg width="24" height="24" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+                <circle cx="14" cy="14" r="14" fill="#16A34A"/>
+                <path d="M8 14.5c0-1.5.8-2.5 2-3 .5-2 2-3.5 4-3.5s3.5 1.5 4 3.5c1.2.5 2 1.5 2 3 0 2-1.8 3.5-4 3.5H12C9.8 18 8 16.5 8 14.5z" fill="white"/>
+                <circle cx="10.5" cy="9" r="1.5" fill="white"/>
+                <circle cx="17.5" cy="9" r="1.5" fill="white"/>
+                <circle cx="8.5" cy="12" r="1.5" fill="white"/>
+                <circle cx="19.5" cy="12" r="1.5" fill="white"/>
+              </svg>
+              <span class="font-display font-bold tracking-tight">PetScore™</span>
+            </a>
+            <p class="text-xs leading-relaxed text-slate-500 mb-4">
+              Scores de santé prédictifs pour 50+ races de chiens au Québec. Budget, assurances, législation.
+            </p>
+            <div class="flex gap-3">
+              <a href="/rss.xml" class="text-slate-400 hover:text-orange-500 transition-colors" aria-label="Flux RSS">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19.01 7.38 20 6.18 20C4.98 20 4 19.01 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z"/>
+                </svg>
+              </a>
+              <a href="/en/" class="text-xs font-medium text-slate-400 hover:text-green-600 transition-colors">EN</a>
+            </div>
+          </div>
+
+          <!-- Colonne 2 : Races -->
+          <div>
+            <p class="mb-3 text-xs font-bold uppercase tracking-widest text-slate-400">Races</p>
+            <ul class="space-y-2">
+              <li><a href="/fr/races/" class="text-sm text-slate-600 hover:text-green-600 transition-colors">Toutes les races</a></li>
+              <li><a href="/fr/races/groupes/" class="text-sm text-slate-600 hover:text-green-600 transition-colors">Groupes de races</a></li>
+              <li><a href="/fr/races/top-familles/" class="text-sm text-slate-600 hover:text-green-600 transition-colors">Top races familles</a></li>
+              <li><a href="/fr/races/races-hypoallergeniques/" class="text-sm text-slate-600 hover:text-green-600 transition-colors">Races hypoallergéniques</a></li>
+              <li><a href="/fr/races/races-personnes-agees/" class="text-sm text-slate-600 hover:text-green-600 transition-colors">Races personnes âgées</a></li>
+              <li><a href="/fr/races/races-longue-vie/" class="text-sm text-slate-600 hover:text-green-600 transition-colors">Longue espérance de vie</a></li>
+              <li><a href="/fr/races/races-moins-cheres/" class="text-sm text-slate-600 hover:text-green-600 transition-colors">Races moins chères</a></li>
+              <li><a href="/fr/races/races-interdites-quebec/" class="text-sm text-slate-600 hover:text-green-600 transition-colors">Races interdites QC</a></li>
+            </ul>
+          </div>
+
+          <!-- Colonne 3 : Guides & Blog -->
+          <div>
+            <p class="mb-3 text-xs font-bold uppercase tracking-widest text-slate-400">Guides</p>
+            <ul class="space-y-2">
+              <li><a href="/fr/guide-premier-chien/" class="text-sm text-slate-600 hover:text-green-600 transition-colors">Guide premier chien</a></li>
+              <li><a href="/fr/checklist-adoption/" class="text-sm text-slate-600 hover:text-green-600 transition-colors">Checklist adoption</a></li>
+              <li><a href="/fr/faq/" class="text-sm text-slate-600 hover:text-green-600 transition-colors">FAQ — Questions fréquentes</a></li>
+              <li><a href="/fr/blog/" class="text-sm text-slate-600 hover:text-green-600 transition-colors">Blog santé canine</a></li>
+              <li><a href="/fr/conditions/" class="text-sm text-slate-600 hover:text-green-600 transition-colors">Conditions médicales</a></li>
+              <li><a href="/fr/glossaire/" class="text-sm text-slate-600 hover:text-green-600 transition-colors">Glossaire vétérinaire</a></li>
+              <li><a href="/fr/methodologie/" class="text-sm text-slate-600 hover:text-green-600 transition-colors">Méthodologie</a></li>
+            </ul>
+          </div>
+
+          <!-- Colonne 4 : Outils -->
+          <div>
+            <p class="mb-3 text-xs font-bold uppercase tracking-widest text-slate-400">Outils</p>
+            <ul class="space-y-2">
+              <li><a href="/fr/quiz/" class="text-sm text-slate-600 hover:text-green-600 transition-colors">🐾 Quiz race idéale</a></li>
+              <li><a href="/fr/comparer/" class="text-sm text-slate-600 hover:text-green-600 transition-colors">⚖️ Comparer 2 races</a></li>
+              <li><a href="/fr/assurance/" class="text-sm text-slate-600 hover:text-green-600 transition-colors">Assurances animaux</a></li>
+              <li><a href="/fr/calendrier/" class="text-sm text-slate-600 hover:text-green-600 transition-colors">Calendrier santé</a></li>
+              <li><a href="/fr/urgence/" class="text-sm text-red-500 hover:text-red-600 transition-colors font-medium">🚨 Urgence vétérinaire</a></li>
+              <li><a href="/fr/favoris/" class="text-sm text-slate-600 hover:text-green-600 transition-colors">❤️ Mes favoris</a></li>
+              <li><a href="/fr/races/prix-races-chiens/" class="text-sm text-slate-600 hover:text-green-600 transition-colors">Prix d'achat races</a></li>
+            </ul>
+          </div>
         </div>
 
-        <p class="mt-6 text-center text-xs text-slate-400">
-          &copy; {new Date().getFullYear()} PetScore. Tous droits réservés.
-        </p>
+        <!-- Bottom bar -->
+        <div class="border-t border-gray-200 pt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
+          <p class="text-xs leading-relaxed text-slate-400 max-w-xl text-center sm:text-left">
+            <strong class="text-slate-500">Avis légal :</strong> Les informations sont des estimations à titre éducatif seulement et ne constituent pas un avis vétérinaire.
+          </p>
+          <div class="flex flex-wrap gap-x-4 gap-y-1 justify-center">
+            <a href="/fr/a-propos/" class="text-xs text-slate-400 hover:text-green-600 transition-colors">À propos</a>
+            <a href="/fr/confidentialite/" class="text-xs text-slate-400 hover:text-green-600 transition-colors">Confidentialité</a>
+            <a href="/en/" class="text-xs text-slate-400 hover:text-green-600 transition-colors">English</a>
+            <span class="text-xs text-slate-300">&copy; {new Date().getFullYear()} PetScore™</span>
+          </div>
+        </div>
       </div>
     </footer>
   </body>
