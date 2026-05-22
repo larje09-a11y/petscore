@@ -1,7 +1,7 @@
----
+﻿---
 title: "Chien et chat : comment réussir l'introduction et la cohabitation"
 description: "Vous avez un chat et voulez adopter un chien (ou inversement) ? Guide complet sur l'introduction progressive, les races compatibles et les erreurs fatales à éviter."
-pubDate: 2026-03-05
+publishedAt: 2026-03-05
 tags: ["comportement", "cohabitation", "chat", "famille", "socialisation"]
 faqItems:
   - q: "Quelles races de chiens cohabitent le mieux avec les chats ?"

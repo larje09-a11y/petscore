@@ -1,7 +1,7 @@
----
+﻿---
 title: "Dirofilariose (ver du cœur) et parasites estivaux chez le chien au Québec"
 description: "Le ver du cœur progresse au Québec avec les changements climatiques. Guide complet sur la dirofilariose, la prévention, le traitement et les parasites estivaux à surveiller."
-pubDate: 2026-05-01
+publishedAt: 2026-05-01
 tags: ["parasites", "santé", "prévention", "été", "ver du coeur", "Québec"]
 faqItems:
   - q: "Le ver du cœur est-il présent au Québec ?"

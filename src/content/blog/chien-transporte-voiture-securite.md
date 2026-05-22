@@ -1,7 +1,7 @@
----
+﻿---
 title: "Transport du chien en voiture : règles légales et sécurité au Québec"
 description: "En voiture avec votre chien : êtes-vous en règle au Québec ? Harnais, cage, coffre... Ce que dit le Code de la sécurité routière et comment protéger votre animal en cas d'accident."
-pubDate: 2026-04-08
+publishedAt: 2026-04-08
 tags: ["transport", "voiture", "sécurité", "légal", "Québec", "voyage"]
 faqItems:
   - q: "Est-ce légal de laisser son chien sur le siège passager au Québec ?"

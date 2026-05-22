@@ -1,7 +1,7 @@
----
+﻿---
 title: "Hygiène dentaire du chien : comment prévenir les maladies parodontales au Québec"
 description: "80% des chiens de plus de 3 ans ont une maladie dentaire. Guide complet sur le brossage, les alternatives, le détartrage vétérinaire et les signes d'alerte au Québec."
-pubDate: 2026-04-15
+publishedAt: 2026-04-15
 tags: ["santé", "dentaire", "hygiène", "prévention", "soins"]
 faqItems:
   - q: "À quelle fréquence faut-il brosser les dents de son chien ?"

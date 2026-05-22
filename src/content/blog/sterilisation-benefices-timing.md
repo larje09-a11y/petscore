@@ -1,7 +1,7 @@
----
+﻿---
 title: "Stérilisation et castration du chien : bénéfices, timing optimal et coût au Québec"
 description: "Quand stériliser ou castrer son chien ? Les dernières recommandations vétérinaires sur le timing selon la race, les bénéfices santé prouvés et le coût au Québec en 2026."
-pubDate: 2026-01-15
+publishedAt: 2026-01-15
 tags: ["stérilisation", "santé", "chirurgie", "prevention", "Québec"]
 faqItems:
   - q: "À quel âge stériliser ou castrer son chien ?"

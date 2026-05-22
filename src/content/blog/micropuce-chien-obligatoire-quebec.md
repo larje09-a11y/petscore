@@ -1,7 +1,7 @@
----
+﻿---
 title: "Micropuce chien Québec : obligations légales, coûts et procédure complète"
 description: "La micropuce est-elle obligatoire pour votre chien au Québec ? Découvrez les règlements municipaux, le coût de l'implantation, comment enregistrer votre chien et quoi faire si votre animal est perdu."
-pubDate: 2026-04-01
+publishedAt: 2026-04-01
 tags: ["micropuce", "légal", "Québec", "identification", "administratif"]
 faqItems:
   - q: "La micropuce est-elle obligatoire au Québec ?"

@@ -1,7 +1,7 @@
----
+﻿---
 title: "Chien et nouveau-né : comment préparer la cohabitation en toute sécurité"
 description: "Vous attendez un bébé et avez un chien ? Guide complet pour préparer votre chien à l'arrivée du nouveau-né, éviter les accidents et créer une relation harmonieuse dès le départ."
-pubDate: 2026-02-14
+publishedAt: 2026-02-14
 tags: ["famille", "bébé", "sécurité", "comportement", "socialisation"]
 faqItems:
   - q: "Mon chien peut-il être dangereux pour mon bébé ?"

@@ -1,7 +1,7 @@
----
+﻿---
 title: "Chiens d'assistance et de service au Québec : droits, races et organismes certifiés"
 description: "Tout savoir sur les chiens d'assistance au Québec : chiens guides, chiens de soutien émotionnel, droits légaux, organismes certifiés et différences importantes à connaître."
-pubDate: 2026-04-20
+publishedAt: 2026-04-20
 tags: ["assistance", "handicap", "légal", "Québec", "droits"]
 faqItems:
   - q: "Un chien d'assistance a-t-il le droit d'entrer partout au Québec ?"

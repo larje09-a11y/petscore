@@ -1,7 +1,7 @@
----
+﻿---
 title: "Dressage positif : pourquoi les récompenses sont plus efficaces que la punition"
 description: "Tout ce que vous devez savoir sur le renforcement positif pour dresser votre chien. Conseils pratiques, erreurs à éviter et comparaison avec les méthodes traditionnelles."
-pubDate: 2026-03-10
+publishedAt: 2026-03-10
 tags: ["dressage", "éducation", "comportement", "chiot"]
 faqItems:
   - q: "Le renforcement positif fonctionne-t-il pour toutes les races ?"

@@ -1,7 +1,7 @@
----
+﻿---
 title: "Les meilleures races de chiens pour les coureurs et sportifs au Québec"
 description: "Vous courez, randonnez ou faites du vélo ? Découvrez les 10 meilleures races de chiens pour accompagner les personnes actives au Québec, avec conseils et précautions saisonnières."
-pubDate: 2026-05-05
+publishedAt: 2026-05-05
 tags: ["sport", "running", "randonnée", "races", "activité", "Québec"]
 faqItems:
   - q: "À quel âge un chien peut-il commencer à courir avec son propriétaire ?"

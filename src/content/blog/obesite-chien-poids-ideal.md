@@ -1,7 +1,7 @@
----
+﻿---
 title: "Obésité canine : comment évaluer et gérer le poids de votre chien au Québec"
 description: "L'obésité touche 50% des chiens au Canada. Apprenez à évaluer le poids idéal de votre chien, les risques pour sa santé et comment l'aider à maigrir sainement."
-pubDate: 2026-02-28
+publishedAt: 2026-02-28
 tags: ["alimentation", "santé", "obésité", "poids", "prévention"]
 faqItems:
   - q: "Comment savoir si mon chien est en surpoids ?"

@@ -1,7 +1,7 @@
----
+﻿---
 title: "Assurance animale : quand souscrire et comment éviter les pièges au Québec"
 description: "Guide pratique sur l'assurance animale au Québec : le bon moment pour souscrire, les exclusions à surveiller, comment comparer les plans et les erreurs qui coûtent cher."
-pubDate: 2026-01-20
+publishedAt: 2026-01-20
 tags: ["assurance", "budget", "santé", "finances", "Québec"]
 faqItems:
   - q: "Quand est le meilleur moment pour souscrire une assurance animale ?"
