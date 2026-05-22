@@ -1,0 +1,162 @@
+---
+import Layout from '@/components/Layout.astro';
+import breedsRaw from '@/data/breeds.json';
+import type { Breed } from '@/types/breed';
+import { getScoreHex, getScoreDashArray, getRiskBadgeClass, getRiskLabel } from '@/lib/breeds';
+
+const allBreeds = breedsRaw as Breed[];
+// Sort by average lifespan (min+max)/2 desc, then score desc
+const breeds = [...allBreeds]
+  .sort((a, b) => {
+    const avgA = (a.lifespan.min + a.lifespan.max) / 2;
+    const avgB = (b.lifespan.min + b.lifespan.max) / 2;
+    return avgB - avgA || b.score - a.score;
+  })
+  .slice(0, 15);
+
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Races de chiens à longue espérance de vie au Québec",
+  "description": "Top 15 des races de chiens avec la plus longue longévité au Québec.",
+  "numberOfItems": breeds.length,
+  "itemListElement": breeds.map((b, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "name": b.name,
+    "url": `https://petscore.ca/fr/races/${b.slug}`,
+  })),
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://petscore.ca/fr/" },
+      { "@type": "ListItem", "position": 2, "name": "Races", "item": "https://petscore.ca/fr/races/" },
+      { "@type": "ListItem", "position": 3, "name": "Races longue vie", "item": "https://petscore.ca/fr/races/races-longue-vie" }
+    ]
+  }
+});
+---
+
+<Layout
+  title="Top 15 races de chiens à longue espérance de vie — Québec 2026"
+  description={`Découvrez les ${breeds.length} races de chiens avec la plus longue espérance de vie. Compagnons fidèles pour de nombreuses années au Québec.`}
+  canonicalUrl="/fr/races/races-longue-vie"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={jsonLd} />
+  </Fragment>
+
+  <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+
+    <!-- Fil d'Ariane -->
+    <nav aria-label="Fil d'Ariane" class="mb-8">
+      <ol class="flex flex-wrap items-center gap-1.5 text-sm text-slate-400">
+        <li><a href="/fr/" class="hover:text-green-600 transition-colors">Accueil</a></li>
+        <li aria-hidden="true"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li><a href="/fr/races/" class="hover:text-green-600 transition-colors">Races</a></li>
+        <li aria-hidden="true"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li aria-current="page" class="font-medium text-gray-700">Races longue vie</li>
+      </ol>
+    </nav>
+
+    <!-- En-tête -->
+    <header class="mb-10">
+      <h1 class="font-display text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        ⏳ Top {breeds.length} races à longue espérance de vie
+      </h1>
+      <p class="mt-3 max-w-2xl text-slate-500">
+        Classement par espérance de vie moyenne (de la plus longue à la plus courte). Ces races vous
+        accompagneront le plus longtemps, à condition de prendre soin de leur santé dès le départ.
+      </p>
+      <div class="mt-4 inline-flex items-start gap-2 rounded-xl bg-green-50 border border-green-100 px-4 py-3 text-sm text-green-700">
+        <span class="shrink-0">🌿</span>
+        <span>
+          Les petites races vivent généralement plus longtemps que les grandes. Consultez notre
+          <a href="/fr/methodologie/" class="underline font-medium">méthodologie</a> pour comprendre
+          pourquoi la taille influence la longévité.
+        </span>
+      </div>
+    </header>
+
+    <!-- Grille des races -->
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {breeds.map((breed, i) => {
+        const hex  = getScoreHex(breed.score);
+        const dash = getScoreDashArray(breed.score);
+        const avgLife = Math.round((breed.lifespan.min + breed.lifespan.max) / 2);
+        return (
+          <a
+            href={`/fr/races/${breed.slug}`}
+            class="group relative flex items-center gap-4 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
+          >
+            {i < 3 && (
+              <span class="absolute -top-2 -left-2 flex h-7 w-7 items-center justify-center rounded-full bg-yellow-400 text-sm font-bold text-white shadow">
+                {i === 0 ? "🥇" : i === 1 ? "🥈" : "🥉"}
+              </span>
+            )}
+
+            <svg viewBox="0 0 100 100" class="h-14 w-14 shrink-0" aria-hidden="true">
+              <circle cx="50" cy="50" r="44" fill="none" stroke="#e5e7eb" stroke-width="11" />
+              <circle cx="50" cy="50" r="44" fill="none" stroke={hex} stroke-width="11"
+                stroke-dasharray={dash} stroke-linecap="round" transform="rotate(-90 50 50)" />
+              <text x="50" y="50" text-anchor="middle" dominant-baseline="middle"
+                font-size="28" font-weight="700" fill={hex} font-family="Sora, sans-serif">{breed.score}</text>
+            </svg>
+
+            <div class="min-w-0 flex-1">
+              <p class="truncate font-display font-semibold text-gray-900 group-hover:text-green-600 transition-colors">
+                {breed.name}
+              </p>
+              <p class="text-xs text-slate-400 capitalize">{breed.size} · {breed.origin}</p>
+              <span class={`mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-medium ${getRiskBadgeClass(breed.riskLevel)}`}>
+                {getRiskLabel(breed.riskLevel)}
+              </span>
+              {/* Longévité — info clé */}
+              <div class="mt-2 flex items-center gap-1.5 rounded-lg bg-blue-50 px-2 py-1">
+                <span class="text-blue-500">⏳</span>
+                <span class="text-xs font-semibold text-blue-700">
+                  {breed.lifespan.min}–{breed.lifespan.max} ans
+                  <span class="font-normal text-blue-500">(moy. {avgLife} ans)</span>
+                </span>
+              </div>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+
+    <!-- Facteurs de longévité -->
+    <section class="mt-12 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+      <h2 class="mb-6 font-display text-xl font-bold text-gray-900">
+        Facteurs qui influencent la longévité canine
+      </h2>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {[
+          { icon: "📐", title: "Taille corporelle", desc: "Les petites races (chihuahua, bichon) vivent généralement 14–18 ans. Les grandes races (dogue, saint-bernard) dépassent rarement 10 ans." },
+          { icon: "🧬", title: "Génétique et sélection", desc: "Les races sélectionnées pour des critères esthétiques extrêmes (brachycéphalie, dos allongé) ont souvent une espérance de vie réduite." },
+          { icon: "🥗", title: "Alimentation équilibrée", desc: "Une alimentation adaptée à la taille, à l'âge et au niveau d'activité peut ajouter 1 à 3 ans à l'espérance de vie d'un chien." },
+          { icon: "🏃", title: "Exercice régulier", desc: "L'exercice quotidien maintient le poids idéal et réduit les risques cardiovasculaires, l'une des principales causes de mortalité précoce." },
+          { icon: "🩺", title: "Soins préventifs", desc: "Les visites vétérinaires annuelles permettent de détecter les cancers et autres maladies à un stade précoce et traitable." },
+          { icon: "💊", title: "Stérilisation/castration", desc: "Selon plusieurs études, les chiens stérilisés/castrés vivent en moyenne 1,5 an de plus que les non-stérilisés." },
+        ].map(({ icon, title, desc }) => (
+          <div class="rounded-xl bg-gray-50 p-4">
+            <div class="mb-2 flex items-center gap-2">
+              <span class="text-xl">{icon}</span>
+              <h3 class="font-semibold text-gray-800 text-sm">{title}</h3>
+            </div>
+            <p class="text-xs leading-relaxed text-slate-500">{desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Liens vers pages connexes -->
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <a href="/fr/races/races-moins-cheres" class="rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-gray-50 transition-colors">Races moins chères →</a>
+      <a href="/fr/races/races-personnes-agees" class="rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-gray-50 transition-colors">Races pour personnes âgées →</a>
+      <a href="/fr/calendrier/" class="rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-gray-50 transition-colors">Calendrier santé →</a>
+      <a href="/fr/quiz/" class="rounded-full bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 transition-colors">🐾 Quiz personnalisé</a>
+    </div>
+
+  </div>
+</Layout>

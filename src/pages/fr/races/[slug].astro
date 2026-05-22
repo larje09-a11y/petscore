@@ -20,7 +20,7 @@ import FavoriteButton from '@/components/FavoriteButton.tsx';
 import ShareButtons from '@/components/ShareButtons.tsx';
 import RatingWidget from '@/components/RatingWidget.tsx';
 import { breedJsonLd } from '@/lib/jsonld';
-import { getBreedImageUrl } from '@/lib/breedImages';
+import { getBreedImageUrl, getBreedOgImageUrl } from '@/lib/breedImages';
 
 export async function getStaticPaths() {
   const breeds = breedsRaw as Breed[];
@@ -45,8 +45,9 @@ const adoptDash  = getScoreDashArray(adoptScore);
 
 const jsonLd    = breedJsonLd(breed);
 const title     = `${breed.name} — PetScore™ ${breed.score}/100`;
-const breedImg  = getBreedImageUrl(breed.slug);
-const pageUrl   = `https://petscore.ca/fr/races/${breed.slug}`;
+const breedImg    = getBreedImageUrl(breed.slug);
+const breedOgImg  = getBreedOgImageUrl(breed.slug);
+const pageUrl     = `https://petscore.ca/fr/races/${breed.slug}`;
 const description = `Découvrez le PetScore™ du ${breed.name} : ${breed.score}/100. Risques de santé, coûts vétérinaires estimés et assurances au Québec. Risque ${breed.riskLevel}.`;
 
 // Mappage breed → props du ScoreDashboard React
@@ -65,7 +66,7 @@ const longevity = `${breed.lifespan.min}–${breed.lifespan.max} ans`;
 const estimated10YearCost = breed.annualVetCost.max * 10;
 ---
 
-<Layout title={title} description={description} canonicalUrl={`/fr/races/${breed.slug}`}>
+<Layout title={title} description={description} canonicalUrl={`/fr/races/${breed.slug}`} ogImage={breedOgImg}>
   <Fragment slot="head">
     <script type="application/ld+json" set:html={jsonLd} />
   </Fragment>

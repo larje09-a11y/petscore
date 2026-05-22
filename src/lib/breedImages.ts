@@ -29,3 +29,8 @@ export function getBreedThumbUrl(slug: string): string {
 export function getBreedAvatarUrl(slug: string): string {
   return `https://picsum.photos/seed/${slugToSeed(slug)}/80/80`;
 }
+
+/** Open Graph image (1200×630 — spec recommandée par Facebook/Twitter) */
+export function getBreedOgImageUrl(slug: string): string {
+  return `https://picsum.photos/seed/${slugToSeed(slug)}/1200/630`;
+}

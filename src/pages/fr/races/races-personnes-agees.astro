@@ -1,0 +1,255 @@
+---
+import Layout from '@/components/Layout.astro';
+import breedsRaw from '@/data/breeds.json';
+import type { Breed } from '@/types/breed';
+import { getScoreHex, getScoreDashArray, getRiskBadgeClass, getRiskLabel } from '@/lib/breeds';
+
+const allBreeds = breedsRaw as Breed[];
+// Criteria: low energy (<=2), small or medium, good trainability, decent score
+const breeds = allBreeds
+  .filter((b) =>
+    b.traits.energy <= 2 &&
+    (b.size === "petit" || b.size === "moyen") &&
+    b.traits.trainability >= 3
+  )
+  .sort((a, b) => b.score - a.score || a.traits.energy - b.traits.energy)
+  .slice(0, 12);
+
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Meilleures races de chiens pour personnes âgées au Québec",
+  "description": "Top races de chiens adaptées aux personnes âgées ou à mobilité réduite : calmes, dociles, petite ou moyenne taille.",
+  "numberOfItems": breeds.length,
+  "itemListElement": breeds.map((b, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "name": b.name,
+    "url": `https://petscore.ca/fr/races/${b.slug}`,
+  })),
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://petscore.ca/fr/" },
+      { "@type": "ListItem", "position": 2, "name": "Races", "item": "https://petscore.ca/fr/races/" },
+      { "@type": "ListItem", "position": 3, "name": "Races personnes âgées", "item": "https://petscore.ca/fr/races/races-personnes-agees" }
+    ]
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Quel chien est idéal pour une personne âgée ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Les meilleures races pour personnes âgées sont calmes (énergie 1-2/5), de petite ou moyenne taille, faciles à dresser et à entretenir. Le Bichon frisé, le Cavalier King Charles, le Carlin et le Shih Tzu figurent parmi les choix les plus populaires au Québec."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Un chien est-il bon pour une personne âgée vivant seule ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Oui. Des études montrent que posséder un chien réduit l'isolement social, favorise l'activité physique légère quotidienne et améliore le bien-être émotionnel chez les personnes âgées. Choisissez une race à faible énergie qui s'adapte à votre rythme de vie."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quelle taille de chien pour une personne à mobilité réduite ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Les races de petite taille (2–7 kg) sont généralement les plus adaptées : faciles à porter, à promener et à soigner. Évitez les grandes races très énergiques qui peuvent tirer en laisse et présenter des risques de chute."
+        }
+      }
+    ]
+  }
+});
+---
+
+<Layout
+  title="Meilleures races de chiens pour personnes âgées — Québec 2026"
+  description={`Les ${breeds.length} meilleures races de chiens pour personnes âgées au Québec : calmes, petits ou moyens, faciles à entretenir. Conseils et critères de sélection.`}
+  canonicalUrl="/fr/races/races-personnes-agees"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={jsonLd} />
+  </Fragment>
+
+  <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+
+    <!-- Fil d'Ariane -->
+    <nav aria-label="Fil d'Ariane" class="mb-8">
+      <ol class="flex flex-wrap items-center gap-1.5 text-sm text-slate-400">
+        <li><a href="/fr/" class="hover:text-green-600 transition-colors">Accueil</a></li>
+        <li aria-hidden="true"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li><a href="/fr/races/" class="hover:text-green-600 transition-colors">Races</a></li>
+        <li aria-hidden="true"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li aria-current="page" class="font-medium text-gray-700">Races personnes âgées</li>
+      </ol>
+    </nav>
+
+    <!-- En-tête -->
+    <header class="mb-10">
+      <h1 class="font-display text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        🏡 Top {breeds.length} races pour personnes âgées
+      </h1>
+      <p class="mt-3 max-w-2xl text-slate-500">
+        Sélectionnées pour leur calme, leur taille adaptée et leur facilité de dressage.
+        Ces races s'épanouissent dans un environnement tranquille et conviennent parfaitement
+        aux personnes âgées, retraitées ou à mobilité réduite.
+      </p>
+    </header>
+
+    <!-- Critères de sélection -->
+    <div class="mb-10 grid gap-3 sm:grid-cols-4">
+      {[
+        { icon: "😴", label: "Énergie faible", desc: "1–2 / 5", color: "bg-blue-50 border-blue-100 text-blue-700" },
+        { icon: "📐", label: "Petite / moyenne taille", desc: "Moins de 25 kg", color: "bg-purple-50 border-purple-100 text-purple-700" },
+        { icon: "🎓", label: "Facile à dresser", desc: "Obéissant", color: "bg-green-50 border-green-100 text-green-700" },
+        { icon: "❤️", label: "Affectueux", desc: "Compagnon fidèle", color: "bg-red-50 border-red-100 text-red-700" },
+      ].map(({ icon, label, desc, color }) => (
+        <div class={`flex flex-col items-center rounded-xl border p-4 text-center ${color}`}>
+          <span class="text-2xl mb-1">{icon}</span>
+          <p class="font-semibold text-sm">{label}</p>
+          <p class="text-xs opacity-75">{desc}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Grille des races -->
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {breeds.map((breed, i) => {
+        const hex  = getScoreHex(breed.score);
+        const dash = getScoreDashArray(breed.score);
+        return (
+          <a
+            href={`/fr/races/${breed.slug}`}
+            class="group relative flex items-center gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
+          >
+            {i < 3 && (
+              <span class="absolute -top-2 -left-2 flex h-7 w-7 items-center justify-center rounded-full bg-yellow-400 text-sm font-bold text-white shadow">
+                {i === 0 ? "🥇" : i === 1 ? "🥈" : "🥉"}
+              </span>
+            )}
+
+            <svg viewBox="0 0 100 100" class="h-14 w-14 shrink-0" aria-hidden="true">
+              <circle cx="50" cy="50" r="44" fill="none" stroke="#e5e7eb" stroke-width="11" />
+              <circle cx="50" cy="50" r="44" fill="none" stroke={hex} stroke-width="11"
+                stroke-dasharray={dash} stroke-linecap="round" transform="rotate(-90 50 50)" />
+              <text x="50" y="50" text-anchor="middle" dominant-baseline="middle"
+                font-size="28" font-weight="700" fill={hex} font-family="Sora, sans-serif">{breed.score}</text>
+            </svg>
+
+            <div class="min-w-0">
+              <p class="truncate font-display font-semibold text-gray-900 group-hover:text-green-600 transition-colors">
+                {breed.name}
+              </p>
+              <p class="text-xs text-slate-400 capitalize">{breed.size} · {breed.weight.min}–{breed.weight.max} kg</p>
+              <span class={`mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-medium ${getRiskBadgeClass(breed.riskLevel)}`}>
+                {getRiskLabel(breed.riskLevel)}
+              </span>
+              <div class="mt-1.5 flex items-center gap-1">
+                <span class="text-xs text-slate-400">Énergie :</span>
+                {[1,2,3,4,5].map((dot) => (
+                  <span class={`h-1.5 w-3 rounded-full ${dot <= breed.traits.energy ? "bg-blue-400" : "bg-gray-100"}`} />
+                ))}
+              </div>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+
+    <!-- Conseils pour personnes âgées -->
+    <section class="mt-12 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+      <h2 class="mb-6 font-display text-xl font-bold text-gray-900">
+        Conseils avant d'adopter un chien à la retraite
+      </h2>
+      <div class="grid gap-4 sm:grid-cols-2">
+        {[
+          {
+            icon: "🐕",
+            title: "Envisagez un chien adulte",
+            desc: "Un chien adulte (3–7 ans) est souvent plus calme et formé qu'un chiot. Les refuges québécois accueillent de nombreux chiens adultes qui cherchent un foyer tranquille."
+          },
+          {
+            icon: "🏥",
+            title: "Prévoyez une assurance santé",
+            desc: "Sur un revenu fixe, les frais vétérinaires imprévus peuvent peser lourd. Une assurance à 25–50 $/mois peut couvrir les soins les plus coûteux."
+          },
+          {
+            icon: "🚶",
+            title: "Choisissez selon votre mobilité",
+            desc: "Si vous avez des difficultés à marcher, optez pour une race à très faible énergie ou prévoyez un service de promeneurs de chiens pour les jours difficiles."
+          },
+          {
+            icon: "👨‍👩‍👧",
+            title: "Planifiez pour l'avenir",
+            desc: "Assurez-vous qu'un proche ou une association (ex. SPCA Montréal) peut accueillir votre chien si votre situation de santé change."
+          },
+          {
+            icon: "✂️",
+            title: "Entretien du pelage",
+            desc: "Choisissez si possible une race à faible entretien (poil court) pour réduire les visites chez le toiletteur et les brossages quotidiens."
+          },
+          {
+            icon: "💬",
+            title: "Consultez votre médecin",
+            desc: "Les personnes sous certains traitements (immunosuppresseurs, allergie) devraient discuter avec leur médecin avant d'adopter un animal."
+          },
+        ].map(({ icon, title, desc }) => (
+          <div class="flex items-start gap-3 rounded-xl bg-gray-50 p-4">
+            <span class="text-xl shrink-0">{icon}</span>
+            <div>
+              <p class="font-semibold text-gray-800 text-sm">{title}</p>
+              <p class="mt-1 text-xs leading-relaxed text-slate-500">{desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="mt-10">
+      <h2 class="mb-6 font-display text-xl font-bold text-gray-900">Questions fréquentes</h2>
+      <div class="space-y-4">
+        {[
+          {
+            q: "Quel chien est idéal pour une personne âgée ?",
+            a: "Les meilleures races sont calmes, de petite ou moyenne taille, et faciles à dresser. Le Bichon frisé, le Cavalier King Charles et le Shih Tzu figurent parmi les choix les plus populaires au Québec pour les personnes âgées."
+          },
+          {
+            q: "Un chien est-il bon pour une personne âgée vivant seule ?",
+            a: "Oui. Des études montrent que posséder un chien réduit l'isolement social, favorise l'activité physique légère quotidienne et améliore le bien-être émotionnel. Choisissez une race à faible énergie qui s'adapte à votre rythme."
+          },
+          {
+            q: "Quelle taille de chien pour une personne à mobilité réduite ?",
+            a: "Les races de petite taille (2–7 kg) sont les plus adaptées : faciles à porter, à promener et à soigner. Évitez les grandes races très énergiques qui peuvent tirer en laisse et présenter des risques de chute."
+          },
+        ].map(({ q, a }) => (
+          <details class="group rounded-2xl border border-gray-100 bg-white shadow-sm">
+            <summary class="flex cursor-pointer items-center justify-between px-5 py-4 font-semibold text-gray-800">
+              <span class="text-sm">{q}</span>
+              <svg class="h-4 w-4 shrink-0 text-slate-400 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="border-t border-gray-50 px-5 py-4 text-sm leading-relaxed text-slate-600">
+              {a}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- Liens connexes -->
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <a href="/fr/races/races-longue-vie" class="rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-gray-50 transition-colors">Races longue vie →</a>
+      <a href="/fr/races/races-moins-cheres" class="rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-gray-50 transition-colors">Races moins chères →</a>
+      <a href="/fr/races/top-debutants" class="rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-gray-50 transition-colors">Top débutants →</a>
+      <a href="/fr/quiz/" class="rounded-full bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 transition-colors">🐾 Quiz personnalisé</a>
+    </div>
+
+  </div>
+</Layout>

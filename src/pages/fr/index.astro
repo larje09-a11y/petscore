@@ -19,13 +19,44 @@ const recentPosts = allPosts
 function formatDate(date: Date): string {
   return date.toLocaleDateString('fr-CA', { year: 'numeric', month: 'short', day: 'numeric' });
 }
----
 
+const websiteSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://petscore.ca/#org",
+      "name": "PetScore",
+      "url": "https://petscore.ca",
+      "logo": { "@type": "ImageObject", "url": "https://petscore.ca/favicon.svg" },
+      "description": "PetScore™ — Bulletin de santé prédictif pour les races de chiens au Québec.",
+      "areaServed": { "@type": "AdministrativeArea", "name": "Québec, Canada" },
+      "inLanguage": "fr-CA"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://petscore.ca/#website",
+      "url": "https://petscore.ca",
+      "name": "PetScore™",
+      "publisher": { "@id": "https://petscore.ca/#org" },
+      "inLanguage": "fr-CA",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": { "@type": "EntryPoint", "urlTemplate": "https://petscore.ca/fr/races/?q={search_term_string}" },
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ]
+});
+---
 <Layout
   title="PetScore™ — Le bulletin de santé de votre chien"
   description="Consultez le bulletin de santé prédictif de 50+ races et estimez vos coûts vétérinaires au Québec. Gratuit, en français."
   canonicalUrl="/fr/"
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={websiteSchema} />
+  </Fragment>
   <!-- ============================================================
        HERO
   ============================================================ -->

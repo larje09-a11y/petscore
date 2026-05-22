@@ -1,0 +1,331 @@
+---
+import Layout from '@/components/Layout.astro';
+
+const title       = "Méthodologie PetScore™ — Comment calculons-nous le score de santé canine ?";
+const description = "Découvrez comment PetScore™ calcule le score de santé de chaque race de chien : critères, pondération, sources de données vétérinaires et limites de notre modèle.";
+const canonicalUrl = "/fr/methodologie/";
+
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": title,
+  "description": description,
+  "url": "https://petscore.ca/fr/methodologie/",
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://petscore.ca/fr/" },
+      { "@type": "ListItem", "position": 2, "name": "Méthodologie", "item": "https://petscore.ca/fr/methodologie/" }
+    ]
+  }
+});
+---
+
+<Layout {title} {description} {canonicalUrl}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={jsonLd} />
+  </Fragment>
+
+  <div class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+
+    <!-- Fil d'Ariane -->
+    <nav aria-label="Fil d'Ariane" class="mb-8">
+      <ol class="flex flex-wrap items-center gap-1.5 text-sm text-slate-400">
+        <li><a href="/fr/" class="hover:text-green-600 transition-colors">Accueil</a></li>
+        <li aria-hidden="true">
+          <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </li>
+        <li aria-current="page" class="font-medium text-gray-700">Méthodologie</li>
+      </ol>
+    </nav>
+
+    <!-- En-tête -->
+    <header class="mb-12">
+      <div class="mb-4 inline-flex items-center gap-2 rounded-full bg-green-50 px-4 py-1.5 text-sm font-semibold text-green-700">
+        <span>🔬</span> Transparence scientifique
+      </div>
+      <h1 class="font-display text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        Méthodologie PetScore™
+      </h1>
+      <p class="mt-4 text-lg leading-relaxed text-slate-500">
+        Le PetScore™ est un indice composite de santé canine conçu pour aider les propriétaires et futurs adoptants
+        québécois à prendre des décisions éclairées. Voici comment nous le calculons, étape par étape.
+      </p>
+    </header>
+
+    <!-- Section 1 — Objectif -->
+    <section class="mb-10">
+      <h2 class="mb-4 font-display text-2xl font-bold text-gray-900">1. Objectif du score</h2>
+      <div class="prose prose-slate max-w-none">
+        <p class="leading-relaxed text-slate-600">
+          Le PetScore™ répond à une question simple : <strong>quelle est la robustesse génétique et sanitaire
+          attendue d'une race donnée sur l'ensemble de sa vie ?</strong> Il ne mesure pas le caractère,
+          l'intelligence ou la beauté — uniquement les facteurs liés à la santé héréditaire et à la longévité.
+        </p>
+        <p class="mt-3 leading-relaxed text-slate-600">
+          Un score élevé (80–100) indique une race génétiquement robuste avec peu de maladies héréditaires
+          documentées, une bonne longévité et des coûts vétérinaires prévisibles. Un score bas (0–64) signale
+          une race plus susceptible de développer des conditions coûteuses nécessitant des soins intensifs.
+        </p>
+      </div>
+    </section>
+
+    <!-- Séparateur visuel -->
+    <div class="mb-10 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" aria-hidden="true"></div>
+
+    <!-- Section 2 — Composantes -->
+    <section class="mb-10">
+      <h2 class="mb-6 font-display text-2xl font-bold text-gray-900">2. Les quatre composantes</h2>
+
+      <div class="space-y-6">
+
+        <!-- Risques héréditaires -->
+        <div class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+          <div class="flex items-start gap-4">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-red-50 text-2xl">🧬</div>
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <h3 class="font-display text-lg font-semibold text-gray-900">Risques héréditaires</h3>
+                <span class="rounded-full bg-red-100 px-3 py-1 text-sm font-bold text-red-700">40 pts</span>
+              </div>
+              <p class="mt-2 text-sm leading-relaxed text-slate-500">
+                Composante la plus importante. Nous recensons les conditions génétiques connues pour chaque race
+                à partir des bases de données de l'<abbr title="Orthopedic Foundation for Animals">OFA</abbr>,
+                du <abbr title="Canine Health Information Center">CHIC</abbr> et des études de prévalence publiées
+                dans des revues vétérinaires. Chaque condition est pondérée par sa prévalence dans la race et son
+                impact sur la qualité de vie.
+              </p>
+              <ul class="mt-3 space-y-1 text-xs text-slate-400">
+                <li>• Aucune condition connue → 40/40</li>
+                <li>• 1–2 conditions modérées → 28–36/40</li>
+                <li>• 3+ conditions ou conditions sévères → 0–24/40</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Longévité -->
+        <div class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+          <div class="flex items-start gap-4">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-2xl">⏳</div>
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <h3 class="font-display text-lg font-semibold text-gray-900">Longévité</h3>
+                <span class="rounded-full bg-blue-100 px-3 py-1 text-sm font-bold text-blue-700">25 pts</span>
+              </div>
+              <p class="mt-2 text-sm leading-relaxed text-slate-500">
+                L'espérance de vie médiane de la race, normalisée entre 6 ans (minimum observé) et 20 ans
+                (maximum observé chez les races toy saines). Les grandes races, naturellement moins longévives,
+                ne sont pas pénalisées au-delà de leur catégorie de taille.
+              </p>
+              <ul class="mt-3 space-y-1 text-xs text-slate-400">
+                <li>• 15–20 ans → 22–25/25</li>
+                <li>• 12–14 ans → 16–20/25</li>
+                <li>• 8–11 ans → 8–14/25</li>
+                <li>• Moins de 8 ans → 0–6/25</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coûts vétérinaires -->
+        <div class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+          <div class="flex items-start gap-4">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-yellow-50 text-2xl">💰</div>
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <h3 class="font-display text-lg font-semibold text-gray-900">Charge vétérinaire</h3>
+                <span class="rounded-full bg-yellow-100 px-3 py-1 text-sm font-bold text-yellow-700">20 pts</span>
+              </div>
+              <p class="mt-2 text-sm leading-relaxed text-slate-500">
+                Estimations de coûts vétérinaires annuels adaptées au contexte québécois (tarifs OMVQ 2023–2024).
+                Cette composante pénalise les races nécessitant des soins réguliers coûteux (opérations respiratoires,
+                examens orthopédiques, traitements dermatologiques récurrents).
+              </p>
+              <ul class="mt-3 space-y-1 text-xs text-slate-400">
+                <li>• Moins de 800 $/an (max) → 18–20/20</li>
+                <li>• 800–2 500 $/an → 10–16/20</li>
+                <li>• Plus de 2 500 $/an → 0–8/20</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Facilité de soins préventifs -->
+        <div class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+          <div class="flex items-start gap-4">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-green-50 text-2xl">🩺</div>
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <h3 class="font-display text-lg font-semibold text-gray-900">Accessibilité aux soins</h3>
+                <span class="rounded-full bg-green-100 px-3 py-1 text-sm font-bold text-green-700">15 pts</span>
+              </div>
+              <p class="mt-2 text-sm leading-relaxed text-slate-500">
+                Mesure si la race répond bien aux protocoles de soins préventifs standard (vaccination, vermifugation,
+                détartrage, contrôles annuels). Les races brachycéphales ou présentant des complications anesthésiques
+                connues sont pénalisées, tout comme les races dont le suivi génétique est difficile.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="mb-10 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" aria-hidden="true"></div>
+
+    <!-- Section 3 — AdoptScore -->
+    <section class="mb-10">
+      <h2 class="mb-4 font-display text-2xl font-bold text-gray-900">3. L'AdoptScore™ — score d'adoption composite</h2>
+      <p class="mb-4 leading-relaxed text-slate-600">
+        En complément du PetScore™ (santé pure), nous calculons un <strong>AdoptScore™</strong> qui intègre
+        votre style de vie. Il combine :
+      </p>
+      <div class="grid gap-3 sm:grid-cols-2">
+        {[
+          { icon: "❤️", label: "PetScore™ santé", desc: "50 % du total", color: "bg-green-50 border-green-100" },
+          { icon: "🎓", label: "Dressabilité", desc: "20 % — facilité pour débutants", color: "bg-blue-50 border-blue-100" },
+          { icon: "💵", label: "Budget estimé", desc: "20 % — coûts mensuels globaux", color: "bg-yellow-50 border-yellow-100" },
+          { icon: "👶", label: "Sociabilité famille", desc: "10 % — enfants et animaux", color: "bg-purple-50 border-purple-100" },
+        ].map(({ icon, label, desc, color }) => (
+          <div class={`flex items-center gap-3 rounded-xl border p-4 ${color}`}>
+            <span class="text-2xl">{icon}</span>
+            <div>
+              <p class="font-semibold text-gray-800 text-sm">{label}</p>
+              <p class="text-xs text-slate-500">{desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <div class="mb-10 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" aria-hidden="true"></div>
+
+    <!-- Section 4 — Sources -->
+    <section class="mb-10">
+      <h2 class="mb-4 font-display text-2xl font-bold text-gray-900">4. Sources et mise à jour des données</h2>
+      <div class="space-y-3 text-sm leading-relaxed text-slate-600">
+        <p>
+          Nos données sont compilées à partir de sources vétérinaires reconnues :
+        </p>
+        <ul class="ml-4 space-y-2">
+          <li class="flex items-start gap-2">
+            <span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-green-500"></span>
+            <span><strong class="text-gray-800">OFA (Orthopedic Foundation for Animals)</strong> — prévalence des maladies orthopédiques et génétiques</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-green-500"></span>
+            <span><strong class="text-gray-800">CHIC (Canine Health Information Center)</strong> — tests recommandés par race</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-green-500"></span>
+            <span><strong class="text-gray-800">OMVQ (Ordre des Médecins Vétérinaires du Québec)</strong> — grille tarifaire régionale</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-green-500"></span>
+            <span><strong class="text-gray-800">Journal of Veterinary Internal Medicine</strong> et autres revues à comité de lecture</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-green-500"></span>
+            <span><strong class="text-gray-800">AKC, CKC (Canadian Kennel Club)</strong> — standards de race et statistiques de longévité</span>
+          </li>
+        </ul>
+        <p class="mt-4 rounded-xl bg-amber-50 border border-amber-100 px-4 py-3 text-amber-800">
+          📅 Les données sont révisées <strong>au minimum une fois par an</strong>. Dernière révision : janvier 2026.
+          La publication de nouvelles études sur une race peut entraîner une mise à jour hors cycle.
+        </p>
+      </div>
+    </section>
+
+    <div class="mb-10 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" aria-hidden="true"></div>
+
+    <!-- Section 5 — Limites -->
+    <section class="mb-10">
+      <h2 class="mb-4 font-display text-2xl font-bold text-gray-900">5. Limites et précautions</h2>
+      <div class="space-y-3 text-sm leading-relaxed text-slate-600">
+        <p>
+          Le PetScore™ est un outil d'aide à la décision, <strong>pas un diagnostic médical</strong>.
+          Plusieurs facteurs importants échappent à notre modèle :
+        </p>
+        <ul class="ml-4 space-y-2">
+          <li class="flex items-start gap-2">
+            <span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-red-400"></span>
+            <span><strong class="text-gray-800">Variabilité individuelle</strong> — deux chiens de la même race peuvent avoir des histoires de santé très différentes selon leur lignée, leur éleveur et leur environnement.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-red-400"></span>
+            <span><strong class="text-gray-800">Qualité de l'élevage</strong> — les chiens issus d'éleveurs certifiés qui pratiquent des tests génétiques ont des risques bien inférieurs à la moyenne de la race.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-red-400"></span>
+            <span><strong class="text-gray-800">Alimentation et mode de vie</strong> — l'alimentation, l'exercice et les soins préventifs influencent considérablement la santé réelle, indépendamment du score.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-red-400"></span>
+            <span><strong class="text-gray-800">Chiens mixtes</strong> — notre score ne s'applique qu'aux races pures. Les chiens croisés bénéficient souvent de la vigueur hybride et peuvent avoir de meilleures perspectives de santé.</span>
+          </li>
+        </ul>
+        <div class="mt-4 rounded-xl border border-blue-100 bg-blue-50 px-4 py-3 text-blue-800">
+          💡 <strong>Notre recommandation</strong> : utilisez le PetScore™ comme point de départ, puis consultez
+          un médecin vétérinaire avant d'adopter ou d'acheter un chien. Un bilan de santé à l'adoption est
+          fortement conseillé.
+        </div>
+      </div>
+    </section>
+
+    <div class="mb-10 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" aria-hidden="true"></div>
+
+    <!-- Section 6 — Niveaux de risque -->
+    <section class="mb-10">
+      <h2 class="mb-4 font-display text-2xl font-bold text-gray-900">6. Niveaux de risque et interprétation</h2>
+      <div class="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-gray-100 bg-gray-50 text-left">
+              <th class="px-5 py-3 font-semibold text-gray-700">PetScore™</th>
+              <th class="px-5 py-3 font-semibold text-gray-700">Niveau de risque</th>
+              <th class="px-5 py-3 font-semibold text-gray-700">Signification</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-50">
+            <tr>
+              <td class="px-5 py-3 font-bold text-green-600">80 – 100</td>
+              <td class="px-5 py-3"><span class="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700">Faible risque</span></td>
+              <td class="px-5 py-3 text-slate-500">Race robuste, peu de maladies héréditaires, longévité élevée</td>
+            </tr>
+            <tr>
+              <td class="px-5 py-3 font-bold text-amber-500">65 – 79</td>
+              <td class="px-5 py-3"><span class="rounded-full bg-yellow-100 px-2 py-0.5 text-xs font-semibold text-yellow-700">Risque modéré</span></td>
+              <td class="px-5 py-3 text-slate-500">Quelques conditions connues, gérables avec un suivi vétérinaire régulier</td>
+            </tr>
+            <tr>
+              <td class="px-5 py-3 font-bold text-red-600">0 – 64</td>
+              <td class="px-5 py-3"><span class="rounded-full bg-red-100 px-2 py-0.5 text-xs font-semibold text-red-700">Risque élevé</span></td>
+              <td class="px-5 py-3 text-slate-500">Conditions héréditaires fréquentes et/ou coûteuses, vigilance accrue requise</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100 p-8 text-center">
+      <p class="font-display text-xl font-bold text-gray-900">Prêt à explorer les races ?</p>
+      <p class="mt-2 text-slate-500">Utilisez notre comparateur ou faites le quiz pour trouver votre race idéale.</p>
+      <div class="mt-5 flex flex-wrap justify-center gap-3">
+        <a href="/fr/races/" class="rounded-xl bg-green-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-green-700 transition-colors">
+          Voir toutes les races →
+        </a>
+        <a href="/fr/comparer/" class="rounded-xl border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors">
+          ⚖️ Comparateur
+        </a>
+        <a href="/fr/quiz/" class="rounded-xl border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors">
+          🐾 Quiz personnalisé
+        </a>
+      </div>
+    </div>
+
+  </div>
+</Layout>

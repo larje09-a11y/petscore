@@ -1,0 +1,356 @@
+---
+import Layout from '@/components/Layout.astro';
+
+const title       = "Glossaire médical canin — Termes vétérinaires expliqués | PetScore™";
+const description = "Définitions claires des termes médicaux vétérinaires les plus courants pour mieux comprendre la santé de votre chien. Dysplasie, brachycéphalie, zoonose et plus encore.";
+const canonicalUrl = "/fr/glossaire/";
+
+interface Term {
+  term: string;
+  slug: string;
+  definition: string;
+  category: string;
+  relatedBreeds?: string[];
+}
+
+const terms: Term[] = [
+  {
+    term: "Brachycéphalie",
+    slug: "brachycephalie",
+    definition: "Malformation anatomique caractérisée par un crâne et un museau raccourcis. Les races brachycéphales (Bouledogue, Carlin, Shih Tzu, Boston Terrier) présentent souvent des difficultés respiratoires, des ronflements et une intolérance à la chaleur. Le syndrome obstructif des voies respiratoires brachycéphales (SVRB) peut nécessiter une intervention chirurgicale.",
+    category: "Anatomie",
+    relatedBreeds: ["bouledogue-francais", "carlin", "boston-terrier"],
+  },
+  {
+    term: "Dysplasie de la hanche",
+    slug: "dysplasie-hanche",
+    definition: "Malformation du cotyle (cavité articulaire) de la hanche qui entraîne une arthrose progressive et des douleurs chroniques. Très fréquente chez les grandes races (Labrador, Golden Retriever, Berger Allemand). Le diagnostic se fait par radiographie. La prévention passe par le test OFA des reproducteurs et un exercice adapté pendant la croissance.",
+    category: "Orthopédie",
+    relatedBreeds: ["labrador-retriever", "golden-retriever", "berger-allemand"],
+  },
+  {
+    term: "Dysplasie du coude",
+    slug: "dysplasie-coude",
+    definition: "Ensemble d'anomalies de développement affectant l'articulation du coude. Elle touche principalement les grandes races à croissance rapide. Elle se manifeste par une boiterie du membre antérieur dès l'âge de 4–10 mois. Le traitement peut inclure une gestion médicamenteuse ou une chirurgie arthroscopique.",
+    category: "Orthopédie",
+    relatedBreeds: ["labrador-retriever", "golden-retriever"],
+  },
+  {
+    term: "Rétinopathie progressive (ARPR)",
+    slug: "retinopathie-progressive",
+    definition: "Dégénérescence progressive de la rétine qui conduit à la cécité. La forme héréditaire est courante chez plusieurs races (Labrador, Cocker Spaniel, Caniche). Elle débute par une mauvaise vision nocturne et progresse vers une cécité totale sur plusieurs années. Des tests ADN permettent d'identifier les porteurs.",
+    category: "Ophtalmologie",
+    relatedBreeds: ["labrador-retriever", "cocker-spaniel"],
+  },
+  {
+    term: "Sténose pulmonaire",
+    slug: "stenose-pulmonaire",
+    definition: "Rétrécissement de la valve pulmonaire qui obstrue le flux sanguin du coeur vers les poumons. C'est l'une des malformations cardiaques congénitales les plus fréquentes chez le chien. Les cas sévères nécessitent une valvuloplastie par ballonnet ou une chirurgie à coeur ouvert.",
+    category: "Cardiologie",
+    relatedBreeds: ["bouledogue-francais", "boxer"],
+  },
+  {
+    term: "Dilatation-torsion gastrique (DTG)",
+    slug: "dilatation-torsion-gastrique",
+    definition: "Urgence chirurgicale potentiellement fatale dans laquelle l'estomac se dilate de gaz puis se tord sur lui-même. Touche principalement les grandes et très grandes races à thorax profond (Berger Allemand, Dogue Allemand, Setter Irlandais). Les signes incluent gonflement abdominal, tentatives infructueuses de vomissements et détresse soudaine.",
+    category: "Gastro-entérologie",
+    relatedBreeds: ["berger-allemand"],
+  },
+  {
+    term: "Épilepsie idiopathique",
+    slug: "epilepsie-idiopathique",
+    definition: "Trouble neurologique caractérisé par des crises convulsives récurrentes sans cause identifiable. Fortement héréditaire dans certaines races (Beagle, Golden Retriever, Border Collie, Labrador). Le traitement est médicamenteux à vie (phénobarbital, bromure de potassium) et permet généralement un bon contrôle des crises.",
+    category: "Neurologie",
+    relatedBreeds: ["golden-retriever", "labrador-retriever", "beagle"],
+  },
+  {
+    term: "Hypothyroïdie",
+    slug: "hypothyroidie",
+    definition: "Déficit en hormone thyroïdienne entraînant une diminution du métabolisme. Signes cliniques : prise de poids, léthargie, perte de poil, intolérance au froid, peau sèche. Très commune chez les Labradors, Dobermanns et Golden Retrievers. Le traitement est simple : administration quotidienne de lévothyroxine.",
+    category: "Endocrinologie",
+    relatedBreeds: ["labrador-retriever", "golden-retriever"],
+  },
+  {
+    term: "Maladie de von Willebrand",
+    slug: "von-willebrand",
+    definition: "Trouble héréditaire de la coagulation sanguine causé par un déficit en facteur von Willebrand. Se manifeste par des saignements prolongés lors de blessures ou de chirurgies. Très fréquente chez le Dobermann Pinscher (jusqu'à 70 % porteurs). Des tests ADN existent pour identifier les chiens atteints et les porteurs.",
+    category: "Hématologie",
+  },
+  {
+    term: "Myélopathie dégénérative",
+    slug: "myelopathie-degenerative",
+    definition: "Maladie neurologique progressive et fatale qui affecte la moelle épinière. Elle débute par une faiblesse des membres postérieurs et évolue vers la paralysie totale sur 6–36 mois. Très commune chez le Berger Allemand et le Boxer. Actuellement incurable ; un test ADN permet de détecter les chiens à risque.",
+    category: "Neurologie",
+    relatedBreeds: ["berger-allemand", "boxer"],
+  },
+  {
+    term: "Luxation de la rotule",
+    slug: "luxation-rotule",
+    definition: "Déplacement de la rotule hors de son sillon naturel. Très fréquente chez les petites races (Chihuahua, Caniche nain, Yorkshire). Elle peut être congénitale ou traumatique. Les grades 1–2 sont souvent gérés médicalement ; les grades 3–4 nécessitent une chirurgie correctrice.",
+    category: "Orthopédie",
+    relatedBreeds: ["chihuahua", "caniche"],
+  },
+  {
+    term: "Entropion",
+    slug: "entropion",
+    definition: "Retournement du bord libre de la paupière vers l'intérieur de l'oeil, ce qui entraîne un frottement des cils sur la cornée, des douleurs et des ulcères cornéens. Fréquent chez les Shar Pei, Chow Chow, Rottweiler et Basset Hound. Le traitement est chirurgical.",
+    category: "Ophtalmologie",
+  },
+  {
+    term: "Syndrome de Wobbler",
+    slug: "syndrome-wobbler",
+    definition: "Compression de la moelle épinière au niveau cervical causant une démarche vacillante (wobbler) et une faiblesse des membres. Touche particulièrement le Dogue Allemand et le Dobermann. Le traitement inclut médicaments anti-inflammatoires et parfois une chirurgie de décompression cervicale.",
+    category: "Neurologie",
+  },
+  {
+    term: "Maladie d'Addison",
+    slug: "maladie-addison",
+    definition: "Insuffisance surrénalienne entraînant un manque de cortisol et d'aldostérone. Signes vagues (léthargie, vomissements, perte de poids) qui peuvent mener à une crise d'Addison potentiellement fatale. Plus fréquente chez le Caniche standard, le Berger Portugais et le Bearded Collie. Le traitement à vie implique des hormones de substitution.",
+    category: "Endocrinologie",
+  },
+  {
+    term: "Atopie canine",
+    slug: "atopie",
+    definition: "Allergie environnementale héréditaire qui provoque des démangeaisons chroniques, des otites récurrentes et des infections cutanées. Les races les plus touchées incluent le Westie, le Bouledogue Français, le Labrador et le Golden Retriever. Le traitement comprend immunothérapie, médicaments biologiques (Cytopoint) et gestion de l'environnement.",
+    category: "Dermatologie",
+    relatedBreeds: ["bouledogue-francais", "labrador-retriever", "golden-retriever"],
+  },
+  {
+    term: "Leishmaniose",
+    slug: "leishmaniose",
+    definition: "Maladie parasitaire transmise par la piqûre du phlébotome (moucheron des sables). Rare au Québec mais risque lors de voyages en Europe du Sud ou en Amérique du Sud. Elle affecte la peau, les reins, les ganglions et les yeux. Un vaccin (Letifend) et des répulsifs sont disponibles pour les chiens voyageurs.",
+    category: "Parasitologie",
+  },
+  {
+    term: "Leptospirose",
+    slug: "leptospirose",
+    definition: "Maladie bactérienne grave transmise par l'urine de rats et d'autres animaux sauvages, via l'eau ou le sol contaminé. Cause une défaillance rénale et hépatique aiguë. La vaccination est recommandée au Québec pour les chiens exposés aux plans d'eau et aux forêts. C'est aussi une zoonose : elle peut se transmettre à l'humain.",
+    category: "Infectiologie",
+  },
+  {
+    term: "Zoonose",
+    slug: "zoonose",
+    definition: "Maladie transmissible de l'animal à l'humain (ou inversement). Exemples : rage, leptospirose, teigne, gale sarcoptique, toxocara (ver rond). Une bonne hygiène, des vaccinations à jour et des traitements antiparasitaires réguliers réduisent considérablement ce risque.",
+    category: "Santé publique",
+  },
+  {
+    term: "Ostéosarcome",
+    slug: "osteosarcome",
+    definition: "Cancer osseux malin très agressif, représentant 85 % des tumeurs osseuses primaires chez le chien. Touche surtout les grandes et très grandes races (Rottweiler, Dogue Allemand, Saint-Bernard). Souvent localisé aux membres, il est douloureux et métastase rapidement aux poumons. Le pronostic reste sombre malgré l'amputation et la chimiothérapie.",
+    category: "Oncologie",
+  },
+  {
+    term: "Cardiomyopathie dilatée (CMD)",
+    slug: "cardiomyopathie-dilatee",
+    definition: "Maladie du muscle cardiaque qui se dilate et s'affaiblit, conduisant à l'insuffisance cardiaque congestive. Très fréquente chez le Dobermann Pinscher, le Boxer et le Dogue Allemand. Elle peut rester silencieuse pendant des années avant de provoquer une décompensation soudaine. Un échocardiogramme annuel est recommandé pour les races à risque.",
+    category: "Cardiologie",
+  },
+  {
+    term: "Endocardiose mitrale",
+    slug: "endocardiose-mitrale",
+    definition: "Dégénérescence de la valve mitrale du coeur, la maladie cardiaque la plus fréquente chez le chien (80 % des maladies cardiaques). Touche surtout les petites races âgées (Cavalier King Charles, Caniche, Chihuahua). Elle progresse lentement de l'insuffisance mitrale vers l'insuffisance cardiaque. Le traitement médical (pimobendan, IEC) améliore significativement la qualité et la durée de vie.",
+    category: "Cardiologie",
+    relatedBreeds: ["cavalier-king-charles", "caniche"],
+  },
+  {
+    term: "Cataracte héréditaire",
+    slug: "cataracte-hereditaire",
+    definition: "Opacification du cristallin d'origine génétique, à distinguer de la cataracte liée à l'âge. Elle peut apparaître dès l'âge adulte dans certaines races (Husky Sibérien, Staffordshire Bull Terrier, Border Collie) et évolue vers la cécité. Des tests ADN permettent l'identification des porteurs.",
+    category: "Ophtalmologie",
+    relatedBreeds: ["husky-siberien"],
+  },
+  {
+    term: "Ptyalisme",
+    slug: "ptyalisme",
+    definition: "Production excessive de salive (hypersalivation). Normal dans les races macrocèphes à lèvres lâches (Saint-Bernard, Dogue Allemand, Bloodhound) mais peut aussi signaler un problème buccal, neurologique ou de nausée. Ne pas confondre avec la pseudoptyalisme causée par une difficulté à avaler.",
+    category: "Gastro-entérologie",
+  },
+  {
+    term: "Syndrome du museau court (SVRB)",
+    slug: "svrb",
+    definition: "Acronyme de Syndrome des Voies Respiratoires Brachycéphales. Désigne l'ensemble des anomalies anatomiques des races brachycéphales (narines sténosées, voile du palais trop long, trachée étroite) qui limitent le passage de l'air. Symptômes : essoufflement, intolérance à l'effort et à la chaleur, ronflement. Une chirurgie corrective améliore significativement la qualité de vie.",
+    category: "Anatomie",
+    relatedBreeds: ["bouledogue-francais", "carlin", "boston-terrier"],
+  },
+  {
+    term: "Vaccinothérapie",
+    slug: "vaccinotherapie",
+    definition: "Utilisation thérapeutique de vaccins pour stimuler le système immunitaire contre des maladies existantes, notamment certains cancers. À distinguer de la vaccination préventive. Terme émergent en oncologie vétérinaire pour les chiens atteints de mélanome ou d'ostéosarcome.",
+    category: "Immunologie",
+  },
+  {
+    term: "Parvovirose",
+    slug: "parvovirose",
+    definition: "Maladie virale hautement contagieuse et mortelle causée par le parvovirus canin. Elle provoque une gastro-entérite hémorragique sévère, particulièrement dangereuse chez les chiots non vaccinés. La vaccination (incluse dans le vaccin DHPP) est très efficace et constitue l'un des soins essentiels du chiot.",
+    category: "Infectiologie",
+  },
+  {
+    term: "Maladie de Carré",
+    slug: "maladie-de-carre",
+    definition: "Maladie virale systémique très grave causée par un morbillivirus. Elle affecte les voies respiratoires, le tube digestif et le système nerveux central. La vaccination est obligatoire au Québec (incluse dans le DHPP). Les chiots non vaccinés ou mal vaccinés sont les plus vulnérables.",
+    category: "Infectiologie",
+  },
+  {
+    term: "Torsion splénique",
+    slug: "torsion-splenique",
+    definition: "Rotation de la rate sur son axe vasculaire, entraînant une ischémie et une nécrose de l'organe. Urgence chirurgicale souvent associée à la dilatation-torsion gastrique (DTG). Touche surtout les grandes races à thorax profond. La splénectomie (ablation de la rate) est le traitement de choix.",
+    category: "Chirurgie",
+  },
+  {
+    term: "Microbiote intestinal",
+    slug: "microbiote-intestinal",
+    definition: "Ensemble des micro-organismes (bactéries, levures, virus) vivant dans le tube digestif du chien. Un microbiote équilibré est essentiel à la santé immunitaire, digestive et même comportementale. Les probiotiques, une alimentation variée et l'évitement des antibiotiques inutiles contribuent à sa diversité.",
+    category: "Gastro-entérologie",
+  },
+  {
+    term: "Anesthésie et races à risque",
+    slug: "anesthesie-races-risque",
+    definition: "Certaines races présentent des risques spécifiques lors d'une anesthésie générale. Les brachycéphales (intubation difficile), les greyhounds (métabolisme hépatique particulier), et les races géantes (hypotension) nécessitent des protocoles adaptés. Informez toujours votre vétérinaire de la race avant toute intervention.",
+    category: "Chirurgie",
+  },
+];
+
+// Group terms by category
+const categories = [...new Set(terms.map((t) => t.category))].sort();
+const byCategory = categories.reduce<Record<string, Term[]>>((acc, cat) => {
+  acc[cat] = terms.filter((t) => t.category === cat);
+  return acc;
+}, {});
+
+// Alphabet index of first letters
+const letters = [...new Set(terms.map((t) => t.term[0].toUpperCase()))].sort();
+
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "DefinedTermSet",
+  "name": "Glossaire médical canin PetScore™",
+  "description": description,
+  "url": "https://petscore.ca/fr/glossaire/",
+  "hasDefinedTerm": terms.map((t) => ({
+    "@type": "DefinedTerm",
+    "name": t.term,
+    "description": t.definition.slice(0, 200),
+    "inDefinedTermSet": "https://petscore.ca/fr/glossaire/",
+  })),
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://petscore.ca/fr/" },
+      { "@type": "ListItem", "position": 2, "name": "Glossaire", "item": "https://petscore.ca/fr/glossaire/" }
+    ]
+  }
+});
+---
+
+<Layout {title} {description} {canonicalUrl}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={jsonLd} />
+  </Fragment>
+
+  <div class="mx-auto max-w-4xl px-4 py-10 sm:px-6">
+
+    <!-- Fil d'Ariane -->
+    <nav aria-label="Fil d'Ariane" class="mb-8">
+      <ol class="flex flex-wrap items-center gap-1.5 text-sm text-slate-400">
+        <li><a href="/fr/" class="hover:text-green-600 transition-colors">Accueil</a></li>
+        <li aria-hidden="true">
+          <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </li>
+        <li aria-current="page" class="font-medium text-gray-700">Glossaire médical canin</li>
+      </ol>
+    </nav>
+
+    <!-- En-tête -->
+    <header class="mb-10">
+      <h1 class="font-display text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        📖 Glossaire médical canin
+      </h1>
+      <p class="mt-3 max-w-2xl text-slate-500">
+        {terms.length} définitions des termes vétérinaires les plus courants, expliquées simplement
+        pour vous aider à mieux comprendre la santé de votre chien.
+      </p>
+    </header>
+
+    <!-- Filtres par catégorie -->
+    <div class="mb-8 flex flex-wrap gap-2">
+      <a href="#tous" class="rounded-full bg-gray-900 px-3 py-1 text-xs font-semibold text-white">
+        Tous ({terms.length})
+      </a>
+      {categories.map((cat) => (
+        <a href={`#${cat.toLowerCase().replace(/[^a-z0-9]/g, "-")}`}
+          class="rounded-full border border-gray-200 px-3 py-1 text-xs font-medium text-slate-600 hover:bg-gray-50 transition-colors">
+          {cat} ({byCategory[cat].length})
+        </a>
+      ))}
+    </div>
+
+    <!-- Index alphabétique -->
+    <div id="tous" class="mb-8 flex flex-wrap gap-1.5">
+      {letters.map((letter) => (
+        <a href={`#lettre-${letter}`}
+          class="flex h-7 w-7 items-center justify-center rounded-lg border border-gray-200 text-xs font-bold text-slate-600 hover:bg-green-50 hover:border-green-200 hover:text-green-700 transition-colors">
+          {letter}
+        </a>
+      ))}
+    </div>
+
+    <!-- Termes par catégorie -->
+    <div class="space-y-12">
+      {categories.map((cat) => (
+        <section id={cat.toLowerCase().replace(/[^a-z0-9]/g, "-")}>
+          <div class="mb-5 flex items-center gap-3">
+            <h2 class="font-display text-xl font-bold text-gray-900">{cat}</h2>
+            <span class="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-slate-500">
+              {byCategory[cat].length} termes
+            </span>
+          </div>
+
+          <div class="space-y-4">
+            {byCategory[cat].map((term) => (
+              <div id={`lettre-${term.term[0].toUpperCase()}`} class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+                <div class="mb-2 flex items-start justify-between gap-3">
+                  <h3 class="font-display text-lg font-bold text-gray-900">{term.term}</h3>
+                  <span class="shrink-0 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500 capitalize">
+                    {term.category}
+                  </span>
+                </div>
+                <p class="text-sm leading-relaxed text-slate-600">{term.definition}</p>
+                {term.relatedBreeds && term.relatedBreeds.length > 0 && (
+                  <div class="mt-3 flex flex-wrap items-center gap-2">
+                    <span class="text-xs text-slate-400">Races concernées :</span>
+                    {term.relatedBreeds.map((slug) => (
+                      <a href={`/fr/races/${slug}`}
+                        class="rounded-full border border-green-100 bg-green-50 px-2 py-0.5 text-xs font-medium text-green-700 hover:bg-green-100 transition-colors">
+                        {slug.replace(/-/g, " ")}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+
+    <!-- Note de bas de page -->
+    <div class="mt-12 rounded-2xl border border-amber-100 bg-amber-50 p-5">
+      <p class="text-sm text-amber-800">
+        <strong>⚠️ Avertissement médical :</strong> Ce glossaire est fourni à titre informatif uniquement.
+        Il ne remplace pas le diagnostic ou l'avis d'un médecin vétérinaire qualifié. Si votre chien présente
+        des symptômes inquiétants, consultez un vétérinaire immédiatement.
+        <a href="/fr/urgence/" class="ml-1 underline font-medium">Évaluer une urgence →</a>
+      </p>
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <a href="/fr/conditions/" class="rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-gray-50 transition-colors">Conditions médicales →</a>
+      <a href="/fr/methodologie/" class="rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-gray-50 transition-colors">Méthodologie PetScore™ →</a>
+      <a href="/fr/races/" class="rounded-full bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 transition-colors">Voir les races →</a>
+    </div>
+
+  </div>
+</Layout>

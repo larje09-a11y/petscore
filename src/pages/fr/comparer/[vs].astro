@@ -1,5 +1,6 @@
 ---
 import Layout from '@/components/Layout.astro';
+import CompareRadar from '@/components/CompareRadar.tsx';
 import breedsRaw from '@/data/breeds.json';
 import type { Breed } from '@/types/breed';
 import { getRiskBadgeClass, getRiskLabel } from '@/lib/breeds';
@@ -182,6 +183,11 @@ const fmtCAD = (n: number) => `${new Intl.NumberFormat('fr-CA').format(n)} $`;
           );
         })}
       </div>
+    </section>
+
+    <!-- ═══════════ RADAR CHART ═══════════ -->
+    <section class="mb-8">
+      <CompareRadar client:load breed1={breed1} breed2={breed2} />
     </section>
 
     <!-- ═══════════ COÛTS ═══════════ -->
