@@ -1,0 +1,442 @@
+---
+import Layout from '@/components/Layout.astro';
+import ScoreDashboard from '@/components/ScoreDashboard.tsx';
+import InsuranceCalculator from '@/components/InsuranceCalculator.tsx';
+import BudgetCalculator from '@/components/BudgetCalculator.tsx';
+import FavoriteButton from '@/components/FavoriteButton.tsx';
+import ShareButtons from '@/components/ShareButtons.tsx';
+import RatingWidget from '@/components/RatingWidget.tsx';
+import breedsRaw from '@/data/breeds.json';
+import type { Breed, RiskLevel } from '@/types/breed';
+import { getScoreHex, getScoreDashArray, getSimilarBreeds, computeAdoptScore, getAdoptScoreLabel, getAdoptScoreHex } from '@/lib/breeds';
+import { getBreedImageUrl, getBreedOgImageUrl } from '@/lib/breedImages';
+import { riskLabelEn, riskBadgeClassEn, sizeLabelEn, getBreedDescriptionEn, translateHealthRisk, getScoreLabelEn } from '@/lib/breedsEn';
+
+export async function getStaticPaths() {
+  const breeds = breedsRaw as Breed[];
+  return breeds.map((breed) => ({
+    params: { slug: breed.slug },
+    props: { breed, allBreeds: breeds },
+  }));
+}
+
+export interface Props {
+  breed: Breed;
+  allBreeds: Breed[];
+}
+
+const { breed, allBreeds } = Astro.props;
+const similarBreeds = getSimilarBreeds(allBreeds, breed, 3);
+
+const adoptScore = computeAdoptScore(breed);
+const adoptLabel = getAdoptScoreLabel(adoptScore);
+const adoptHex   = getAdoptScoreHex(adoptScore);
+const adoptDash  = getScoreDashArray(adoptScore);
+
+const breedImg   = getBreedImageUrl(breed.slug);
+const breedOgImg = getBreedOgImageUrl(breed.slug);
+const pageUrl    = `https://petscore.ca/en/breeds/${breed.slug}`;
+const descriptionEn = getBreedDescriptionEn(breed);
+const riskLabelStr  = riskLabelEn[breed.riskLevel] ?? breed.riskLevel;
+const sizeLabelStr  = sizeLabelEn[breed.size] ?? breed.size;
+
+const title       = `${breed.name} — PetScore™ ${breed.score}/100 | Quebec Dog Breed Guide`;
+const metaDesc    = `${breed.name} health score: ${breed.score}/100. Hereditary risks, estimated vet costs ($${breed.annualVetCost.min}–$${breed.annualVetCost.max}/yr) and pet insurance in Quebec.`;
+
+// ScoreDashboard props translated
+const costRangeByRisk: Record<RiskLevel, string> = {
+  faible: '$300 – $2,000',
+  moyen:  '$800 – $5,000',
+  'élevé': '$1,500 – $10,000',
+};
+const probByIndex = ['High', 'Moderate', 'Moderate', 'Low'] as const;
+const topRisks = breed.mainHealthRisks.slice(0, 3).map((name, i) => ({
+  name: translateHealthRisk(name),
+  probability: probByIndex[i] ?? 'Moderate',
+  costRange: costRangeByRisk[breed.riskLevel],
+}));
+const longevity = `${breed.lifespan.min}–${breed.lifespan.max} yrs`;
+const estimated10YearCost = breed.annualVetCost.max * 10;
+
+// JSON-LD
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://petscore.ca/en/" },
+        { "@type": "ListItem", "position": 2, "name": "Breeds", "item": "https://petscore.ca/en/breeds/" },
+        { "@type": "ListItem", "position": 3, "name": breed.name, "item": pageUrl },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": `What is the PetScore™ of the ${breed.name}?`,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": `The ${breed.name} scores ${breed.score}/100 on PetScore™. This reflects a ${riskLabelStr.toLowerCase()} of hereditary conditions and estimated veterinary costs in Quebec.`,
+          },
+        },
+        {
+          "@type": "Question",
+          "name": `What are common health problems in ${breed.name}s?`,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": `The main hereditary conditions in the ${breed.name} are: ${breed.mainHealthRisks.map(translateHealthRisk).join(', ')}.`,
+          },
+        },
+        {
+          "@type": "Question",
+          "name": `How much do vet bills cost for a ${breed.name} in Quebec?`,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": `Annual veterinary costs for a ${breed.name} in Quebec are estimated at $${breed.annualVetCost.min}–$${breed.annualVetCost.max} CAD. Over 10 years, budget up to $${breed.annualVetCost.max * 10}.`,
+          },
+        },
+        {
+          "@type": "Question",
+          "name": `How long do ${breed.name}s live?`,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": `The average lifespan of a ${breed.name} is ${breed.lifespan.min}–${breed.lifespan.max} years.`,
+          },
+        },
+      ],
+    },
+  ],
+});
+---
+
+<Layout title={title} description={metaDesc} canonicalUrl={`/en/breeds/${breed.slug}`} ogImage={breedOgImg} lang="en">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={jsonLd} />
+  </Fragment>
+  <div class="mx-auto max-w-4xl px-4 py-10 sm:px-6">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="mb-8">
+      <ol class="flex flex-wrap items-center gap-1.5 text-sm text-slate-400">
+        <li><a href="/en/" class="hover:text-green-600 transition-colors duration-200">Home</a></li>
+        <li aria-hidden="true"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg></li>
+        <li><a href="/en/breeds/" class="hover:text-green-600 transition-colors duration-200">Breeds</a></li>
+        <li aria-hidden="true"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg></li>
+        <li aria-current="page" class="font-medium text-gray-700 truncate max-w-[12rem]">{breed.name}</li>
+      </ol>
+    </nav>
+
+    <!-- Breed Header -->
+    <header class="mb-8">
+      <div class="mb-6 overflow-hidden rounded-2xl">
+        <img
+          src={breedImg}
+          alt={`${breed.name} dog breed`}
+          width="800"
+          height="340"
+          class="h-52 w-full object-cover sm:h-64"
+          loading="eager"
+        />
+      </div>
+      <div class="flex flex-wrap items-start gap-4">
+        <div class="flex-1">
+          <div class="mb-2 flex flex-wrap items-center gap-2">
+            <span class={`rounded-full px-3 py-1 text-xs font-semibold ${riskBadgeClassEn[breed.riskLevel]}`}>
+              {riskLabelStr}
+            </span>
+            <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-500">
+              {sizeLabelStr}
+            </span>
+            <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-500">
+              {breed.origin}
+            </span>
+          </div>
+          <div class="flex flex-wrap items-center gap-3">
+            <h1 class="font-display text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              {breed.name}
+            </h1>
+            <FavoriteButton client:load slug={breed.slug} name={breed.name} />
+          </div>
+          <p class="mt-3 leading-relaxed text-slate-500">
+            {descriptionEn}
+          </p>
+        </div>
+
+        <!-- Quick stats -->
+        <div class="flex shrink-0 gap-4 rounded-2xl bg-gray-50 p-4 text-center">
+          <div>
+            <p class="text-xs text-slate-400">Weight</p>
+            <p class="font-display font-semibold text-gray-800">{breed.weight.min}–{breed.weight.max} kg</p>
+          </div>
+          <div class="w-px bg-gray-200" aria-hidden="true"></div>
+          <div>
+            <p class="text-xs text-slate-400">Lifespan</p>
+            <p class="font-display font-semibold text-gray-800">{breed.lifespan.min}–{breed.lifespan.max} yrs</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- AdoptScore -->
+    <div class="mb-6 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+      <div class="flex items-center gap-5">
+        <svg viewBox="0 0 100 100" class="h-16 w-16 shrink-0" aria-hidden="true">
+          <circle cx="50" cy="50" r="44" fill="none" stroke="#e5e7eb" stroke-width="11" />
+          <circle cx="50" cy="50" r="44" fill="none"
+            stroke={adoptHex} stroke-width="11"
+            stroke-dasharray={adoptDash}
+            stroke-linecap="round"
+            transform="rotate(-90 50 50)" />
+          <text x="50" y="50" text-anchor="middle" dominant-baseline="middle"
+            font-size="26" font-weight="700" fill={adoptHex} font-family="Sora, sans-serif">
+            {adoptScore}
+          </text>
+        </svg>
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">AdoptScore™</p>
+          <p class={`font-display text-xl font-bold ${adoptLabel.colorClass}`}>{adoptLabel.label}</p>
+          <p class="mt-1 text-sm text-slate-500">
+            Composite score: health ({breed.score}/100) · trainability ({breed.traits.trainability}/5) · budget · family suitability
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PetScore Dashboard -->
+    <div class="mb-6">
+      <ScoreDashboard
+        client:load
+        name={breed.name}
+        petScore={breed.score}
+        longevity={longevity}
+        riskLevel={breed.riskLevel}
+        topRisks={topRisks}
+        estimated10YearCost={estimated10YearCost}
+        description={descriptionEn}
+      />
+    </div>
+
+    <!-- Trait breakdown -->
+    <div class="mb-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+      <h2 class="mb-4 font-display text-lg font-bold text-gray-900">Breed Traits</h2>
+      <div class="grid gap-4 sm:grid-cols-2">
+        {([
+          { label: 'Energy Level', icon: '⚡', val: breed.traits.energy },
+          { label: 'Grooming Needs', icon: '✂️', val: breed.traits.grooming },
+          { label: 'Trainability', icon: '🎓', val: breed.traits.trainability },
+          { label: 'Kid-Friendly', icon: '👶', val: breed.traits.socialWithKids },
+        ]).map(({ label, icon, val }) => (
+          <div>
+            <div class="mb-1 flex items-center justify-between">
+              <span class="text-sm font-medium text-slate-600">{icon} {label}</span>
+              <span class="text-sm font-bold text-gray-800">{val}/5</span>
+            </div>
+            <div class="flex gap-1">
+              {[1,2,3,4,5].map(d => (
+                <div class={`h-2 flex-1 rounded-full ${d <= val ? 'bg-green-400' : 'bg-gray-100'}`} />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Health risks table -->
+    {(breed.healthRisksWithCosts && breed.healthRisksWithCosts.length > 0) && (
+      <div class="mb-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+        <h2 class="mb-4 font-display text-lg font-bold text-gray-900">Health Risks & Estimated Costs</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-gray-100 text-left">
+                <th class="pb-2 font-semibold text-slate-600">Condition</th>
+                <th class="pb-2 font-semibold text-slate-600 text-right">Est. Cost (CAD)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50">
+              {breed.healthRisksWithCosts.map((risk) => (
+                <tr class="py-2">
+                  <td class="py-2 text-slate-700">{translateHealthRisk(risk.name)}</td>
+                  <td class="py-2 text-right font-medium text-gray-800">{risk.estimatedCost}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 text-xs text-slate-400">
+          * Estimates based on Quebec veterinary rates. Actual costs vary by clinic, severity, and whether pet insurance covers the condition.
+        </p>
+      </div>
+    )}
+    {!(breed.healthRisksWithCosts && breed.healthRisksWithCosts.length > 0) && (
+      <div class="mb-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+        <h2 class="mb-4 font-display text-lg font-bold text-gray-900">Health Risks</h2>
+        <ul class="space-y-2">
+          {breed.mainHealthRisks.map((risk) => (
+            <li class="flex items-start gap-2 text-sm text-slate-700">
+              <span class="mt-0.5 text-amber-500">⚠</span>
+              <span>{translateHealthRisk(risk)}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    <!-- Budget Calculator -->
+    <div class="mb-6">
+      <BudgetCalculator client:load breed={breed} />
+    </div>
+
+    <!-- Insurance Calculator -->
+    <div class="mb-6">
+      <InsuranceCalculator client:load basePremium={breed.insuranceMonthly.min} />
+    </div>
+
+    <!-- Quebec-specific info -->
+    <div class="mb-6 rounded-2xl border border-blue-100 bg-blue-50 p-6">
+      <h2 class="mb-3 font-display text-lg font-bold text-blue-900">🍁 Quebec Pet Owner Info</h2>
+      <ul class="space-y-2 text-sm text-blue-800">
+        <li>🏥 <strong>Microchip:</strong> Mandatory in Quebec since 2024 — registration required with your municipality</li>
+        <li>🦟 <strong>Seasonal health:</strong> Heartworm prevention required May–November; ticks active from +4°C</li>
+        <li>❄️ <strong>Winter care:</strong> Paw protection (Musher's Secret or Pawz boots) against road salt and -30°C temperatures</li>
+        <li>📋 <strong>BSL check:</strong> Certain breeds are restricted in Quebec and some municipalities —
+          <a href="/fr/races/races-interdites-quebec/" class="underline hover:text-blue-600">check BSL regulations</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Affiliate products -->
+    <div class="mb-12 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+      <h2 class="mb-4 font-display text-lg font-bold text-gray-900">
+        🛒 Recommended Products for the {breed.name}
+      </h2>
+      <div class="grid gap-3 sm:grid-cols-2">
+        {breed.traits.grooming >= 4 && (
+          <a href="https://www.mondou.com/fr-CA/chiens/toilettage" target="_blank" rel="noopener sponsored"
+            class="flex items-center gap-3 rounded-xl border border-gray-100 p-3 text-sm transition hover:border-green-200 hover:bg-green-50">
+            <span class="text-2xl">✂️</span>
+            <div>
+              <p class="font-semibold text-gray-800">Brushes & Professional Grooming</p>
+              <p class="text-xs text-slate-400">For high-maintenance coats · Mondou</p>
+            </div>
+          </a>
+        )}
+        {(breed.riskLevel === 'élevé' || breed.annualVetCost.max > 2500) && (
+          <a href="https://www.mondou.com/fr-CA/chiens/sante-et-soins/supplements" target="_blank" rel="noopener sponsored"
+            class="flex items-center gap-3 rounded-xl border border-gray-100 p-3 text-sm transition hover:border-green-200 hover:bg-green-50">
+            <span class="text-2xl">💊</span>
+            <div>
+              <p class="font-semibold text-gray-800">Joint & Health Supplements</p>
+              <p class="text-xs text-slate-400">Glucosamine, omega-3, probiotics · Mondou</p>
+            </div>
+          </a>
+        )}
+        {breed.traits.energy >= 4 && (
+          <a href="https://www.mondou.com/fr-CA/chiens/jouets" target="_blank" rel="noopener sponsored"
+            class="flex items-center gap-3 rounded-xl border border-gray-100 p-3 text-sm transition hover:border-green-200 hover:bg-green-50">
+            <span class="text-2xl">🧠</span>
+            <div>
+              <p class="font-semibold text-gray-800">Mental Stimulation Toys</p>
+              <p class="text-xs text-slate-400">For active & intelligent breeds · Mondou</p>
+            </div>
+          </a>
+        )}
+        {breed.size === 'grand' && (
+          <a href="https://www.mondou.com/fr-CA/chiens/nourriture-pour-chien/grandes-races" target="_blank" rel="noopener sponsored"
+            class="flex items-center gap-3 rounded-xl border border-gray-100 p-3 text-sm transition hover:border-green-200 hover:bg-green-50">
+            <span class="text-2xl">🍖</span>
+            <div>
+              <p class="font-semibold text-gray-800">Large Breed Dog Food</p>
+              <p class="text-xs text-slate-400">Formula for large dogs · Mondou</p>
+            </div>
+          </a>
+        )}
+        {breed.size === 'petit' && (
+          <a href="https://www.mondou.com/fr-CA/chiens/nourriture-pour-chien/petites-races" target="_blank" rel="noopener sponsored"
+            class="flex items-center gap-3 rounded-xl border border-gray-100 p-3 text-sm transition hover:border-green-200 hover:bg-green-50">
+            <span class="text-2xl">🦴</span>
+            <div>
+              <p class="font-semibold text-gray-800">Small Breed Dog Food</p>
+              <p class="text-xs text-slate-400">Small kibble formula · Mondou</p>
+            </div>
+          </a>
+        )}
+        <a href="/en/breeds/" class="flex items-center gap-3 rounded-xl border border-green-100 bg-green-50 p-3 text-sm transition hover:border-green-300">
+          <span class="text-2xl">⚖️</span>
+          <div>
+            <p class="font-semibold text-green-800">Compare with another breed</p>
+            <p class="text-xs text-green-600">Side-by-side comparison · PetScore™</p>
+          </div>
+        </a>
+      </div>
+      <p class="mt-4 text-xs text-slate-400">
+        * Product links are affiliate links. PetScore™ may receive a commission on purchases made through these links.
+      </p>
+    </div>
+
+    <!-- Share + Rating -->
+    <div class="mb-6">
+      <ShareButtons client:load breedName={breed.name} score={breed.score} url={pageUrl} />
+    </div>
+    <div class="mb-12">
+      <RatingWidget client:load breedSlug={breed.slug} breedName={breed.name} />
+    </div>
+
+    <!-- Similar breeds -->
+    {similarBreeds.length > 0 && (
+      <section>
+        <h2 class="mb-6 font-display text-xl font-bold text-gray-900">
+          Similar Breeds
+          <span class="ml-2 text-sm font-normal text-slate-400">({sizeLabelStr})</span>
+        </h2>
+        <div class="grid gap-4 sm:grid-cols-3">
+          {similarBreeds.map((similar) => {
+            const hex  = getScoreHex(similar.score);
+            const dash = getScoreDashArray(similar.score);
+            return (
+              <a
+                href={`/en/breeds/${similar.slug}`}
+                class="group flex items-center gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
+              >
+                <svg viewBox="0 0 100 100" class="h-12 w-12 shrink-0" aria-hidden="true">
+                  <circle cx="50" cy="50" r="44" fill="none" stroke="#e5e7eb" stroke-width="11" />
+                  <circle cx="50" cy="50" r="44" fill="none"
+                    stroke={hex} stroke-width="11"
+                    stroke-dasharray={dash}
+                    stroke-linecap="round"
+                    transform="rotate(-90 50 50)"
+                  />
+                  <text x="50" y="50" text-anchor="middle" dominant-baseline="middle"
+                    font-size="28" font-weight="700" fill={hex} font-family="Sora, sans-serif">
+                    {similar.score}
+                  </text>
+                </svg>
+                <div class="min-w-0">
+                  <p class="truncate font-display font-semibold text-gray-900 group-hover:text-green-600 transition-colors duration-200">
+                    {similar.name}
+                  </p>
+                  <span class={`mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-medium ${riskBadgeClassEn[similar.riskLevel]}`}>
+                    {riskLabelEn[similar.riskLevel]}
+                  </span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+    <!-- FR version link -->
+    <div class="mt-10 rounded-2xl border border-gray-100 bg-gray-50 p-5 text-center">
+      <p class="text-sm text-slate-500">
+        🇨🇦 Version française avec contenu enrichi :
+        <a href={`/fr/races/${breed.slug}`} class="ml-1 font-semibold text-green-600 hover:underline">
+          Voir la fiche {breed.name} en français →
+        </a>
+      </p>
+    </div>
+
+  </div>
+</Layout>

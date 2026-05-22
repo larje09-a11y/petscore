@@ -1,7 +1,7 @@
 ---
 title: "Allergie aux poils de chien : symptômes, tests et races hypoallergéniques au Québec"
 description: "Vous êtes allergique aux chiens mais rêvez d'en adopter un ? Symptômes de l'allergie, tests médicaux, traitement et meilleures races hypoallergéniques disponibles au Québec."
-pubDate: 2026-03-22
+publishedAt: 2026-03-22
 tags: ["allergie", "hypoallergénique", "santé", "races"]
 faqItems:
   - q: "Existe-t-il vraiment des chiens 100% hypoallergéniques ?"

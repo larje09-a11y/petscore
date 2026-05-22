@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 import breedsRaw from '@/data/breeds.json';
 import { conditions } from '@/data/conditions';
 import type { Breed } from '@/types/breed';
@@ -19,7 +20,7 @@ export const GET: APIRoute = async () => {
     })),
 
     // Articles blog
-    ...posts.map((p) => ({
+    ...posts.map((p: CollectionEntry<'blog'>) => ({
       type:     'blog',
       title:    p.data.title,
       subtitle: p.data.description.slice(0, 80),
@@ -52,6 +53,8 @@ export const GET: APIRoute = async () => {
     { type: 'page', title: 'Races interdites Québec (BSL)',  subtitle: 'Loi pit-bull, règlements municipaux', tags: ['interdit', 'bsl', 'légal', 'pit-bull'], url: '/fr/races/races-interdites-quebec' },
     { type: 'page', title: 'Guide premier chien Québec',     subtitle: '8 étapes essentielles + budget',   tags: ['guide', 'débutant', 'adoption'], url: '/fr/guide-premier-chien/' },
     { type: 'page', title: 'Checklist adoption chien',       subtitle: '30 étapes — sauvegarde auto',       tags: ['checklist', 'adoption', 'débutant'], url: '/fr/checklist-adoption/' },
+    { type: 'page', title: 'FAQ — Questions fréquentes',     subtitle: '30 réponses santé, races, légal',   tags: ['faq', 'questions', 'guide'],         url: '/fr/faq/' },
+    { type: 'page', title: 'Dog Breeds (English)',           subtitle: '50 breeds · health scores',          tags: ['english', 'breeds', 'health'],       url: '/en/breeds/' },
   ];
 
   return new Response(JSON.stringify(items), {

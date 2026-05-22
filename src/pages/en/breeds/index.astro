@@ -1,0 +1,71 @@
+---
+import Layout from '@/components/Layout.astro';
+import BreedSearchEn from '@/components/BreedSearchEn.tsx';
+import breedsRaw from '@/data/breeds.json';
+import type { Breed } from '@/types/breed';
+
+const breeds = (breedsRaw as Breed[]).sort((a, b) => a.popularityRank - b.popularityRank);
+
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Dog Breed Health Scores — PetScore™",
+  "description": "Compare the PetScore™ of 50+ dog breeds: hereditary health risks, estimated veterinary costs and pet insurance in Quebec.",
+  "numberOfItems": breeds.length,
+  "itemListElement": breeds.map((b, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "url": `https://petscore.ca/en/breeds/${b.slug}`,
+    "name": b.name,
+  })),
+});
+---
+
+<Layout
+  title="Dog Breeds Health Score — PetScore™ Quebec"
+  description="Compare the PetScore™ of 50+ dog breeds: hereditary risks, estimated veterinary costs and pet insurance in Quebec. Filter by size, risk level and energy."
+  canonicalUrl="/en/breeds/"
+  lang="en"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={jsonLd} />
+  </Fragment>
+
+  <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="mb-6">
+      <ol class="flex flex-wrap items-center gap-1.5 text-sm text-slate-400">
+        <li><a href="/en/" class="hover:text-green-600 transition-colors">Home</a></li>
+        <li aria-hidden="true"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg></li>
+        <li aria-current="page" class="font-medium text-gray-700">All Breeds</li>
+      </ol>
+    </nav>
+
+    <!-- Header -->
+    <div class="mb-10 text-center">
+      <h1 class="font-display text-4xl font-bold tracking-tight text-gray-900">
+        All Dog Breeds
+      </h1>
+      <p class="mt-3 text-lg text-slate-500">
+        {breeds.length} breeds analyzed · Predictive health score · Search & filters
+      </p>
+      <div class="mt-4 flex flex-wrap justify-center gap-2 text-sm text-slate-500">
+        <span class="rounded-full bg-green-50 px-3 py-1 text-green-700">🟢 Low risk = score &gt; 80</span>
+        <span class="rounded-full bg-amber-50 px-3 py-1 text-amber-700">🟡 Moderate = score 65–80</span>
+        <span class="rounded-full bg-red-50 px-3 py-1 text-red-700">🔴 High risk = score &lt; 65</span>
+      </div>
+    </div>
+
+    <!-- Interactive search + grid (React) -->
+    <BreedSearchEn client:load breeds={breeds} />
+
+    <!-- FR version note -->
+    <div class="mt-10 rounded-2xl border border-blue-100 bg-blue-50 p-5 text-center">
+      <p class="text-sm text-blue-700">
+        🇨🇦 Version française disponible avec du contenu enrichi :
+        <a href="/fr/races/" class="ml-1 font-semibold hover:underline">Voir les races en français →</a>
+      </p>
+    </div>
+  </div>
+</Layout>

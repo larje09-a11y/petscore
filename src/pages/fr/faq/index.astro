@@ -1,0 +1,283 @@
+---
+import Layout from '@/components/Layout.astro';
+
+interface FAQItem {
+  q: string;
+  a: string;
+  cat: string;
+}
+
+const faqData: FAQItem[] = [
+  // ── PetScore™ général ──────────────────────────────────────────────────
+  {
+    cat: "PetScore™ — Le score",
+    q: "Qu'est-ce que le PetScore™ ?",
+    a: "Le PetScore™ est un score composite de 0 à 100 qui mesure le profil de santé prédictif d'une race de chien. Plus le score est élevé, plus la race présente un faible risque héréditaire et des coûts vétérinaires abordables. Il est calculé à partir de quatre composantes : risques héréditaires (40 pts), longévité (25 pts), charge vétérinaire (20 pts) et accessibilité aux soins (15 pts).",
+  },
+  {
+    cat: "PetScore™ — Le score",
+    q: "Comment interpréter le score : un PetScore™ de 72 est-il bon ?",
+    a: "Un score de 72 est considéré bon. Notre grille : 85–100 = Excellent (risque très faible), 70–84 = Bon (risque modéré-faible), 55–69 = Moyen (risque modéré), sous 55 = Élevé (risque important). Un score de 72 signifie que la race a des prédispositions héréditaires gérables avec un budget vétérinaire raisonnable.",
+  },
+  {
+    cat: "PetScore™ — Le score",
+    q: "Un chien à score élevé ne tombera jamais malade ?",
+    a: "Non. Le PetScore™ mesure le risque statistique au niveau de la race, pas la santé individuelle d'un chien. Un Labrador (score 72) peut vivre 14 ans en parfaite santé, et un Bouledogue français (score 52) peut aussi avoir une vie saine. Le score vous aide à planifier votre budget et choisir une race adaptée à vos contraintes, pas à prédire la santé de votre chien.",
+  },
+  {
+    cat: "PetScore™ — Le score",
+    q: "Quelle est la différence entre PetScore™ et AdoptScore™ ?",
+    a: "Le PetScore™ mesure uniquement la santé héréditaire et les coûts vétérinaires. L'AdoptScore™ est un score plus large qui intègre aussi la dressabilité, la sociabilité avec les enfants et le rapport qualité-prix global. C'est une recommandation plus personnalisée pour savoir si une race vous convient spécifiquement.",
+  },
+  // ── Adoption ──────────────────────────────────────────────────────────
+  {
+    cat: "Adoption et choix de race",
+    q: "Quelle race recommandez-vous pour un premier chien ?",
+    a: "Pour un premier chien, nous recommandons une race avec un score d'entraînabilité élevé, une énergie modérée et un risque de santé faible à modéré. Les meilleures options : Labrador Retriever, Golden Retriever, Bouvier Bernois (attention aux coûts), Épagneul breton, Beagle. Évitez les races à fort instinct de travail (Malinois, Border Collie) ou à santé précaire (Bouledogue).",
+  },
+  {
+    cat: "Adoption et choix de race",
+    q: "Race ou chien de refuge — quelle différence pour le PetScore™ ?",
+    a: "Le PetScore™ s'applique aux races pures. Les chiens de refuge (croisés) ont souvent une meilleure santé grâce à la vigueur hybride — les prédispositions héréditaires spécifiques à une race sont diluées. En contrepartie, il est difficile de prédire leur profil de santé. Nous recommandons toujours d'envisager l'adoption en refuge avant d'acheter.",
+  },
+  {
+    cat: "Adoption et choix de race",
+    q: "Quelles races conviennent le mieux aux appartements ?",
+    a: "Les meilleures races pour appartement : Bouledogue français, Carlin, Bichon Frisé, Cavalier King Charles, Schnauzer nain, Basset Hound. Critères clés : énergie faible à modérée (1-3/5), non-aboyeur, tolérant la solitude quelques heures. Évitez les races à haute énergie (Husky, Border Collie, Jack Russell) dans les petits espaces.",
+  },
+  {
+    cat: "Adoption et choix de race",
+    q: "Quel chien pour une famille avec de jeunes enfants ?",
+    a: "Les meilleures races pour familles avec enfants (score sociabilité 4-5/5) : Labrador, Golden Retriever, Beagle, Cavalier King Charles, Berger Australien, Épagneul breton, Bouvier Bernois. Important : même les chiens les plus doux doivent être supervisés avec de très jeunes enfants. L'éducation du chien ET des enfants est essentielle.",
+  },
+  // ── Santé et coûts ────────────────────────────────────────────────────
+  {
+    cat: "Santé et coûts vétérinaires",
+    q: "Combien coûte un chien par an au Québec (coûts réels) ?",
+    a: "Budget annuel réaliste pour un chien au Québec : nourriture 600–1200$, soins vétérinaires de routine (vaccins, prévention) 300–600$, toilettage 0–1200$ selon la race, licence municipale 20–50$, imprévus santé 300–2000$. Total : 1200–5000$/an selon la race et la ville. Certaines grandes races à risque élevé (Bouledogue, Dogue) peuvent dépasser 5000$/an.",
+  },
+  {
+    cat: "Santé et coûts vétérinaires",
+    q: "Pourquoi les frais vétérinaires ont-ils autant augmenté au Québec ?",
+    a: "Trois facteurs principaux : 1) La médecine vétérinaire a progressé autant que la médecine humaine (IRM, chimiothérapie, chirurgies spécialisées), 2) La pénurie de vétérinaires au Québec a fait monter les tarifs de 20-40% depuis 2020, 3) L'humanisation des animaux de compagnie a augmenté les attentes. Un accès à une clinique low-cost ou à l'assurance animale peut aider à contrôler ces coûts.",
+  },
+  {
+    cat: "Santé et coûts vétérinaires",
+    q: "Qu'est-ce que la dysplasie de la hanche et combien ça coûte ?",
+    a: "La dysplasie de la hanche est une malformation de l'articulation coxo-fémorale (hanche) qui provoque douleur, boiterie et arthrite. Fréquente chez les grandes races (Labrador, Berger Allemand, Golden). Coût au Québec : radio de dépistage 200-400$, traitement conservateur (médicaments, physiothérapie) 500-2000$/an, chirurgie (FHO, TPO ou prothèse) 3000-8000$ par hanche. L'assurance animale peut couvrir jusqu'à 90% si souscrite avant les premiers symptômes.",
+  },
+  {
+    cat: "Santé et coûts vétérinaires",
+    q: "Quand devrait-on souscrire une assurance santé pour son chien ?",
+    a: "Le plus tôt possible — idéalement dans les premières semaines après l'adoption, avant l'apparition de tout problème de santé. Les assureurs excluent les conditions préexistantes. Certains couvrent les races brachycéphales (Bouledogue, Carlin) mais avec des primes très élevées. Comparez les franchises, les plafonds annuels et les exclusions de race avant de signer.",
+  },
+  {
+    cat: "Santé et coûts vétérinaires",
+    q: "Les races brachycéphales (Bouledogue, Carlin) sont-elles vraiment plus chères ?",
+    a: "Oui, significativement. Les races brachycéphales (museau aplati) souffrent du BOAS (syndrome brachycéphale obstructif) qui peut nécessiter une chirurgie à 3000-7000$. Elles ont aussi des risques élevés de problèmes vertébraux, oculaires et cutanés. Les frais vétérinaires annuels sont en moyenne 40-80% plus élevés que pour les races à morphologie normale. Réfléchissez attentivement avant d'en adopter un.",
+  },
+  // ── Stérilisation ─────────────────────────────────────────────────────
+  {
+    cat: "Stérilisation et reproduction",
+    q: "À quel âge stériliser ou castrer son chien ?",
+    a: "Les recommandations ont évolué. Pour les petites races (< 10 kg) : 6 mois. Pour les moyennes (10-25 kg) : 6-9 mois. Pour les grandes (25-40 kg) : 12-18 mois. Pour les très grandes races (> 40 kg) : 18-24 mois. Les recherches récentes de l'UC Davis montrent qu'une stérilisation précoce chez les grandes races augmente le risque d'ostéosarcome, d'hémangiosarcome et de dysplasie articulaire.",
+  },
+  {
+    cat: "Stérilisation et reproduction",
+    q: "La stérilisation change-t-elle le comportement d'un chien ?",
+    a: "Partiellement. La castration réduit les comportements médiés par la testostérone : marquage urinaire, fugues pour les femelles en chaleur, agression intramâle, comportement sexuel. Elle n'améliore pas les comportements appris comme l'agression acquise, l'anxiété de séparation ou les habitudes problématiques. La stérilisation n'est pas un substitut à l'éducation.",
+  },
+  // ── Légal et Québec ───────────────────────────────────────────────────
+  {
+    cat: "Législation au Québec",
+    q: "La micropuce est-elle obligatoire au Québec ?",
+    a: "Oui. La Loi sur le bien-être et la sécurité de l'animal (LBESA) et de nombreuses municipalités exigent la micropuce pour tous les chiens. La micropuce ISO 15 chiffres doit être enregistrée dans une base de données reconnue (registre Québec ou national). En cas de perte, c'est votre seule garantie de retrouver votre chien — 35-80$ chez un vétérinaire.",
+  },
+  {
+    cat: "Législation au Québec",
+    q: "Quelles races sont interdites au Québec ?",
+    a: "La loi provinciale de 2016 interdit : American Staffordshire Terrier, Pit Bull Terrier américain, American Bull Terrier et Staffordshire Bull Terrier anglais, ainsi que tout chien présentant des caractéristiques similaires. Plusieurs municipalités ont des règlements plus stricts. Montréal a son propre règlement. Vérifiez toujours les règles de votre ville avant d'adopter.",
+  },
+  {
+    cat: "Législation au Québec",
+    q: "Mon propriétaire peut-il interdire les chiens dans mon logement ?",
+    a: "C'est légalement complexe au Québec. Les animaux de compagnie ne sont pas expressément protégés dans les baux résidentiels, mais une interdiction totale peut être contestée. Les chiens d'assistance certifiés (guides, mobilité, médical) ont le droit légal d'accès à tout logement en vertu de la Charte des droits et libertés, même 'sans animaux'. Consultez le TAL (Tribunal administratif du logement) en cas de litige.",
+  },
+  {
+    cat: "Législation au Québec",
+    q: "Un chien peut-il entrer dans les commerces et restaurants au Québec ?",
+    a: "Non, sauf pour les chiens d'assistance certifiés (guides, mobilité, surdité, alerte médicale). Les règlements sanitaires québécois interdisent les animaux dans les commerces alimentaires. Certains commerces non-alimentaires acceptent les chiens bien tenus en laisse, mais c'est à leur discrétion. Les terrasses de restaurants peuvent accepter les chiens — décision du gestionnaire.",
+  },
+  // ── Prévention saisonnière ────────────────────────────────────────────
+  {
+    cat: "Santé saisonnière au Québec",
+    q: "Comment protéger mon chien contre les tiques au Québec ?",
+    a: "Les tiques sont actives dès +4°C (mars à novembre au Québec). Mesures préventives : traitement antiparasitaire mensuel (Bravecto, NexGard, Simparica) recommandé de mai à novembre, examen du chien après chaque sortie en forêt ou dans les hautes herbes, retrait avec pince à épiler spéciale si tique trouvée. La maladie de Lyme est présente dans plusieurs régions du Québec — signalez toute morsure à votre vétérinaire.",
+  },
+  {
+    cat: "Santé saisonnière au Québec",
+    q: "La dirofilariose (ver du cœur) existe-t-elle au Québec ?",
+    a: "Oui, de plus en plus. Les cas augmentent avec le réchauffement climatique, notamment dans le sud du Québec. La prévention est simple : médicaments mensuels de mai à novembre (Heartgard, Interceptor). Coût : environ 5-15$/mois. La détection par test sanguin annuel est recommandée. Sans traitement, la dirofilariose est grave et coûteuse (500-1500$ pour les tests + 1000-3000$ si traitement nécessaire).",
+  },
+  {
+    cat: "Santé saisonnière au Québec",
+    q: "Comment protéger les coussinets de mon chien en hiver ?",
+    a: "Le sel de déglaçage est irritant et toxique par ingestion (léchage des pattes). Solutions : crème protectrice avant la sortie (Musher's Secret), bottines (Pawz, Ruffwear), ou lavage des pattes à l'eau tiède après chaque sortie. Les coussinets peuvent également se fissurer à -30°C — la crème hydratante après la sortie aide à maintenir leur souplesse.",
+  },
+  {
+    cat: "Santé saisonnière au Québec",
+    q: "Mon chien peut-il souffrir d'un coup de chaleur en été au Québec ?",
+    a: "Oui, surtout les races brachycéphales (Bouledogue, Carlin, Shih Tzu), les races à fourrure épaisse (Husky, Saint-Bernard) et les chiots ou chiens âgés. Signes d'urgence : halètement excessif, salive épaisse ou écumeuse, gencives rouges ou violacées, faiblesse. Action immédiate : déplacez à l'ombre, eau fraîche (pas glacée) sur le corps, urgence vétérinaire. Ne laissez JAMAIS votre chien dans une voiture par temps chaud.",
+  },
+  // ── Éducation ─────────────────────────────────────────────────────────
+  {
+    cat: "Éducation et comportement",
+    q: "Quelle est la meilleure méthode d'éducation pour les chiens ?",
+    a: "Le renforcement positif — récompenser les bons comportements plutôt que punir les mauvais — est la méthode validée par la science et recommandée par les organisations vétérinaires (AVSAB). Elle est plus efficace, préserve la relation chien-maître et évite les effets secondaires de la punition (peur, agression). Les colliers étrangleurs, électriques ou à picots sont déconseillés.",
+  },
+  {
+    cat: "Éducation et comportement",
+    q: "Mon chien a l'anxiété de séparation — que faire ?",
+    a: "L'anxiété de séparation est une condition sérieuse, pas un caprice. Approche recommandée : désensibilisation progressive (commencer par des séparations très courtes, augmenter graduellement), jamais de punition (aggrave le problème), enrichissement environnemental (Kong, puzzle, caméra). Dans les cas sévères, consultez un comportementaliste vétérinaire — des médicaments (fluoxétine, trazodone) peuvent aider en combinaison avec la thérapie comportementale.",
+  },
+  {
+    cat: "Éducation et comportement",
+    q: "Comment socialiser un chiot de façon sécuritaire avant les vaccins ?",
+    a: "La fenêtre de socialisation critique est 3-14 semaines — ne pas attendre la fin des vaccins. Solutions sécuritaires : contacts avec des chiens vaccinés sains de votre entourage, classes de sociabilisation pour chiots (avec sol nettoyé), sorties dans les bras pour voir le monde. Les risques comportementaux d'une mauvaise socialisation sont souvent plus graves que le risque sanitaire.",
+  },
+  // ── Alimentation ──────────────────────────────────────────────────────
+  {
+    cat: "Alimentation et poids",
+    q: "Quelle nourriture choisir pour mon chien ?",
+    a: "Recherchez une nourriture avec : une source de protéines animales en premier ingrédient, certification AAFCO (aliment complet et équilibré), adapté à l'âge et la taille (chiot/adulte/senior, petite/grande race). Les marques premium (Royal Canin, Hill's Science Diet, Purina Pro Plan) ont plus d'études de sécurité que les marques boutiques. Consultez votre vétérinaire si votre chien a des besoins spéciaux.",
+  },
+  {
+    cat: "Alimentation et poids",
+    q: "Comment savoir si mon chien est en surpoids ?",
+    a: "Utilisez l'échelle BCS (Body Condition Score) de 1 à 9. Score idéal : 4-5/9. Test pratique : vous devez sentir les côtes sans appuyer fort (pas les voir), la taille doit être visible de dessus, le ventre doit être légèrement remonté de côté. Plus de 50% des chiens au Québec sont en surpoids — un risque majeur pour les articulations, le cœur et la longévité.",
+  },
+];
+
+// Group FAQ by category
+const categories = [...new Set(faqData.map(f => f.cat))];
+
+// JSON-LD FAQPage
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqData.map(item => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a,
+    },
+  })),
+});
+
+const breadcrumbLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://petscore.ca/fr/" },
+    { "@type": "ListItem", "position": 2, "name": "FAQ", "item": "https://petscore.ca/fr/faq/" },
+  ],
+});
+---
+
+<Layout
+  title="FAQ Chiens au Québec — PetScore™ — 30 réponses vétérinaires"
+  description="Toutes vos questions sur les chiens au Québec : PetScore™, coûts vétérinaires, stérilisation, législation, races interdites, tiques, alimentation. Réponses d'experts."
+  canonicalUrl="/fr/faq/"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={jsonLd} />
+    <script type="application/ld+json" set:html={breadcrumbLd} />
+  </Fragment>
+
+  <div class="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Fil d'Ariane" class="mb-8">
+      <ol class="flex flex-wrap items-center gap-1.5 text-sm text-slate-400">
+        <li><a href="/fr/" class="hover:text-green-600 transition-colors">Accueil</a></li>
+        <li aria-hidden="true"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg></li>
+        <li aria-current="page" class="font-medium text-gray-700">FAQ</li>
+      </ol>
+    </nav>
+
+    <!-- Header -->
+    <div class="mb-10 text-center">
+      <div class="mb-3 inline-flex items-center gap-2 rounded-full bg-green-100 px-4 py-1.5 text-sm font-semibold text-green-700">
+        💬 {faqData.length} questions · réponses vétérinaires
+      </div>
+      <h1 class="font-display text-4xl font-bold tracking-tight text-gray-900">
+        Foire aux questions
+      </h1>
+      <p class="mt-3 text-lg text-slate-500">
+        Tout ce que vous devez savoir sur les chiens au Québec —
+        coûts, santé, races, législation et PetScore™.
+      </p>
+    </div>
+
+    <!-- Category nav -->
+    <div class="mb-10 flex flex-wrap gap-2 justify-center">
+      {categories.map(cat => (
+        <a
+          href={`#${cat.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-')}`}
+          class="rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm font-medium text-slate-600 transition hover:border-green-300 hover:text-green-700"
+        >
+          {cat}
+        </a>
+      ))}
+    </div>
+
+    <!-- FAQ by category -->
+    <div class="space-y-12">
+      {categories.map(cat => {
+        const items = faqData.filter(f => f.cat === cat);
+        const anchorId = cat.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-');
+        return (
+          <section id={anchorId}>
+            <h2 class="mb-6 font-display text-xl font-bold text-gray-900 border-b border-gray-100 pb-3">
+              {cat}
+            </h2>
+            <div class="space-y-4">
+              {items.map((item) => (
+                <details class="group rounded-2xl border border-gray-100 bg-white shadow-sm">
+                  <summary class="flex cursor-pointer items-start justify-between gap-4 p-5 font-semibold text-gray-900 hover:text-green-700 transition-colors list-none">
+                    <span>{item.q}</span>
+                    <svg class="mt-0.5 h-5 w-5 shrink-0 text-slate-400 transition-transform duration-200 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </summary>
+                  <div class="border-t border-gray-50 px-5 pb-5 pt-4 text-sm leading-relaxed text-slate-600">
+                    {item.a}
+                  </div>
+                </details>
+              ))}
+            </div>
+          </section>
+        );
+      })}
+    </div>
+
+    <!-- CTA section -->
+    <div class="mt-12 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 p-8 text-center">
+      <p class="text-lg font-semibold text-gray-900 mb-2">Vous n'avez pas trouvé votre réponse ?</p>
+      <p class="text-slate-500 mb-6 text-sm">Consultez nos guides détaillés ou comparez les races directement.</p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="/fr/races/" class="rounded-full bg-green-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-700 transition">
+          🐕 Comparer les races
+        </a>
+        <a href="/fr/guide-premier-chien/" class="rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-gray-50 transition">
+          📖 Guide premier chien
+        </a>
+        <a href="/fr/blog/" class="rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-gray-50 transition">
+          📰 Articles blog
+        </a>
+      </div>
+    </div>
+
+  </div>
+</Layout>
