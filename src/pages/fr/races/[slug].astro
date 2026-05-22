@@ -17,7 +17,10 @@ import {
   getAdoptScoreHex,
 } from '@/lib/breeds';
 import FavoriteButton from '@/components/FavoriteButton.tsx';
+import ShareButtons from '@/components/ShareButtons.tsx';
+import RatingWidget from '@/components/RatingWidget.tsx';
 import { breedJsonLd } from '@/lib/jsonld';
+import { getBreedImageUrl } from '@/lib/breedImages';
 
 export async function getStaticPaths() {
   const breeds = breedsRaw as Breed[];
@@ -40,8 +43,10 @@ const adoptLabel = getAdoptScoreLabel(adoptScore);
 const adoptHex   = getAdoptScoreHex(adoptScore);
 const adoptDash  = getScoreDashArray(adoptScore);
 
-const jsonLd = breedJsonLd(breed);
-const title  = `${breed.name} — PetScore™ ${breed.score}/100`;
+const jsonLd    = breedJsonLd(breed);
+const title     = `${breed.name} — PetScore™ ${breed.score}/100`;
+const breedImg  = getBreedImageUrl(breed.slug);
+const pageUrl   = `https://petscore.ca/fr/races/${breed.slug}`;
 const description = `Découvrez le PetScore™ du ${breed.name} : ${breed.score}/100. Risques de santé, coûts vétérinaires estimés et assurances au Québec. Risque ${breed.riskLevel}.`;
 
 // Mappage breed → props du ScoreDashboard React
@@ -97,6 +102,17 @@ const estimated10YearCost = breed.annualVetCost.max * 10;
          EN-TÊTE DE LA RACE
     ============================================================ -->
     <header class="mb-8">
+      <!-- Image de la race -->
+      <div class="mb-6 overflow-hidden rounded-2xl">
+        <img
+          src={breedImg}
+          alt={`Photo ${breed.name}`}
+          width="800"
+          height="340"
+          class="h-52 w-full object-cover sm:h-64"
+          loading="eager"
+        />
+      </div>
       <div class="flex flex-wrap items-start gap-4">
         <div class="flex-1">
           <div class="mb-2 flex flex-wrap items-center gap-2">
@@ -276,6 +292,20 @@ const estimated10YearCost = breed.annualVetCost.max * 10;
       <p class="mt-4 text-xs text-slate-400">
         * Les liens produits sont des liens affiliés. PetScore™ peut recevoir une commission si vous effectuez un achat.
       </p>
+    </div>
+
+    <!-- ============================================================
+         PARTAGE SOCIAL
+    ============================================================ -->
+    <div class="mb-6">
+      <ShareButtons client:load breedName={breed.name} score={breed.score} url={pageUrl} />
+    </div>
+
+    <!-- ============================================================
+         ÉVALUATION UTILISATEUR
+    ============================================================ -->
+    <div class="mb-12">
+      <RatingWidget client:load breedSlug={breed.slug} breedName={breed.name} />
     </div>
 
     <!-- ============================================================
