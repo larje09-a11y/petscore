@@ -4,6 +4,7 @@ import { conditions } from '@/data/conditions';
 import breedsRaw from '@/data/breeds.json';
 import type { Breed } from '@/types/breed';
 import { getScoreHex, getScoreDashArray, getRiskBadgeClass, getRiskLabel } from '@/lib/breeds';
+import { conditionJsonLd } from '@/lib/jsonld';
 
 export function getStaticPaths() {
   return conditions.map((c) => ({
@@ -31,11 +32,15 @@ const severityLabel = {
   élevé:  'Impact élevé',
 } as const;
 
+const jsonLd = conditionJsonLd(condition);
 const title = `${condition.name} chez le chien — Symptômes, coûts & prévention | PetScore™`;
 const description = `Tout savoir sur la ${condition.name} : symptômes, traitements, coûts au Québec (${condition.estimatedCost}) et races les plus touchées. Guide vétérinaire PetScore™.`;
 ---
 
 <Layout {title} {description} canonicalUrl={`/fr/conditions/${condition.slug}`}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={jsonLd} />
+  </Fragment>
   <div class="mx-auto max-w-4xl px-4 py-10 sm:px-6">
 
     <!-- Fil d'Ariane -->

@@ -16,6 +16,8 @@ import {
   getAdoptScoreLabel,
   getAdoptScoreHex,
 } from '@/lib/breeds';
+import FavoriteButton from '@/components/FavoriteButton.tsx';
+import { breedJsonLd } from '@/lib/jsonld';
 
 export async function getStaticPaths() {
   const breeds = breedsRaw as Breed[];
@@ -38,7 +40,8 @@ const adoptLabel = getAdoptScoreLabel(adoptScore);
 const adoptHex   = getAdoptScoreHex(adoptScore);
 const adoptDash  = getScoreDashArray(adoptScore);
 
-const title = `${breed.name} — PetScore™`;
+const jsonLd = breedJsonLd(breed);
+const title  = `${breed.name} — PetScore™ ${breed.score}/100`;
 const description = `Découvrez le PetScore™ du ${breed.name} : ${breed.score}/100. Risques de santé, coûts vétérinaires estimés et assurances au Québec. Risque ${breed.riskLevel}.`;
 
 // Mappage breed → props du ScoreDashboard React
@@ -58,6 +61,9 @@ const estimated10YearCost = breed.annualVetCost.max * 10;
 ---
 
 <Layout title={title} description={description} canonicalUrl={`/fr/races/${breed.slug}`}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={jsonLd} />
+  </Fragment>
   <div class="mx-auto max-w-4xl px-4 py-10 sm:px-6">
 
     <!-- ============================================================
@@ -104,9 +110,12 @@ const estimated10YearCost = breed.annualVetCost.max * 10;
               {breed.origin}
             </span>
           </div>
-          <h1 class="font-display text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            {breed.name}
-          </h1>
+          <div class="flex flex-wrap items-center gap-3">
+            <h1 class="font-display text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              {breed.name}
+            </h1>
+            <FavoriteButton client:load slug={breed.slug} name={breed.name} />
+          </div>
           <p class="mt-3 leading-relaxed text-slate-500">
             {breed.description}
           </p>

@@ -1,0 +1,122 @@
+---
+import Layout from '@/components/Layout.astro';
+import breedsRaw from '@/data/breeds.json';
+import type { Breed } from '@/types/breed';
+import { profiles } from '@/data/profiles';
+import { getScoreHex, getScoreDashArray, getRiskBadgeClass, getRiskLabel } from '@/lib/breeds';
+import { breadcrumbJsonLd } from '@/lib/jsonld';
+
+export function getStaticPaths() {
+  return profiles.map((p) => ({
+    params: { profile: p.slug },
+    props:  { profile: p },
+  }));
+}
+
+const { profile } = Astro.props;
+const allBreeds = breedsRaw as Breed[];
+
+let breeds = allBreeds.filter(profile.filter);
+if (profile.sort) breeds = breeds.sort(profile.sort);
+if (profile.limit) breeds = breeds.slice(0, profile.limit);
+
+const jsonLd = breadcrumbJsonLd([
+  { name: 'Accueil', url: '/fr/' },
+  { name: 'Pour qui ?', url: '/fr/pour/' },
+  { name: profile.h1 },
+]);
+---
+
+<Layout
+  title={profile.title}
+  description={profile.metaDescription}
+  canonicalUrl={`/fr/pour/${profile.slug}/`}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={jsonLd} />
+  </Fragment>
+
+  <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+
+    <!-- Fil d'Ariane -->
+    <nav aria-label="Fil d'Ariane" class="mb-8">
+      <ol class="flex flex-wrap items-center gap-1.5 text-sm text-slate-400">
+        <li><a href="/fr/" class="hover:text-green-600 transition-colors">Accueil</a></li>
+        <li aria-hidden="true"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li aria-current="page" class="font-medium text-gray-700 truncate max-w-[16rem]">{profile.h1}</li>
+      </ol>
+    </nav>
+
+    <header class="mb-10">
+      <div class="mb-3 text-4xl">{profile.emoji}</div>
+      <h1 class="font-display text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        {profile.h1}
+      </h1>
+      <p class="mt-4 max-w-2xl leading-relaxed text-slate-500">
+        {profile.intro}
+      </p>
+      <!-- Tip -->
+      <div class="mt-5 rounded-2xl border border-green-100 bg-green-50 p-4 text-sm text-green-800">
+        💡 <strong>Conseil :</strong> {profile.tip}
+      </div>
+    </header>
+
+    <!-- Résultats -->
+    <div class="mb-4 flex items-center justify-between">
+      <p class="text-sm text-slate-400">
+        <strong class="font-semibold text-gray-700">{breeds.length} races</strong> sélectionnées
+      </p>
+      <a href="/fr/quiz/" class="rounded-full bg-green-600 px-4 py-1.5 text-xs font-semibold text-white hover:bg-green-700 transition-colors">
+        🐾 Quiz personnalisé →
+      </a>
+    </div>
+
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {breeds.map((breed) => {
+        const hex  = getScoreHex(breed.score);
+        const dash = getScoreDashArray(breed.score);
+        return (
+          <a href={`/fr/races/${breed.slug}`}
+            class="group flex items-center gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
+            <svg viewBox="0 0 100 100" class="h-14 w-14 shrink-0" aria-hidden="true">
+              <circle cx="50" cy="50" r="44" fill="none" stroke="#e5e7eb" stroke-width="11" />
+              <circle cx="50" cy="50" r="44" fill="none" stroke={hex} stroke-width="11"
+                stroke-dasharray={dash} stroke-linecap="round" transform="rotate(-90 50 50)" />
+              <text x="50" y="50" text-anchor="middle" dominant-baseline="middle"
+                font-size="28" font-weight="700" fill={hex} font-family="Sora, sans-serif">{breed.score}</text>
+            </svg>
+            <div class="min-w-0">
+              <p class="truncate font-display font-semibold text-gray-900 group-hover:text-green-600 transition-colors">{breed.name}</p>
+              <p class="text-xs text-slate-400 capitalize">{breed.size} · {breed.origin}</p>
+              <p class="text-xs text-slate-400">{breed.annualVetCost.min}–{breed.annualVetCost.max} $/an</p>
+              <span class={`mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-medium ${getRiskBadgeClass(breed.riskLevel)}`}>
+                {getRiskLabel(breed.riskLevel)}
+              </span>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+
+    {breeds.length === 0 && (
+      <div class="rounded-2xl border border-gray-100 bg-gray-50 p-8 text-center">
+        <p class="text-slate-500">Aucune race ne correspond exactement à ce profil. Essayez le quiz pour une recommandation personnalisée.</p>
+        <a href="/fr/quiz/" class="mt-4 inline-block rounded-full bg-green-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-green-700 transition-colors">Faire le quiz →</a>
+      </div>
+    )}
+
+    <!-- Navigation entre profils -->
+    <div class="mt-10 rounded-2xl bg-gray-50 p-6">
+      <p class="mb-3 font-display text-sm font-semibold text-gray-700">Autres profils de propriétaires</p>
+      <div class="flex flex-wrap gap-2">
+        {profiles.filter(p => p.slug !== profile.slug).map((p) => (
+          <a href={`/fr/pour/${p.slug}/`}
+            class="rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-green-50 hover:border-green-200 hover:text-green-700 transition-colors">
+            {p.emoji} {p.h1.replace('Meilleures races de chiens pour ', '').replace('Races de chiens ', '')}
+          </a>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</Layout>
