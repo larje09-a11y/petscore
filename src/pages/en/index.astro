@@ -1,0 +1,136 @@
+---
+import Layout from '@/components/Layout.astro';
+import breedsRaw from '@/data/breeds.json';
+import type { Breed } from '@/types/breed';
+import { getScoreHex, getScoreDashArray } from '@/lib/breeds';
+
+const breeds = breedsRaw as Breed[];
+const topBreeds = [...breeds].sort((a, b) => b.score - a.score).slice(0, 6);
+---
+
+<Layout
+  title="PetScore™ — Dog Breed Health Score for Quebec"
+  description="Discover the PetScore™ of 50+ dog breeds: health risks, estimated veterinary costs and pet insurance in Quebec. Find your perfect breed in 3 minutes."
+  canonicalUrl="/en/"
+  lang="en"
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-gradient-to-br from-green-50 via-white to-emerald-50 py-16 sm:py-24">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mx-auto max-w-3xl text-center">
+        <div class="mb-4 inline-flex items-center gap-2 rounded-full bg-green-100 px-4 py-1.5 text-sm font-semibold text-green-700">
+          🐾 50+ breeds analyzed
+        </div>
+        <h1 class="font-display text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+          Find the right breed.<br />
+          <span class="text-green-600">Before the vet bills hit.</span>
+        </h1>
+        <p class="mt-6 text-lg leading-relaxed text-slate-500">
+          PetScore™ gives every dog breed a transparent health score based on hereditary risks,
+          veterinary costs, and 10-year ownership budget. Made for Quebec dog owners.
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+          <a href="/en/quiz/" class="rounded-full bg-green-600 px-7 py-3.5 text-base font-bold text-white shadow-lg shadow-green-200 transition hover:bg-green-700">
+            🐾 Take the quiz — free
+          </a>
+          <a href="/fr/" class="rounded-full border border-gray-200 bg-white px-7 py-3.5 text-base font-semibold text-slate-700 hover:bg-gray-50 transition">
+            🇨🇦 Version française
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What is PetScore -->
+  <section class="py-16 bg-white">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mx-auto max-w-3xl text-center mb-12">
+        <h2 class="font-display text-3xl font-bold text-gray-900">What is PetScore™?</h2>
+        <p class="mt-3 text-slate-500">
+          A composite score from 0 to 100 calculated from three key dimensions for each breed.
+        </p>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-3">
+        {[
+          { icon: '🧬', title: 'Hereditary Health', desc: 'We analyze documented genetic conditions, their prevalence and severity for each breed.' },
+          { icon: '💰', title: 'Real Vet Costs', desc: 'Average 10-year veterinary costs estimated for Quebec, including surgeries and chronic conditions.' },
+          { icon: '📊', title: 'Transparent Score', desc: 'A single score from 0–100 to compare breeds instantly. No jargon, no hidden criteria.' },
+        ].map(({ icon, title, desc }) => (
+          <div class="rounded-2xl border border-gray-100 bg-gray-50 p-6 text-center">
+            <div class="mb-3 text-3xl">{icon}</div>
+            <h3 class="mb-2 font-display font-bold text-gray-900">{title}</h3>
+            <p class="text-sm leading-relaxed text-slate-500">{desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Top breeds -->
+  <section class="py-16 bg-gray-50">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mb-10 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h2 class="font-display text-2xl font-bold text-gray-900">Top-rated breeds</h2>
+          <p class="mt-1 text-slate-500">Highest PetScore™ — lowest long-term risk</p>
+        </div>
+        <a href="/fr/races/" class="rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-gray-100 transition-colors">
+          See all 50 breeds →
+        </a>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {topBreeds.map((breed) => {
+          const hex  = getScoreHex(breed.score);
+          const dash = getScoreDashArray(breed.score);
+          return (
+            <a href={`/fr/races/${breed.slug}`}
+              class="group flex items-center gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
+              <svg viewBox="0 0 100 100" class="h-14 w-14 shrink-0" aria-hidden="true">
+                <circle cx="50" cy="50" r="44" fill="none" stroke="#e5e7eb" stroke-width="11" />
+                <circle cx="50" cy="50" r="44" fill="none" stroke={hex} stroke-width="11"
+                  stroke-dasharray={dash} stroke-linecap="round" transform="rotate(-90 50 50)" />
+                <text x="50" y="50" text-anchor="middle" dominant-baseline="middle"
+                  font-size="28" font-weight="700" fill={hex} font-family="Sora, sans-serif">{breed.score}</text>
+              </svg>
+              <div class="min-w-0">
+                <p class="truncate font-display font-semibold text-gray-900 group-hover:text-green-600 transition-colors">{breed.name}</p>
+                <p class="text-xs text-slate-400 capitalize">{breed.size} · {breed.origin}</p>
+                <p class="mt-1 text-xs text-slate-400">
+                  {new Intl.NumberFormat('fr-CA').format(breed.annualVetCost.min)}–{new Intl.NumberFormat('fr-CA').format(breed.annualVetCost.max)} $/yr
+                </p>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Quiz -->
+  <section class="py-16 bg-white">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 text-center">
+      <h2 class="font-display text-3xl font-bold text-gray-900 mb-4">
+        Which breed is right for you?
+      </h2>
+      <p class="text-slate-500 mb-8 leading-relaxed">
+        Our quiz analyzes your living space, activity level, budget and family situation
+        to recommend the breeds with the best compatibility score for your lifestyle.
+      </p>
+      <a href="/fr/quiz/"
+        class="inline-block rounded-full bg-green-600 px-8 py-4 text-lg font-bold text-white shadow-lg shadow-green-200 hover:bg-green-700 transition">
+        🐾 Find my perfect breed
+      </a>
+      <p class="mt-3 text-xs text-slate-400">Free · 3 minutes · No registration required</p>
+    </div>
+  </section>
+
+  <!-- Note: English breed pages coming soon -->
+  <section class="bg-gray-50 py-8">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 text-center">
+      <p class="text-sm text-slate-500">
+        📋 Individual breed pages are currently in French. Full English version coming soon.
+        <a href="/fr/races/" class="ml-1 text-green-600 hover:underline">Browse breeds in French →</a>
+      </p>
+    </div>
+  </section>
+</Layout>

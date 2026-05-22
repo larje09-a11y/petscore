@@ -8,12 +8,25 @@ const pages = defineCollection({
     description: z.string(),
     slug: z.string(),
     lang: z.enum(['fr', 'en']).default('fr'),
-    // Champs SEO additionnels
     ogImage: z.string().optional(),
     noindex: z.boolean().default(false),
-    // Données métier à personnaliser selon le projet
     meta: z.record(z.string(), z.unknown()).optional(),
   }),
 });
 
-export const collections = { pages };
+// Collection blog — articles markdown en français
+const blog = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    publishedAt: z.coerce.date(),
+    updatedAt: z.coerce.date().optional(),
+    author: z.string().default('Équipe PetScore'),
+    tags: z.array(z.string()).default([]),
+    readingTime: z.number().optional(),
+    coverImage: z.string().optional(),
+  }),
+});
+
+export const collections = { pages, blog };

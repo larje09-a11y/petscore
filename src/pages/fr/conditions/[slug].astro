@@ -1,0 +1,166 @@
+---
+import Layout from '@/components/Layout.astro';
+import { conditions } from '@/data/conditions';
+import breedsRaw from '@/data/breeds.json';
+import type { Breed } from '@/types/breed';
+import { getScoreHex, getScoreDashArray, getRiskBadgeClass, getRiskLabel } from '@/lib/breeds';
+
+export function getStaticPaths() {
+  return conditions.map((c) => ({
+    params: { slug: c.slug },
+    props: { condition: c },
+  }));
+}
+
+const { condition } = Astro.props;
+const allBreeds = breedsRaw as Breed[];
+
+// Breeds that have this condition slug in their mainHealthRisks (fuzzy match) OR in affectedBreeds
+const affectedBreeds = allBreeds.filter((b) =>
+  condition.affectedBreeds.includes(b.slug),
+);
+
+const badgeClass = {
+  faible: 'bg-green-100 text-green-700',
+  moyen:  'bg-amber-100 text-amber-700',
+  élevé:  'bg-red-100 text-red-700',
+} as const;
+const severityLabel = {
+  faible: 'Faible impact',
+  moyen:  'Impact modéré',
+  élevé:  'Impact élevé',
+} as const;
+
+const title = `${condition.name} chez le chien — Symptômes, coûts & prévention | PetScore™`;
+const description = `Tout savoir sur la ${condition.name} : symptômes, traitements, coûts au Québec (${condition.estimatedCost}) et races les plus touchées. Guide vétérinaire PetScore™.`;
+---
+
+<Layout {title} {description} canonicalUrl={`/fr/conditions/${condition.slug}`}>
+  <div class="mx-auto max-w-4xl px-4 py-10 sm:px-6">
+
+    <!-- Fil d'Ariane -->
+    <nav aria-label="Fil d'Ariane" class="mb-8">
+      <ol class="flex flex-wrap items-center gap-1.5 text-sm text-slate-400">
+        <li><a href="/fr/" class="hover:text-green-600 transition-colors">Accueil</a></li>
+        <li aria-hidden="true"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li><a href="/fr/conditions/" class="hover:text-green-600 transition-colors">Conditions médicales</a></li>
+        <li aria-hidden="true"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li aria-current="page" class="font-medium text-gray-700 truncate max-w-[14rem]">{condition.name}</li>
+      </ol>
+    </nav>
+
+    <!-- En-tête -->
+    <header class="mb-8">
+      <div class="mb-3 flex flex-wrap items-center gap-2">
+        <span class="text-3xl">{condition.emoji}</span>
+        <span class={`rounded-full px-3 py-1 text-xs font-semibold ${badgeClass[condition.severity]}`}>
+          {severityLabel[condition.severity]}
+        </span>
+      </div>
+      <h1 class="font-display text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        {condition.name}
+      </h1>
+      <p class="mt-4 max-w-2xl leading-relaxed text-slate-500">
+        {condition.description}
+      </p>
+    </header>
+
+    <!-- Coût mis en avant -->
+    <div class="mb-8 rounded-2xl border border-amber-100 bg-amber-50 p-5">
+      <p class="text-sm text-amber-700 font-medium">💰 Coût estimé au Québec</p>
+      <p class="mt-1 font-display text-2xl font-bold text-amber-800">{condition.estimatedCost}</p>
+      <p class="mt-1 text-xs text-amber-600">Ces estimations varient selon la clinique, la sévérité et la race. Consultez votre vétérinaire pour un devis précis.</p>
+    </div>
+
+    <!-- Grille symptômes + traitements -->
+    <div class="mb-8 grid gap-4 sm:grid-cols-2">
+      <!-- Symptômes -->
+      <div class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+        <h2 class="mb-3 font-display text-lg font-bold text-gray-900">🔍 Symptômes</h2>
+        <ul class="space-y-2">
+          {condition.symptoms.map((s) => (
+            <li class="flex items-start gap-2 text-sm text-slate-600">
+              <span class="mt-0.5 shrink-0 text-red-400">▸</span>
+              {s}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Traitements -->
+      <div class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+        <h2 class="mb-3 font-display text-lg font-bold text-gray-900">💊 Traitements</h2>
+        <ul class="space-y-2">
+          {condition.treatments.map((t) => (
+            <li class="flex items-start gap-2 text-sm text-slate-600">
+              <span class="mt-0.5 shrink-0 text-green-500">✓</span>
+              {t}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Prévention -->
+    <div class="mb-8 rounded-2xl border border-green-100 bg-green-50 p-5">
+      <h2 class="mb-3 font-display text-lg font-bold text-green-900">🛡️ Prévention</h2>
+      <ul class="space-y-2">
+        {condition.prevention.map((p) => (
+          <li class="flex items-start gap-2 text-sm text-green-800">
+            <span class="mt-0.5 shrink-0">•</span>
+            {p}
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- Races concernées -->
+    {affectedBreeds.length > 0 && (
+      <section class="mb-10">
+        <h2 class="mb-4 font-display text-xl font-bold text-gray-900">
+          Races les plus touchées
+        </h2>
+        <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {affectedBreeds.map((breed) => {
+            const hex  = getScoreHex(breed.score);
+            const dash = getScoreDashArray(breed.score);
+            return (
+              <a
+                href={`/fr/races/${breed.slug}`}
+                class="group flex items-center gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
+              >
+                <svg viewBox="0 0 100 100" class="h-12 w-12 shrink-0" aria-hidden="true">
+                  <circle cx="50" cy="50" r="44" fill="none" stroke="#e5e7eb" stroke-width="11" />
+                  <circle cx="50" cy="50" r="44" fill="none" stroke={hex} stroke-width="11"
+                    stroke-dasharray={dash} stroke-linecap="round" transform="rotate(-90 50 50)" />
+                  <text x="50" y="50" text-anchor="middle" dominant-baseline="middle"
+                    font-size="28" font-weight="700" fill={hex} font-family="Sora, sans-serif">
+                    {breed.score}
+                  </text>
+                </svg>
+                <div class="min-w-0">
+                  <p class="truncate font-display font-semibold text-gray-900 group-hover:text-green-600 transition-colors">
+                    {breed.name}
+                  </p>
+                  <span class={`mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-medium ${getRiskBadgeClass(breed.riskLevel)}`}>
+                    {getRiskLabel(breed.riskLevel)}
+                  </span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+    <!-- Navigation bas de page -->
+    <div class="flex flex-wrap justify-between gap-3 border-t border-gray-100 pt-6">
+      <a href="/fr/conditions/" class="rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-gray-50 transition-colors">
+        ← Toutes les conditions
+      </a>
+      <a href="/fr/quiz/" class="rounded-full bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 transition-colors">
+        🐾 Faire le quiz race
+      </a>
+    </div>
+  </div>
+</Layout>

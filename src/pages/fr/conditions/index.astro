@@ -1,0 +1,88 @@
+---
+import Layout from '@/components/Layout.astro';
+import { conditions } from '@/data/conditions';
+
+const severityOrder = { 'élevé': 0, 'moyen': 1, 'faible': 2 } as const;
+const sorted = [...conditions].sort(
+  (a, b) => severityOrder[a.severity] - severityOrder[b.severity],
+);
+
+const badgeClass = {
+  faible: 'bg-green-100 text-green-700',
+  moyen:  'bg-amber-100 text-amber-700',
+  élevé:  'bg-red-100 text-red-700',
+} as const;
+
+const severityLabel = {
+  faible: 'Faible',
+  moyen:  'Modéré',
+  élevé:  'Élevé',
+} as const;
+---
+
+<Layout
+  title="Maladies héréditaires du chien — Guide complet PetScore™ Québec"
+  description={`${conditions.length} fiches détaillées sur les maladies héréditaires canines : symptômes, traitements, coûts au Québec et races les plus touchées.`}
+  canonicalUrl="/fr/conditions/"
+>
+  <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+
+    <!-- Fil d'Ariane -->
+    <nav aria-label="Fil d'Ariane" class="mb-8">
+      <ol class="flex flex-wrap items-center gap-1.5 text-sm text-slate-400">
+        <li><a href="/fr/" class="hover:text-green-600 transition-colors">Accueil</a></li>
+        <li aria-hidden="true"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li aria-current="page" class="font-medium text-gray-700">Conditions médicales</li>
+      </ol>
+    </nav>
+
+    <header class="mb-10">
+      <h1 class="font-display text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        🩺 Maladies héréditaires du chien
+      </h1>
+      <p class="mt-3 max-w-2xl text-slate-500">
+        {conditions.length} fiches médicales détaillées : symptômes, traitements, coûts estimés au Québec
+        et races les plus touchées. Chaque fiche inclut des conseils de prévention pratiques.
+      </p>
+    </header>
+
+    <!-- Avertissement légal -->
+    <div class="mb-8 rounded-2xl border border-blue-100 bg-blue-50 p-4 text-sm text-blue-700">
+      ℹ️ Ces informations sont fournies à titre éducatif uniquement. Consultez toujours un vétérinaire
+      pour tout diagnostic ou traitement concernant votre animal.
+    </div>
+
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {sorted.map((condition) => (
+        <a
+          href={`/fr/conditions/${condition.slug}`}
+          class="group rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
+        >
+          <div class="mb-3 flex items-start justify-between gap-2">
+            <span class="text-2xl">{condition.emoji}</span>
+            <span class={`rounded-full px-2 py-0.5 text-xs font-medium ${badgeClass[condition.severity]}`}>
+              {severityLabel[condition.severity]}
+            </span>
+          </div>
+          <h2 class="mb-2 font-display font-semibold text-gray-900 group-hover:text-green-600 transition-colors">
+            {condition.name}
+          </h2>
+          <p class="text-sm leading-relaxed text-slate-500 line-clamp-2">
+            {condition.description.slice(0, 120)}…
+          </p>
+          <p class="mt-3 text-xs font-medium text-green-600">
+            {condition.estimatedCost}
+          </p>
+        </a>
+      ))}
+    </div>
+
+    <!-- CTA Blog -->
+    <div class="mt-12 rounded-2xl bg-gray-50 p-6 text-center">
+      <p class="text-slate-500 mb-3">En savoir plus sur la santé canine</p>
+      <a href="/fr/blog/" class="rounded-full bg-green-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-green-700 transition-colors">
+        Lire nos articles →
+      </a>
+    </div>
+  </div>
+</Layout>
