@@ -4,6 +4,13 @@ description: "Acquisition, vétérinaire, nourriture, équipement, éducation : 
 publishedAt: 2026-05-15
 tags: ["budget", "chiot", "coûts", "Québec", "guide"]
 readingTime: 8
+faqItems:
+  - q: "Combien coûte un chiot la première année au Québec ?"
+    a: "Le coût total de la première année avec un chiot au Québec varie de 2 050 à 9 600 $ selon la taille de la race et les choix faits. Ce budget inclut l'acquisition (200 à 4 000 $), l'équipement (400 à 1 200 $), les soins vétérinaires (600 à 1 600 $), la nourriture (400 à 1 800 $) et l'éducation (150 à 500 $)."
+  - q: "Quel est le coût mensuel d'un chien au Québec ?"
+    a: "Le coût mensuel d'un chien au Québec varie selon la taille : de 120 à 300 $ pour une petite race, de 180 à 450 $ pour une race moyenne, et de 250 à 600 $ pour une grande race. Ces estimations incluent la nourriture, les soins préventifs, les antiparasitaires et les dépenses diverses."
+  - q: "Comment réduire les coûts d'un chiot ?"
+    a: "Pour réduire les coûts, adoptez en refuge plutôt que d'acheter (économie de 1 000 à 3 500 $), souscrivez une assurance animaux avant la première visite vétérinaire, achetez l'équipement d'occasion et choisissez une race à faible coût d'entretien. La prévention (vaccins, antiparasitaires) coûte moins cher que le traitement."
 ---
 
 La première année avec un chiot est souvent la plus coûteuse de sa vie. Beaucoup de nouveaux propriétaires sont surpris par l'ampleur des dépenses — en particulier ceux qui n'ont pas prévu le budget vétérinaire de la phase chiot. Ce guide vous donne une vision réaliste des coûts pour ne pas avoir de mauvaises surprises.

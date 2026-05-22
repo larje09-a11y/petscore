@@ -4,6 +4,15 @@ description: "Muguet, azalée, raisin, xylitol… découvrez les plantes et alim
 publishedAt: 2026-01-10
 tags: ["urgence", "toxicologie", "santé", "prévention"]
 readingTime: 8
+faqItems:
+  - q: "Quelles plantes sont les plus dangereuses pour les chiens au Québec ?"
+    a: "Les plantes les plus dangereuses pour les chiens au Québec sont le muguet (glycosides cardiaques potentiellement mortels), l'azalée et le rhododendron (grayanotoxines), l'aconit (alcaloïdes très toxiques), et la dieffenbachia (cristaux d'oxalate brûlants). Le muguet est particulièrement courant au printemps."
+  - q: "Le raisin est-il vraiment toxique pour les chiens ?"
+    a: "Oui, le raisin et les raisins secs sont extrêmement toxiques pour les chiens et peuvent causer une insuffisance rénale aiguë mortelle. Aucune dose sécuritaire n'a été établie — même quelques grains peuvent être fatals pour certains chiens. Évitez-les totalement."
+  - q: "Que faire si mon chien a mangé une plante toxique ?"
+    a: "Appelez immédiatement votre vétérinaire ou une clinique d'urgence. N'attendez pas l'apparition des symptômes. Identifiez la plante et notez l'heure d'ingestion. Ne provoquez pas le vomissement sans instruction vétérinaire car certaines substances causent plus de dommages en remontant."
+  - q: "Le xylitol est-il dangereux pour les chiens ?"
+    a: "Oui, le xylitol (édulcorant dans les gommes sans sucre, certains beurres d'arachide et produits de boulangerie) est très toxique pour les chiens. Dès 0,1 g/kg de poids corporel, il peut provoquer une chute brutale de glycémie et une insuffisance hépatique. Vérifiez les ingrédients de tous vos produits sucrés."
 ---
 
 Chaque année au Québec, des milliers d'appels sont passés à des centres antipoison vétérinaires à cause d'ingestions de plantes toxiques. Voici la liste complète des plantes à risque, comment reconnaître une intoxication, et les gestes à poser immédiatement.

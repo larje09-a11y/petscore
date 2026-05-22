@@ -4,6 +4,13 @@ description: "Le chocolat peut tuer votre chien. Découvrez pourquoi la théobro
 publishedAt: 2026-02-05
 tags: ["urgence", "toxicologie", "santé", "alimentation"]
 readingTime: 6
+faqItems:
+  - q: "Combien de chocolat est dangereux pour un chien ?"
+    a: "La dose toxique dépend du type de chocolat et du poids du chien. Pour le chocolat noir 70%, aussi peu que 16g peuvent être dangereux pour un chien de 5 kg. Pour le chocolat au lait, la dose toxique est d'environ 60g pour 5 kg. Le cacao en poudre est le plus dangereux avec une dose critique dès 6g pour 5 kg."
+  - q: "Mon chien a mangé du chocolat, que faire ?"
+    a: "Appelez immédiatement votre vétérinaire ou une clinique d'urgence, même si votre chien semble bien. Les symptômes peuvent apparaître 2 à 6 heures après l'ingestion. Notez le type de chocolat, la quantité estimée et l'heure d'ingestion. Ne provoquez pas le vomissement sans instruction vétérinaire."
+  - q: "Quels sont les symptômes d'une intoxication au chocolat chez le chien ?"
+    a: "Les symptômes d'intoxication au chocolat chez le chien incluent des vomissements, de la diarrhée, une agitation excessive, des tremblements musculaires, des urinations fréquentes et un rythme cardiaque accéléré. Dans les cas graves : convulsions, coma et mort. Les symptômes apparaissent généralement 2 à 6 heures après l'ingestion."
 ---
 
 Le chocolat est l'une des causes les plus fréquentes d'intoxication chez les chiens, surtout autour de Pâques, de Noël et de la Saint-Valentin. Ce qui est un plaisir pour nous peut être potentiellement fatal pour eux. Voici tout ce que vous devez savoir.

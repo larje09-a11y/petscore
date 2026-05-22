@@ -1,0 +1,93 @@
+---
+import Layout from '@/components/Layout.astro';
+import breedsRaw from '@/data/breeds.json';
+import type { Breed } from '@/types/breed';
+
+// Quelques races populaires pour les suggestions
+const breeds = (breedsRaw as Breed[])
+  .filter((b) => b.popularityRank <= 6)
+  .sort((a, b) => a.popularityRank - b.popularityRank);
+---
+
+<Layout
+  title="Page introuvable (404) — PetScore™"
+  description="Cette page n'existe pas. Retournez à l'accueil ou cherchez une race de chien."
+  canonicalUrl="/404"
+>
+  <div class="mx-auto max-w-2xl px-4 py-20 sm:px-6 text-center">
+
+    <!-- Illustration -->
+    <div class="mb-8 text-8xl">🐕</div>
+
+    <!-- Message -->
+    <h1 class="font-display text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+      Page introuvable
+    </h1>
+    <p class="mt-4 text-lg text-slate-500">
+      Oups ! Cette page a disparu… comme une balle dans les buissons.
+    </p>
+    <p class="mt-2 text-slate-400 text-sm">Erreur 404 — La page que vous cherchez n'existe pas ou a été déplacée.</p>
+
+    <!-- Actions principales -->
+    <div class="mt-10 flex flex-wrap justify-center gap-3">
+      <a href="/fr/"
+        class="rounded-xl bg-green-600 px-6 py-3 text-sm font-semibold text-white hover:bg-green-700 transition-colors">
+        🏠 Retour à l'accueil
+      </a>
+      <a href="/fr/races/"
+        class="rounded-xl border border-gray-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 hover:bg-gray-50 transition-colors">
+        🐕 Toutes les races
+      </a>
+      <a href="/fr/quiz/"
+        class="rounded-xl border border-gray-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 hover:bg-gray-50 transition-colors">
+        🐾 Quiz — Quelle race ?
+      </a>
+    </div>
+
+    <!-- Races populaires -->
+    <div class="mt-14">
+      <p class="mb-5 text-sm font-semibold uppercase tracking-wide text-slate-400">
+        Races populaires
+      </p>
+      <div class="flex flex-wrap justify-center gap-2">
+        {breeds.map((b) => (
+          <a
+            href={`/fr/races/${b.slug}`}
+            class="rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:border-green-300 hover:bg-green-50 hover:text-green-700 transition-all"
+          >
+            {b.name}
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Liens utiles -->
+    <div class="mt-12 grid gap-3 sm:grid-cols-3 text-left">
+      <a href="/fr/urgence/"
+        class="flex items-start gap-3 rounded-2xl border border-gray-100 bg-white p-4 hover:border-red-200 hover:bg-red-50 transition-all">
+        <span class="text-2xl">🚨</span>
+        <div>
+          <p class="text-sm font-semibold text-gray-800">Urgence vétérinaire</p>
+          <p class="text-xs text-slate-400">Évaluer les symptômes</p>
+        </div>
+      </a>
+      <a href="/fr/blog/"
+        class="flex items-start gap-3 rounded-2xl border border-gray-100 bg-white p-4 hover:border-green-200 hover:bg-green-50 transition-all">
+        <span class="text-2xl">📝</span>
+        <div>
+          <p class="text-sm font-semibold text-gray-800">Blog santé canine</p>
+          <p class="text-xs text-slate-400">20+ guides pratiques</p>
+        </div>
+      </a>
+      <a href="/fr/comparer/"
+        class="flex items-start gap-3 rounded-2xl border border-gray-100 bg-white p-4 hover:border-green-200 hover:bg-green-50 transition-all">
+        <span class="text-2xl">⚖️</span>
+        <div>
+          <p class="text-sm font-semibold text-gray-800">Comparer des races</p>
+          <p class="text-xs text-slate-400">Comparaison côte à côte</p>
+        </div>
+      </a>
+    </div>
+
+  </div>
+</Layout>

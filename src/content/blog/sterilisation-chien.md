@@ -4,6 +4,13 @@ description: "Quand stériliser son chien ou sa chienne au Québec ? Coûts de l
 publishedAt: 2026-03-08
 tags: ["stérilisation", "santé", "chirurgie", "Québec", "prévention"]
 readingTime: 7
+faqItems:
+  - q: "À quel âge stériliser son chien au Québec ?"
+    a: "L'âge recommandé dépend de la taille : 6 mois pour les petites races, 6 à 12 mois pour les races moyennes, 12 à 18 mois pour les grandes races et 18 à 24 mois pour les très grandes races. Pour les femelles, stériliser avant le premier cycle maximise la protection contre les tumeurs mammaires."
+  - q: "Combien coûte la stérilisation d'un chien au Québec ?"
+    a: "La stérilisation (spay) d'une femelle coûte entre 350 et 1000 $ au Québec selon la taille de l'animal. La castration d'un mâle coûte entre 250 et 700 $. Ces tarifs varient selon la clinique et la région. Des cliniques à bas coût existent dans certaines régions via la SPCA locale."
+  - q: "La stérilisation est-elle obligatoire pour les chiens au Québec ?"
+    a: "Non, la stérilisation n'est pas légalement obligatoire pour les chiens au Québec. Cependant, elle est fortement recommandée par la plupart des vétérinaires pour des raisons de santé et de comportement. Les refuges exigent la stérilisation de tous les animaux adoptés."
 ---
 
 La stérilisation est l'une des décisions médicales les plus importantes que vous prendrez pour votre chien. Au Québec, elle est très répandue, encouragée par la plupart des vétérinaires et souvent exigée lors des adoptions en refuge. Mais la question du timing et des bénéfices mérite une réflexion approfondie.

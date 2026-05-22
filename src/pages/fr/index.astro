@@ -1,5 +1,6 @@
 ---
 import Layout from '@/components/Layout.astro';
+import { getCollection } from 'astro:content';
 import breedsRaw from '@/data/breeds.json';
 import type { Breed } from '@/types/breed';
 import { getScoreHex, getScoreDashArray, getRiskLabel, getRiskBadgeClass } from '@/lib/breeds';
@@ -8,6 +9,16 @@ const breeds = breedsRaw as Breed[];
 const popularBreeds = breeds
   .filter((b) => b.popularityRank <= 6)
   .sort((a, b) => a.popularityRank - b.popularityRank);
+
+// 3 articles les plus récents
+const allPosts = await getCollection('blog');
+const recentPosts = allPosts
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
+  .slice(0, 3);
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('fr-CA', { year: 'numeric', month: 'short', day: 'numeric' });
+}
 ---
 
 <Layout
@@ -155,6 +166,32 @@ const popularBreeds = breeds
   </section>
 
   <!-- ============================================================
+       STATS — SOCIAL PROOF
+  ============================================================ -->
+  <section class="border-y border-gray-100 bg-white py-10">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6">
+      <div class="grid grid-cols-2 gap-6 sm:grid-cols-4 text-center">
+        <div>
+          <p class="font-display text-3xl font-extrabold text-green-600">{breeds.length}+</p>
+          <p class="mt-1 text-sm text-slate-500">races analysées</p>
+        </div>
+        <div>
+          <p class="font-display text-3xl font-extrabold text-green-600">{allPosts.length}+</p>
+          <p class="mt-1 text-sm text-slate-500">articles santé</p>
+        </div>
+        <div>
+          <p class="font-display text-3xl font-extrabold text-green-600">100%</p>
+          <p class="mt-1 text-sm text-slate-500">gratuit</p>
+        </div>
+        <div>
+          <p class="font-display text-3xl font-extrabold text-green-600">🇨🇦</p>
+          <p class="mt-1 text-sm text-slate-500">Données Québec</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
        COMMENT ÇA MARCHE
   ============================================================ -->
   <section class="bg-gray-50 py-16">
@@ -217,6 +254,112 @@ const popularBreeds = breeds
       </div>
     </div>
   </section>
+  <!-- ============================================================
+       QUIZ CTA BANNER
+  ============================================================ -->
+  <section class="py-14">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6">
+      <div class="rounded-3xl bg-gradient-to-br from-green-600 to-emerald-700 p-8 text-center text-white shadow-lg sm:p-10">
+        <div class="mb-3 text-4xl">🐾</div>
+        <h2 class="font-display text-2xl font-bold sm:text-3xl">
+          Quelle race vous correspond vraiment ?
+        </h2>
+        <p class="mt-3 text-green-100 leading-relaxed">
+          Répondez à 6 questions sur votre style de vie et découvrez les 3 races les mieux adaptées
+          à votre situation. Résultat instantané, gratuit, sans inscription.
+        </p>
+        <a href="/fr/quiz/"
+          class="mt-6 inline-block rounded-xl bg-white px-8 py-3.5 font-semibold text-green-700 shadow-sm hover:bg-green-50 transition-colors">
+          Faire le quiz →
+        </a>
+        <p class="mt-3 text-xs text-green-200">6 questions · {breeds.length} races analysées · Gratuit</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       DERNIERS ARTICLES BLOG
+  ============================================================ -->
+  <section class="bg-gray-50 py-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mb-8 flex items-end justify-between">
+        <div>
+          <h2 class="font-display text-2xl font-bold text-gray-900 sm:text-3xl">
+            Derniers articles
+          </h2>
+          <p class="mt-1 text-sm text-slate-400">Conseils santé et guides pratiques pour les propriétaires de chiens au Québec</p>
+        </div>
+        <a href="/fr/blog/" class="hidden text-sm font-semibold text-green-600 hover:text-green-700 transition-colors sm:block">
+          Voir tous →
+        </a>
+      </div>
+
+      <div class="grid gap-5 sm:grid-cols-3">
+        {recentPosts.map((post) => (
+          <a href={`/fr/blog/${post.slug}`}
+            class="group flex flex-col rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
+            <div class="mb-3 flex flex-wrap gap-1.5">
+              {post.data.tags.slice(0, 2).map((tag) => (
+                <span class="rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700">
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <h3 class="font-display font-semibold text-gray-900 group-hover:text-green-600 transition-colors leading-snug">
+              {post.data.title}
+            </h3>
+            <p class="mt-2 text-xs text-slate-400 line-clamp-2 leading-relaxed">
+              {post.data.description}
+            </p>
+            <div class="mt-auto pt-4 flex items-center justify-between text-xs text-slate-400">
+              <span>{formatDate(post.data.publishedAt)}</span>
+              {post.data.readingTime && <span>{post.data.readingTime} min</span>}
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="mt-6 text-center sm:hidden">
+        <a href="/fr/blog/" class="inline-block rounded-full border border-gray-200 px-5 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-all">
+          Voir tous les articles
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       OUTILS RAPIDES
+  ============================================================ -->
+  <section class="py-14">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6">
+      <h2 class="mb-8 text-center font-display text-2xl font-bold text-gray-900">
+        Outils gratuits
+      </h2>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <a href="/fr/urgence/" class="flex flex-col items-center gap-2 rounded-2xl border border-red-100 bg-red-50 p-5 text-center hover:border-red-300 transition-all">
+          <span class="text-3xl">🚨</span>
+          <p class="font-display font-semibold text-gray-900 text-sm">Calculateur urgence</p>
+          <p class="text-xs text-slate-500">Évaluer l'urgence des symptômes</p>
+        </a>
+        <a href="/fr/calendrier/" class="flex flex-col items-center gap-2 rounded-2xl border border-green-100 bg-green-50 p-5 text-center hover:border-green-300 transition-all">
+          <span class="text-3xl">📅</span>
+          <p class="font-display font-semibold text-gray-900 text-sm">PetCalendar™</p>
+          <p class="text-xs text-slate-500">Soins préventifs mois par mois</p>
+        </a>
+        <a href="/fr/comparer/" class="flex flex-col items-center gap-2 rounded-2xl border border-blue-100 bg-blue-50 p-5 text-center hover:border-blue-300 transition-all">
+          <span class="text-3xl">⚖️</span>
+          <p class="font-display font-semibold text-gray-900 text-sm">Comparateur</p>
+          <p class="text-xs text-slate-500">Comparer deux races côte à côte</p>
+        </a>
+        <a href="/fr/assurance/" class="flex flex-col items-center gap-2 rounded-2xl border border-purple-100 bg-purple-50 p-5 text-center hover:border-purple-300 transition-all">
+          <span class="text-3xl">🛡️</span>
+          <p class="font-display font-semibold text-gray-900 text-sm">Assurances</p>
+          <p class="text-xs text-slate-500">Comparer les assurances animaux QC</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
 </Layout>
 
 <!-- ============================================================

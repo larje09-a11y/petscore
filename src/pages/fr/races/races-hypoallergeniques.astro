@@ -1,0 +1,137 @@
+---
+import Layout from '@/components/Layout.astro';
+import breedsRaw from '@/data/breeds.json';
+import type { Breed } from '@/types/breed';
+import { getScoreHex, getScoreDashArray, getRiskBadgeClass, getRiskLabel } from '@/lib/breeds';
+
+// Races réputées hypoallergéniques (faible production de dander / peu de mue)
+const HYPO_SLUGS = new Set([
+  'caniche', 'bichon-frise', 'maltais', 'schnauzer-miniature',
+  'bichon-havanais', 'coton-de-tulear', 'basenji', 'yorkshire-terrier',
+  'berger-de-shetland', 'lagotto-romagnolo', 'xoloitzcuintle',
+]);
+
+const allBreeds = breedsRaw as Breed[];
+const breeds = allBreeds
+  .filter((b) => HYPO_SLUGS.has(b.slug) || b.traits.grooming <= 2)
+  .sort((a, b) => b.score - a.score);
+
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quelles races de chiens sont hypoallergéniques ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `Les races considérées hypoallergéniques au Québec incluent le Caniche, le Bichon Frisé, le Maltais, le Schnauzer Miniature, le Basenji et le Bichon Havanais. Ces races produisent moins de dander (pellicules) et muent peu, réduisant les réactions allergiques.`
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Un chien hypoallergénique ne provoque-t-il vraiment aucune allergie ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Aucun chien n'est 100% non-allergène. Les races dites hypoallergéniques produisent moins de Fel d1 (protéine allergène dans la salive et les squames) et muent peu, ce qui réduit la quantité d'allergènes dans l'environnement. Pour les personnes très sensibles, une consultation allergologique avant l'adoption est recommandée."
+      }
+    }
+  ]
+});
+---
+
+<Layout
+  title="Races de chiens hypoallergéniques — PetScore™ Québec"
+  description={`Les ${breeds.length} meilleures races de chiens hypoallergéniques au Québec : peu de mue, faible production de dander. PetScore™ et coûts vétérinaires comparés.`}
+  canonicalUrl="/fr/races/races-hypoallergeniques"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={jsonLd} />
+  </Fragment>
+
+  <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+    <nav aria-label="Fil d'Ariane" class="mb-8">
+      <ol class="flex flex-wrap items-center gap-1.5 text-sm text-slate-400">
+        <li><a href="/fr/" class="hover:text-green-600 transition-colors">Accueil</a></li>
+        <li aria-hidden="true"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li><a href="/fr/races/" class="hover:text-green-600 transition-colors">Races</a></li>
+        <li aria-hidden="true"><svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></li>
+        <li aria-current="page" class="font-medium text-gray-700">Hypoallergéniques</li>
+      </ol>
+    </nav>
+
+    <header class="mb-10">
+      <div class="mb-3 inline-flex items-center gap-2 rounded-full bg-sky-50 px-4 py-1.5 text-sm font-medium text-sky-700">
+        🤧 Moins d'allergènes · Peu de mue
+      </div>
+      <h1 class="font-display text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        Races de chiens hypoallergéniques
+      </h1>
+      <p class="mt-3 max-w-2xl text-slate-500">
+        Ces races produisent moins de dander (squames allergènes) et muent très peu — idéales pour les personnes sensibles aux allergies.
+        Aucun chien n'est 100% non-allergène, mais ces races réduisent significativement les réactions.
+      </p>
+    </header>
+
+    <!-- Avertissement -->
+    <div class="mb-8 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+      <strong>💡 Bon à savoir :</strong> L'allergie aux chiens est causée par la protéine Fel d1 dans la salive et les squames, pas seulement par les poils. Passez du temps avec la race choisie avant d'adopter si vous êtes allergique.
+    </div>
+
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {breeds.map((breed, i) => {
+        const hex  = getScoreHex(breed.score);
+        const dash = getScoreDashArray(breed.score);
+        const isHypo = HYPO_SLUGS.has(breed.slug);
+        return (
+          <a href={`/fr/races/${breed.slug}`}
+            class="group relative flex items-center gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
+            {i < 3 && (
+              <span class="absolute -top-2 -left-2 flex h-7 w-7 items-center justify-center rounded-full bg-sky-500 text-sm font-bold text-white shadow">
+                {i === 0 ? '🥇' : i === 1 ? '🥈' : '🥉'}
+              </span>
+            )}
+            <svg viewBox="0 0 100 100" class="h-14 w-14 shrink-0" aria-hidden="true">
+              <circle cx="50" cy="50" r="44" fill="none" stroke="#e5e7eb" stroke-width="11" />
+              <circle cx="50" cy="50" r="44" fill="none" stroke={hex} stroke-width="11"
+                stroke-dasharray={dash} stroke-linecap="round" transform="rotate(-90 50 50)" />
+              <text x="50" y="50" text-anchor="middle" dominant-baseline="middle"
+                font-size="28" font-weight="700" fill={hex} font-family="Sora, sans-serif">{breed.score}</text>
+            </svg>
+            <div class="min-w-0">
+              <p class="truncate font-display font-semibold text-gray-900 group-hover:text-green-600 transition-colors">{breed.name}</p>
+              <p class="text-xs text-slate-400 capitalize">{breed.size} · {breed.origin}</p>
+              <div class="mt-1 flex items-center gap-1.5">
+                {isHypo && (
+                  <span class="rounded-full bg-sky-100 px-2 py-0.5 text-xs font-medium text-sky-700">Hypo ✓</span>
+                )}
+                <span class={`rounded-full px-2 py-0.5 text-xs font-medium ${getRiskBadgeClass(breed.riskLevel)}`}>
+                  {getRiskLabel(breed.riskLevel)}
+                </span>
+              </div>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+
+    <!-- FAQ -->
+    <div class="mt-12 space-y-4">
+      <h2 class="font-display text-xl font-bold text-gray-900">Questions fréquentes</h2>
+      <div class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+        <h3 class="font-semibold text-gray-900">Un chien hypoallergénique ne provoque-t-il vraiment aucune allergie ?</h3>
+        <p class="mt-2 text-sm text-slate-600">Non — aucun chien n'est 100% non-allergène. Ces races produisent moins d'allergènes, mais les personnes très sensibles peuvent encore réagir. Passez du temps avec la race avant d'adopter et consultez un allergologue si nécessaire.</p>
+      </div>
+      <div class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+        <h3 class="font-semibold text-gray-900">Le Caniche est-il vraiment hypoallergénique ?</h3>
+        <p class="mt-2 text-sm text-slate-600">Le Caniche est l'une des races les plus recommandées pour les personnes allergiques. Son pelage frisé retient les poils morts et la dander au lieu de les disperser dans l'air. Il nécessite cependant un toilettage régulier pour prévenir les nœuds.</p>
+      </div>
+    </div>
+
+    <div class="mt-10 flex flex-wrap justify-center gap-3">
+      <a href="/fr/pour/allergie/" class="rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-gray-50 transition-colors">Profil allergie détaillé →</a>
+      <a href="/fr/races/" class="rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-gray-50 transition-colors">Toutes les races →</a>
+      <a href="/fr/quiz/" class="rounded-full bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 transition-colors">🐾 Quiz personnalisé</a>
+    </div>
+  </div>
+</Layout>

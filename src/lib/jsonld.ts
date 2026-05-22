@@ -182,6 +182,37 @@ export function conditionJsonLd(condition: Condition): string {
 }
 
 // ──────────────────────────────────────────────
+// Blog FAQ Schema (rich snippets Google)
+// ──────────────────────────────────────────────
+export function blogFaqJsonLd(opts: {
+  slug: string;
+  faqItems: { q: string; a: string }[];
+}): string {
+  const url = `${SITE}/fr/blog/${opts.slug}`;
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'FAQPage',
+        mainEntity: opts.faqItems.map(({ q, a }) => ({
+          '@type': 'Question',
+          name: q,
+          acceptedAnswer: { '@type': 'Answer', text: a },
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${SITE}/fr/` },
+          { '@type': 'ListItem', position: 2, name: 'Blog',    item: `${SITE}/fr/blog/` },
+          { '@type': 'ListItem', position: 3, name: opts.slug, item: url },
+        ],
+      },
+    ],
+  });
+}
+
+// ──────────────────────────────────────────────
 // Page comparaison breed vs breed
 // ──────────────────────────────────────────────
 export function compareJsonLd(breed1: Breed, breed2: Breed): string {

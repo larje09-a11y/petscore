@@ -4,6 +4,13 @@ description: "Quels vaccins sont obligatoires ou recommandés pour votre chien a
 publishedAt: 2026-01-15
 tags: ["vaccins", "prévention", "santé", "Québec"]
 readingTime: 7
+faqItems:
+  - q: "Quels vaccins sont obligatoires pour les chiens au Québec ?"
+    a: "Au Québec, seul le vaccin contre la rage est légalement obligatoire pour les chiens. Il est requis pour obtenir la licence municipale à Montréal, Laval et Québec. Le vaccin DA2PP (contre la maladie de Carré, l'hépatite, la parvovirose et le parainfluenza) est fortement recommandé mais pas légalement obligatoire."
+  - q: "À quelle fréquence vacciner son chien adulte au Québec ?"
+    a: "Pour un chien adulte au Québec, le vaccin contre la rage doit être rappelé annuellement ou tous les 3 ans selon le vaccin utilisé. Le vaccin DA2PP est rappelé tous les 3 ans après la primovaccination. La leptospirose et la Bordetella se rappellent annuellement. Consultez votre vétérinaire pour un programme personnalisé."
+  - q: "Combien coûtent les vaccins pour chien au Québec ?"
+    a: "Le coût d'une consultation vaccinale complète pour un chien au Québec est estimé entre 150 et 250 $ par an, incluant la consultation de base (60 à 90 $), le DA2PP (25 à 45 $), la rage (20 à 35 $) et la leptospirose (25 à 40 $). Les certaines assurances animaux remboursent les vaccins dans leurs forfaits de prévention."
 ---
 
 La vaccination est le pilier de la médecine préventive canine. Pourtant, beaucoup de propriétaires ignorent quels vaccins sont obligatoires au Québec, lesquels sont recommandés, et à quelle fréquence les rappels doivent être administrés. Ce guide complet fait le point pour 2026.
